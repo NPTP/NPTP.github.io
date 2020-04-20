@@ -10,6 +10,17 @@ body {
   overflow: hidden;
 }
 
+.navbar .logo {
+  font-weight: 700;
+  color: #ffffff;
+  font-size: 17px;
+  float: left;
+  margin: 10px 0px 0px 25px;
+  padding: 10px;
+  border: 2px solid white;
+  text-align: center;
+}
+
 .navbar a {
   float: right;
   font-weight: 700;
@@ -17,19 +28,23 @@ body {
   text-align: center;
   text-decoration: none;
   font-size: 17px;
-  transition: 0.8s;
+  transition: 0s;
   padding: 25px;
   position: relative;
+}
+
+.navbar a.active:before {
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+  background-color: #ffffff;
+  visibility: visible;
+  -webkit-transition: all 0s;
+  transition: all 0s;
 }
 
 /* navbar hover animation --------------------------------- */
 .navbar a:hover {
   color: #ffffff;
-}
-
-.navbar a.active {
-  text-decoration: underline;
-  color: white;
 }
 
 .navbar a:before {

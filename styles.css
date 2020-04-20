@@ -34,17 +34,17 @@ body {
 }
 
 .navbar a.active:before {
-  -webkit-transform: scaleX(1);
-  transform: scaleX(1);
   background-color: #ffffff;
   visibility: visible;
-  -webkit-transition: all 0s;
-  transition: all 0s;
+  -webkit-transform: scaleX(0.8);
+  transform: scaleX(0.8);
 }
 
 /* navbar hover animation --------------------------------- */
 .navbar a:hover {
+  background-color: #292929;
   color: #ffffff;
+  transition: all 0.4s ease-in-out 0s;
 }
 
 .navbar a:before {

@@ -10,39 +10,34 @@ body {
   overflow: hidden;
 }
 
-/* Style the links inside the navigation bar */
-.navbar-links a {
+.navbar a {
   float: right;
   font-weight: 700;
   color: #ffffff;
   text-align: center;
-  padding: 0px 0px;
-  margin: 25px 50px;
   text-decoration: none;
   font-size: 17px;
   transition: 0.8s;
+  padding: 25px;
   position: relative;
 }
 
-/* navbar link hover.
-Currently doesn't change anything, animation is below. */
-.navbar-links a:hover {
+/* navbar hover animation --------------------------------- */
+.navbar a:hover {
   color: #ffffff;
 }
 
-/* Active navbar link */
-.navbar-links a.active {
+.navbar a.active {
   text-decoration: underline;
   color: white;
 }
 
-/* navbar hover animation --------------------------------- */
-.navbar-links a:before {
+.navbar a:before {
   content: "";
   position: absolute;
   width: 100%;
   height: 2px;
-  bottom: 0;
+  bottom: 70px;
   left: 0;
   background-color: #ffffff;
   visibility: hidden;
@@ -52,7 +47,7 @@ Currently doesn't change anything, animation is below. */
   transition: all 0.2s ease-in-out 0s;
 }
 
-.navbar-links a:hover:before {
+.navbar a:hover:before {
   visibility: visible;
   -webkit-transform: scaleX(1);
   transform: scaleX(1);

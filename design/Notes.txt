@@ -1,3 +1,6 @@
+HOW TO USE NICER FONTS:
+https://stackoverflow.com/questions/18178867/how-can-i-use-googles-roboto-font-on-a-website
+
 - Mouse cursor: change to something like the Figma arrow?
 
 - Nick Perrin logo adapted?

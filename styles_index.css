@@ -1,10 +1,28 @@
-/* INDEX PAGE styles */
+/* INDEX page styles */
+
+#content {
+  position: relative;
+}
+
+#home-text {
+  top: 200px;
+  font-size: 86px;
+  text-align: left;
+  position: relative;
+}
+
+#home-img {
+  width: 525px;
+  height: 525px;
+  margin-left: 425px;
+  margin-top: 0px;
+  border-radius: 50%;
+  position: absolute;
+}
 
 .button {
   width: 206px;
   height: 66px;
-  left: 317px;
-  top: 691px;
   border: none;
   text-align: center;
   font-weight: 700;
@@ -12,7 +30,16 @@
   cursor: pointer;
   transition: 0.2s;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
+  padding: 0px;
+  margin-left: 0px;
+  margin-bottom: 0px;
   margin-right: 50px;
+  margin-top: 50px;
+  position: relative;
+}
+
+.home-button {
+  top: 216px;
 }
 
 .button-light {
@@ -22,11 +49,12 @@
 
 .button-light:hover {
   border: solid;
-  border-width: 4px;
+  border-width: 1px;
   border-color: white;
-  background-color: #323232;
+  background-color: black;
   color: white;
-  top: -50px;
+  transform: translate(0px, -4px);
+  box-shadow: 0px 12px 8px rgba(0, 0, 0, 0.5);
 }
 
 .button-dark {
@@ -36,6 +64,7 @@
 
 .button-dark:hover {
   background-color: #ffffff;
-  color: #121212;
-  top: -50px;
+  color: black;
+  transform: translate(0px, -4px);
+  box-shadow: 0px 12px 8px rgba(0, 0, 0, 0.5);
 }

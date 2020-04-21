@@ -1,0 +1,10 @@
+/* MUSIC page styles */
+
+.placeholder-text {
+  top: 200px;
+  width: 100%;
+  font-size: 86px;
+  display: inline-block;
+  text-align: center;
+  position: relative;
+}

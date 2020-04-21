@@ -12,19 +12,33 @@
   </head>
 
   <body>
+    <!-- START Navigation bar -->
     <ul class="navbar">
-      <li class="logo">NICK PERRIN</li>
-      <li class="navlink"><a href="contact.html">CONTACT</a></li>
-      <li class="navlink">
-        <a href="https://github.com/NPTP" target="_blank">GITHUB</a>
-      </li>
-      <li class="navlink"><a href="music.html">MUSIC</a></li>
-      <li class="navlink"><a href="portfolio.html">PORTFOLIO</a></li>
-      <li class="navlink"><a href="about.html">ABOUT</a></li>
+      <div class="nav-container">
+        <li class="logo">
+          <a href="index.html">
+            <img src="images/logo.png" width="50" height="50"
+          /></a>
+        </li>
+        <li class="navlink"><a href="contact.html">CONTACT</a></li>
+        <li class="navlink">
+          <a href="https://github.com/NPTP" target="_blank">GITHUB</a>
+        </li>
+        <li class="navlink"><a href="music.html">MUSIC</a></li>
+        <li class="navlink"><a href="portfolio.html">PORTFOLIO</a></li>
+        <li class="navlink"><a href="about.html">ABOUT</a></li>
+      </div>
     </ul>
+    <!-- END Navigation bar -->
 
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <button class="button button-light">PORTFOLIO</button>
-    <button class="button button-dark">CONTACT</button>
+    <div id="content">
+      <span id="home-text">Game developer. <br />Composer.</span>
+      <img id="home-img" src="images/pic01.jpg" />
+    </div>
+
+    <button class="button home-button button-light" href="portfolio.html">
+      PORTFOLIO
+    </button>
+    <button class="button home-button button-dark">CONTACT</button>
   </body>
 </html>

@@ -1,0 +1,2 @@
+- Pic on left, text on right
+- On page load, both fade in quickly, while translating from center to outward positions (DEVON STANK style "about")

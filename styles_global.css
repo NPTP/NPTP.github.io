@@ -7,8 +7,10 @@ body {
   padding: 0;
 }
 
-/* Set lowest background and default font */
+/* Set lowest background, default font, side margins */
 body {
+  margin-left: 250px;
+  margin-right: 250px;
   background-color: #121212;
   font-family: "PT Sans", sans-serif;
   color: #ffffff;
@@ -19,24 +21,30 @@ body {
   height: 100px;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
   list-style-type: none;
-  margin: 0;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0;
   padding: 0;
+  top: 10px;
+  width: 100%;
+  position: relative;
   overflow: hidden;
 }
 
+.nav-container {
+  margin-left: 25px;
+  margin-right: 25px;
+}
+
 .navbar .logo {
-  font-weight: bold;
-  color: #ffffff;
-  font-size: 17px;
   float: left;
-  margin: 25px;
-  padding: 10px;
-  border: 2px solid white;
-  text-align: center;
+  padding: 25px;
+  padding-top: 20px;
+  transition: 0.2s;
 }
 
 .navbar .logo:hover {
-  background-color: black;
+  transform: scale(1.5);
 }
 
 .navlink {
@@ -59,12 +67,13 @@ body {
 
 .navlink a:hover {
   background-color: #292929;
-  color: #ffffff;
+  color: #dddddd;
   transition: all 0.4s ease-in-out 0s;
 }
 
 .navlink a.active {
   background-color: #292929;
+  color: #dddddd;
 }
 
 .navlink a.active:before {

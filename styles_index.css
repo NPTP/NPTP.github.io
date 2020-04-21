@@ -1,0 +1,41 @@
+/* INDEX PAGE styles */
+
+.button {
+  width: 206px;
+  height: 66px;
+  left: 317px;
+  top: 691px;
+  border: none;
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
+  margin-right: 50px;
+}
+
+.button-light {
+  background-color: #ffffff;
+  color: #121212;
+}
+
+.button-light:hover {
+  border: solid;
+  border-width: 4px;
+  border-color: white;
+  background-color: #323232;
+  color: white;
+  top: -50px;
+}
+
+.button-dark {
+  background-color: #323232;
+  color: #ffffff;
+}
+
+.button-dark:hover {
+  background-color: #ffffff;
+  color: #121212;
+  top: -50px;
+}

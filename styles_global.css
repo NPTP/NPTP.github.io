@@ -9,8 +9,8 @@ body {
 
 /* Set lowest background, default font, side margins */
 body {
-  margin-left: 250px;
-  margin-right: 250px;
+  margin-left: 5%;
+  margin-right: 5%;
   background-color: #121212;
   font-family: "PT Sans", sans-serif;
   color: #ffffff;
@@ -31,7 +31,26 @@ body {
   overflow: hidden;
 }
 
+@keyframes setToTransparent {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .nav-container {
+  animation: 0s ease-out 0s 1 setToTransparent, 0.6s ease-out 0s 1 fadeIn;
   margin-left: 25px;
   margin-right: 25px;
 }
@@ -40,11 +59,12 @@ body {
   float: left;
   padding: 25px;
   padding-top: 20px;
-  transition: 0.2s;
+  transition: 0s;
 }
 
 .navbar .logo:hover {
-  transform: scale(1.5);
+  transition: 0.2s;
+  transform: scale(1.2);
 }
 
 .navlink {
@@ -61,7 +81,7 @@ body {
   padding-left: 25px;
   text-decoration: none;
   font-size: 17px;
-  font-weight: bold;
+  font-weight: 700;
   position: relative;
 }
 

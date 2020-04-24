@@ -1,0 +1,58 @@
+/* ABOUT page styles */
+
+@keyframes fadeAndSlideToLeft {
+  0% {
+    opacity: 0;
+    transform: translate(10px, 0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+@keyframes fadeAndSlideToRight {
+  0% {
+    opacity: 0;
+    transform: translate(-10px, 0px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+.content-container {
+  justify-content: space-evenly;
+}
+
+.left-about {
+  animation: 0.4s linear 0s 1 setToTransparent,
+    0.4s ease-out 0.4s 1 fadeAndSlideToLeft;
+  flex: 1;
+}
+
+.right-about {
+  animation: 0.8s linear 0s 1 setToTransparent,
+    0.4s ease-out 0.8s 1 fadeAndSlideToRight;
+  flex: 2;
+}
+
+.about-img {
+  max-height: 100%;
+  max-width: 100%;
+  width: auto;
+  height: auto;
+  margin-left: 33%;
+}
+
+@keyframes fadeAndDropIn {
+  0% {
+    opacity: 0;
+    transform: translate(0px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}

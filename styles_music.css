@@ -15,6 +15,5 @@
   animation: 0.4s linear 0s 1 setToTransparent, 0.4s ease-out 0.4s 1 titleDropIn;
   width: 100%;
   font-size: 86px;
-  /* display: inline-block; */
   text-align: center;
 }

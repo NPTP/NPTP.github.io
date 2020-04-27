@@ -25,9 +25,15 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 - Formatting: use what you learned from About page to center items more concretely
 - Big buttons:
   - Have a container so the translation-hover effect can't be glitched out
-  - Ho back "in" when clicked
+  - Go back "in" when clicked
   - Actually link to the appropriate pages!
 - Nav bar: more complex animation, for index page only (keep simple fade on others)?
 
 ### About page
+- Use side-by-side design
+- Incorporate icons on About page http://google.github.io/material-design-icons/
 - Continue migrating design from Figma
+
+### Final touches
+- HTML font linking replace css import
+- Try to replace index page buttons with button-styled links to eliminate blue outline

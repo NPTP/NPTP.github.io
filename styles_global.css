@@ -1,6 +1,6 @@
 /* GLOBAL styles (fonts, colours, navbar) */
 
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,600);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,400italic,600);
 
 /* CSS reset */
 html,
@@ -16,6 +16,15 @@ body {
   background-color: #121212;
   font-family: "Montserrat", "PT Sans", sans-serif;
   color: #ffffff;
+}
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .content-container {
@@ -61,7 +70,6 @@ body {
 .navbar {
   animation: 0s ease-out 0s 1 setToTransparent, 0.6s ease-out 0s 1 fadeIn;
   background-color: #323232;
-  height: 100px;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
   list-style-type: none;
   margin-left: 0px;
@@ -70,6 +78,7 @@ body {
   padding: 0;
   top: 10px;
   width: 100%;
+  height: 100px;
   position: sticky;
   overflow: hidden;
   z-index: 99;

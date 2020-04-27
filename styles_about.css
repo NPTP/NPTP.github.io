@@ -22,9 +22,9 @@
   }
 }
 
-.about-blurb-container {
+.about-container {
   padding: 0px;
-  margin: 50px 0px 0px 0px;
+  margin: 50px 0px 50px 0px;
   list-style: none;
   display: flex;
   justify-content: center;
@@ -33,23 +33,152 @@
 
 .left-about {
   animation: 0.4s linear 0s 1 setToTransparent,
-    0.4s ease-out 0.4s 1 fadeAndSlideToLeft;
+    0.8s ease-out 0.4s 1 fadeAndSlideToLeft;
   flex: 1;
-  max-width: 25%;
+  text-align: right;
+  max-width: 100%;
   margin-right: 25px;
-  /* border: solid;
-  border-color: green;
-  border-width: 2px; */
+}
+
+.about-top-img {
+  max-width: 100%;
+  height: auto;
+  width: auto;
 }
 
 .right-about {
-  animation: 0.8s linear 0s 1 setToTransparent,
-    0.4s ease-out 0.8s 1 fadeAndSlideToRight;
+  animation: 0.4s linear 0s 1 setToTransparent,
+    0.8s ease-out 0.4s 1 fadeAndSlideToRight;
   flex: 1;
-  max-width: 25%;
-  margin-left: 25px; 
-  /* border: solid;
-  border-color: yellow;
-  border-width: 2px; */
+  max-width: 100%;
+  margin-left: 25px;
 }
 
+.about-blurb {
+  max-width: 60%;
+}
+
+@keyframes fadeAndExpandRight {
+  0% {
+    opacity: 0;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  100% {
+    opacity: 1;
+    transform-origin: left;
+    transform: scaleX(1);
+  }
+}
+
+.about-education-container {
+  animation: 0.8s linear 0s 1 setToTransparent,
+    0.8s ease-out 0.8s 1 fadeAndExpandRight;
+  background-color: #292929;
+  padding: 25px 100px;
+  margin: 50px 0px 50px 0px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left-education {
+  animation: 1.6s linear 0s 1 setToTransparent,
+    0.4s ease-out 1.6s 1 fadeAndSlideToLeft;
+  flex: 1;
+  text-align: center;
+  max-width: 100%;
+}
+
+.right-education {
+  animation: 1.6s linear 0s 1 setToTransparent,
+    0.4s ease-out 1.6s 1 fadeAndSlideToRight;
+  flex: 1;
+  text-align: left;
+  max-width: 100%;
+}
+
+.about-skills-container {
+  animation: 1.2s linear 0s 1 setToTransparent,
+    0.8s ease-out 1.2s 1 fadeAndExpandRight;
+  padding: 25px 100px;
+  margin: 50px 0px 50px 0px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: dotted;
+  border-color: #292929;
+  border-width: 1px;
+}
+
+.left-skills {
+  animation: 1.6s linear 0s 1 setToTransparent,
+    0.4s ease-out 1.6s 1 fadeAndSlideToLeft;
+  flex: 1;
+  text-align: center;
+  max-width: 100%;
+  margin: 0px 25px;
+}
+
+.right-skills {
+  animation: 1.6s linear 0s 1 setToTransparent,
+    0.4s ease-out 1.6s 1 fadeAndSlideToRight;
+  flex: 1;
+  text-align: left;
+  max-width: 100%;
+  margin-left: 25px;
+}
+
+@keyframes fadeAndSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.about-footnote-container {
+  padding: 0px 0px 25px 0px;
+  margin: 50px 0px 0px 0px;
+  text-align: center;
+  animation: 1.3s linear 0s 1 setToTransparent,
+    0.4s ease-out 1.3s 1 fadeAndSlideUp;
+}
+
+.about-footnote-text {
+  text-decoration: none;
+}
+
+.about-footnote-link {
+  text-decoration: underline;
+  color: #14ffec;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.size-48 {
+  font-size: 48px;
+}
+
+.size-24 {
+  font-size: 24px;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* Debugging div size borders */
+/* div {
+  border: solid;
+  border-color: yellow;
+  border-width: 1px;
+} */

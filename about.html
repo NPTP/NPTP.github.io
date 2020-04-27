@@ -5,6 +5,10 @@
     <title>Nick Perrin | About</title>
     <link rel="stylesheet" type="text/css" href="styles_global.css" />
     <link rel="stylesheet" type="text/css" href="styles_about.css" />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
@@ -28,9 +32,13 @@
     </ul>
     <!-- END Navigation bar -->
 
-    <div class="about-blurb-container">
+    <!-- START Top blurb section -->
+    <div class="about-container">
       <div class="left-about">
-        <div class="blurb">
+        <img class="about-top-img" src="images/about_lion_placeholder.jpg" />
+      </div>
+      <div class="right-about">
+        <div class="about-blurb">
           I'm a lifelong gamer. I started making games on paper in the first
           grade. Soon after, I discovered game modding. Then I studied computer
           science to take things to the next level, and I continue to work on my
@@ -45,9 +53,128 @@
           Let's do it.
         </div>
       </div>
-      <div class="right-about">
-        <img src="images/about_lion_placeholder.jpg" />
+    </div>
+    <!-- END Top blurb section -->
+
+    <!-- START Education section -->
+    <div class="about-education-container">
+      <div class="left-education">
+        <span class="bold size-48">EDUCATION</span><br />
+        <i class="material-icons" style="font-size: 48px;">school</i>
       </div>
+      <div class="right-education">
+        <ul>
+          <li>
+            <span class="bold size-24">
+              Bachelor of Science (Hons.) in Computer Science
+            </span>
+            <br />
+            <span class="italic">University of Toronto, Toronto Ontario</span>
+          </li>
+          <br />
+          <br />
+          <li>
+            <span class="bold size-24">Bachelor of Arts in Music</span><br />
+            <span class="italic">Queen’s University, Kingston Ontario</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- END Education section -->
+
+    <!-- START Skills section -->
+    <div class="about-skills-container">
+      <div class="left-skills">
+        <span class="bold size-48">SKILLS</span><br />
+        <i class="material-icons" style="font-size: 48px;">
+          format_list_bulleted
+        </i>
+      </div>
+      <div class="right-skills">
+        <ul>
+          <li>
+            <span class="bold size-24">
+              TECH STACK
+            </span>
+            <ul>
+              <li>C#/Unity</li>
+              <li>C++</li>
+              <li>C</li>
+              <li>CMake</li>
+              <li>Git & GitHub</li>
+              <li>Python</li>
+              <li>Java</li>
+              <li>JavaScript</li>
+              <li>HTML & CSS</li>
+              <li>React</li>
+              <li>SDL 2.0</li>
+            </ul>
+          </li>
+          <br />
+
+          <li>
+            <span class="bold size-24">
+              TECH APPLICATION
+            </span>
+            <ul>
+              <li>Game design & development</li>
+              <li>Graphics</li>
+              <li>Usability research</li>
+              <li>UX evaluation</li>
+              <li>Team lead & project planning</li>
+            </ul>
+          </li>
+          <br />
+
+          <li>
+            <span class="bold size-24">AUDIO</span>
+            <ul>
+              <li>Multi-genre music composition</li>
+              <li>Sound design</li>
+              <li>Recording</li>
+              <li>Mixing</li>
+              <li>DAWs & DAW tools</li>
+              <li>Kontakt</li>
+            </ul>
+          </li>
+          <br />
+
+          <li>
+            <span class="bold size-24">MISC</span>
+            <ul>
+              <li>Adobe Photoshop</li>
+              <li>Adobe Premiere</li>
+              <li>Office</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <!-- END Skills section -->
+
+    <!-- START Footnote section -->
+    <div class="about-footnote-container">
+      <span class="about-footnote-text">
+        <a
+          class="about-footnote-link"
+          target="_blank"
+          href="https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb"
+        >
+          I designed this website using Figma</a
+        >
+
+        and
+
+        <a
+          class="about-footnote-link"
+          target="_blank"
+          href="https://github.com/NPTP/NPTP.github.io"
+        >
+          built it</a
+        >
+
+        in HTML/CSS/JS.
+      </span>
     </div>
   </body>
 </html>

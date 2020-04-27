@@ -32,6 +32,7 @@
 .home-text {
   font-size: 86px;
   text-align: left;
+  font-weight: 600;
 }
 
 /* setToTransparent from global styles */
@@ -66,7 +67,7 @@
   height: 66px;
   border: none;
   text-align: center;
-  font-weight: 700;
+  font-weight: 600;
   font-size: 18px;
   cursor: pointer;
   transition: 0.2s;

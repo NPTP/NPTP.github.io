@@ -1,5 +1,7 @@
 /* GLOBAL styles (fonts, colours, navbar) */
 
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,600);
+
 /* CSS reset */
 html,
 body {
@@ -12,7 +14,7 @@ body {
   margin-left: 5%;
   margin-right: 5%;
   background-color: #121212;
-  font-family: "PT Sans", sans-serif;
+  font-family: "Montserrat", "PT Sans", sans-serif;
   color: #ffffff;
 }
 
@@ -104,7 +106,7 @@ body {
   padding-left: 25px;
   text-decoration: none;
   font-size: 17px;
-  font-weight: 700;
+  font-weight: 600;
   position: relative;
 }
 

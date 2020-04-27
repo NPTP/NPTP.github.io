@@ -1,5 +1,0 @@
-- Make the non-navbar contents fade/translate in on page load.
-- Make big buttons have a container so the translation-hover effect can't be glitched out
-- Make big buttons go back "in" when clicked
-
-Navbar fade in?

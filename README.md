@@ -13,6 +13,9 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 
 ## Todo list (items removed as they are completed)
 
+- Try using font anti-aliasing (seen in e.g. Devon Stank page in CSS)
+- Try using relative font-sizes (https://www.sitepoint.com/new-css3-relative-font-size/) as also seen in Devon's page
+
 ### Nav bar
 - Get "Active" page animation beginning to line up perfectly with end of animation on hover previously
 - Fade in only on index page, be consistent elsewhere

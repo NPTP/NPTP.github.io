@@ -120,7 +120,6 @@
   flex: 1;
   text-align: center;
   max-width: 100%;
-  margin: 0px 25px;
 }
 
 .right-skills {
@@ -129,7 +128,6 @@
   flex: 1;
   text-align: left;
   max-width: 100%;
-  margin-left: 25px;
 }
 
 @keyframes fadeAndSlideUp {

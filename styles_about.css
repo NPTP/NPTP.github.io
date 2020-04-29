@@ -3,7 +3,7 @@
 @keyframes fadeAndSlideToLeft {
   0% {
     opacity: 0;
-    transform: translate(10px, 0px);
+    transform: translate(25px, 0px);
   }
   100% {
     opacity: 1;
@@ -14,7 +14,7 @@
 @keyframes fadeAndSlideToRight {
   0% {
     opacity: 0;
-    transform: translate(-10px, 0px);
+    transform: translate(-25px, 0px);
   }
   100% {
     opacity: 1;
@@ -173,10 +173,3 @@
 .italic {
   font-style: italic;
 }
-
-/* Debugging div size borders */
-/* div {
-  border: solid;
-  border-color: yellow;
-  border-width: 1px;
-} */

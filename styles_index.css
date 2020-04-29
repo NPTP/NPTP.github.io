@@ -8,6 +8,7 @@
   100% {
     opacity: 1;
     transform: translate(0px, 0px);
+    visibility: visible;
   }
 }
 
@@ -22,34 +23,74 @@
   }
 }
 
-/* setToTransparent from global styles */
+/* Debugging borders */
+/* div {
+  border: solid;
+  border-color: yellow;
+  border-width: 1px;
+} */
+
+.index-container {
+  padding: 0px;
+  margin: 50px 0px 50px 0px;
+  list-style: none;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
 .left-index {
-  animation: 0.4s linear 0s 1 setToTransparent,
-    0.4s ease-out 0.4s 1 fadeAndSlideToLeft;
   flex: 2;
   display: block;
+  text-align: left;
+  max-width: 100%;
 }
 
 .home-text {
-  font-size: 86px;
+  font-size: 4.48vw; /* Looks like 86px on 1920x1080 */
   text-align: left;
   font-weight: 600;
 }
 
-/* setToTransparent from global styles */
 .right-index {
-  animation: 0.8s linear 0s 1 setToTransparent,
-    0.4s ease-out 0.8s 1 fadeAndSlideToRight;
   flex: 1;
+  max-width: 100%;
+  margin-left: -5%;
 }
 
-.home-img {
+.index-img {
   border-radius: 50%;
-  max-height: 100%;
   max-width: 100%;
-  width: auto;
   height: auto;
-  margin-left: -25%;
+  width: auto;
+}
+
+.index-composer-img {
+  height: 80%;
+  width: 80%;
+}
+
+.home-text:nth-child(1) {
+  animation: 0.4s linear 0s 1 setToTransparent,
+    0.4s ease-out 0.4s 1 fadeAndSlideToLeft;
+}
+
+.home-text:nth-child(2) {
+  animation: 1.2s linear 0s 1 setToTransparent,
+    0.4s ease-out 1.2s 1 fadeAndSlideToLeft;
+}
+
+.right-index:nth-child(2) {
+  animation: 0.8s linear 0s 1 setToTransparent,
+    0.4s ease-out 0.8s 1 fadeAndSlideToRight;
+}
+
+.right-index:nth-child(3) {
+  animation: 1.6s linear 0s 1 setToTransparent,
+    0.4s ease-out 1.6s 1 fadeAndSlideToRight;
+  position: relative;
+  z-index: -1;
+  margin-left: -5%;
 }
 
 @keyframes fadeAndDropIn {
@@ -85,7 +126,8 @@
 }
 
 .button-light {
-  animation: 1s linear 0s 1 setToTransparent, 0.4s ease-out 1s 1 fadeAndDropIn;
+  animation: 2.2s linear 0s 1 setToTransparent,
+    0.4s ease-out 2.2s 1 fadeAndDropIn;
   background-color: #ffffff;
   color: #121212;
 }
@@ -101,8 +143,8 @@
 }
 
 .button-dark {
-  animation: 1.2s linear 0s 1 setToTransparent,
-    0.4s ease-out 1.2s 1 fadeAndDropIn;
+  animation: 2.4s linear 0s 1 setToTransparent,
+    0.4s ease-out 2.4s 1 fadeAndDropIn;
   background-color: #323232;
   color: #ffffff;
 }

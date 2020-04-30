@@ -1,0 +1,7 @@
+.show {
+  transition: opacity 1s;
+}
+
+.hide {
+  opacity: 1;
+}

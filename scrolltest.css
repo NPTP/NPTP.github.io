@@ -3,5 +3,11 @@
 }
 
 .hide {
-  opacity: 1;
+  opacity: 0;
+}
+
+div {
+  border: solid;
+  border-color: yellow;
+  border-width: 1px;
 }

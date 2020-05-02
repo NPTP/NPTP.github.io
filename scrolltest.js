@@ -4,17 +4,28 @@ function $(x) {
 
 document.addEventListener("scroll", appear);
 
+const docElement =
+  document.compatMode === "CSS1Compat"
+    ? document.documentElement
+    : document.body;
+const viewportHeight = docElement.clientHeight;
+var viewportWidth = docElement.clientWidth;
+
 function appear() {
   let rev = $("revealer");
-  console.log(document.scrollingElement.scrollTop);
-  console.log("revealer top: " + rev.scrollTop);
-  //   if (reveal_text.scrollTop <= 0) {
-  //     console.log(reveal_text.scrollTop);
-  //     console.log("Scrolled to " + window.pageYOffset + "\n");
-  //     reveal_text.classList.add("show");
-  //     reveal_text.classList.remove("hide");
-  // document.removeEventListener("scroll", appear);
-  //   }
+  //   console.log("document scrollTop: " + document.scrollingElement.scrollTop);
+  console.log("pageYoffset: " + window.pageYOffset);
+  //   console.log("revealer top: " + rev.yoffset);
+
+  const rect = rev.getBoundingClientRect();
+  console.log("rect.top = " + rect.top);
+  console.log("rect.height = " + rect.height);
+  console.log("viewportHeight = " + viewportHeight);
+  if (rect.top <= viewportHeight) {
+    rev.classList.add("show");
+    rev.classList.remove("hide");
+    // document.removeEventListener("scroll", appear);
+  }
 }
 
 // document.addEventListener("scroll", function (event) {

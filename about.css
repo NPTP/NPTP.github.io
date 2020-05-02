@@ -1,5 +1,13 @@
 /* ABOUT page styles */
 
+.show {
+  transition: opacity 2s;
+}
+
+.hide {
+  opacity: 0;
+}
+
 @keyframes fadeAndSlideToLeft {
   0% {
     opacity: 0;

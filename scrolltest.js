@@ -1,6 +1,4 @@
-function $(x) {
-  return document.getElementById(x);
-}
+// Scroll test
 
 document.addEventListener("scroll", appear);
 
@@ -12,19 +10,12 @@ const viewportHeight = docElement.clientHeight;
 var viewportWidth = docElement.clientWidth;
 
 function appear() {
-  let rev = $("revealer");
-  //   console.log("document scrollTop: " + document.scrollingElement.scrollTop);
-  console.log("pageYoffset: " + window.pageYOffset);
-  //   console.log("revealer top: " + rev.yoffset);
-
-  const rect = rev.getBoundingClientRect();
-  console.log("rect.top = " + rect.top);
-  console.log("rect.height = " + rect.height);
-  console.log("viewportHeight = " + viewportHeight);
+  let revealer = document.getElementById("revealer");
+  const rect = revealer.getBoundingClientRect();
   if (rect.top <= viewportHeight) {
-    rev.classList.add("show");
-    rev.classList.remove("hide");
-    // document.removeEventListener("scroll", appear);
+    revealer.classList.add("show");
+    revealer.classList.remove("hide");
+    document.removeEventListener("scroll", appear);
   }
 }
 

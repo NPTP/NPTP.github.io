@@ -4,6 +4,10 @@
   opacity: 0;
 }
 
+.light-bg {
+  background-color: #292929;
+}
+
 @keyframes fadeAndSlideToLeft {
   0% {
     opacity: 0;
@@ -75,13 +79,24 @@
   }
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .show-education {
   animation: 0.4s linear 0s 1 setToTransparent,
     0.8s ease-out 0.4s 1 fadeAndExpandRight;
 }
 
 .about-education-container {
-  background-color: #292929;
+  border: dotted;
+  border-color: #292929;
+  border-width: 1px;
   padding: 25px 100px;
   margin: 50px 0px 50px 0px;
   list-style: none;
@@ -111,6 +126,10 @@
     0.8s ease-out 0.4s 1 fadeAndExpandRight;
 }
 
+.show-skills-item {
+  animation: 0.8s ease-out 0s 1 fadeIn;
+}
+
 .about-skills-container {
   /* animation: 1.2s linear 0s 1 setToTransparent,
     0.8s ease-out 1.2s 1 fadeAndExpandRight; */
@@ -119,24 +138,19 @@
   list-style: none;
   display: flex;
   justify-content: center;
-  align-items: center;
-
-  border: dotted;
-  border-color: #292929;
-  border-width: 1px;
+  align-items: flex-start;
 }
 
 .left-skills {
-  animation: 1.6s linear 0s 1 setToTransparent,
-    0.4s ease-out 1.6s 1 fadeAndSlideToLeft;
+  animation: 1.6s linear 0s 1 setToTransparent, 0.4s ease-out 1.6s 1 fadeIn;
   flex: 1;
   text-align: center;
   max-width: 100%;
+  margin: 50px 0px 50px 0px;
 }
 
 .right-skills {
-  animation: 1.6s linear 0s 1 setToTransparent,
-    0.4s ease-out 1.6s 1 fadeAndSlideToRight;
+  animation: 1.6s linear 0s 1 setToTransparent, 0.4s ease-out 1.6s 1 fadeIn;
   flex: 1;
   text-align: left;
   max-width: 100%;
@@ -154,7 +168,7 @@
 }
 
 .show-footnote {
-  animation: 0.4s ease-out 0s 1 fadeAndSlideUp;
+  animation: 1s ease-out 0s 1 fadeAndSlideUp;
 }
 
 .about-footnote-container {

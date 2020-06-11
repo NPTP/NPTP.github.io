@@ -138,7 +138,7 @@
   border-color: white;
   background-color: black;
   color: white;
-  transform: translate(0px, -4px);
+  /* transform: translate(0px, -4px); */
   box-shadow: 0px 12px 8px rgba(0, 0, 0, 0.5);
 }
 
@@ -152,7 +152,7 @@
 .button-dark:hover {
   background-color: #ffffff;
   color: black;
-  transform: translate(0px, -4px);
+  /* transform: translate(0px, -4px); */
   box-shadow: 0px 12px 8px rgba(0, 0, 0, 0.5);
 }
 

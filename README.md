@@ -19,10 +19,12 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
+### Text overall
+- Convert all text (including navbar sizing) to vw proportions for responsive viewing
+
 ### Index page
 - Big buttons:
-  - Have a container so the translation-hover effect can't be glitched out
-  - Actually link to the appropriate pages!
+  - Remove raise-up on hover effect. Only do fade of colour and border
 
 ### About page
 - Redesign skills list

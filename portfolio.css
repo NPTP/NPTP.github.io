@@ -1,5 +1,11 @@
 /* PORTFOLIO page styles */
 
+/* div {
+  border: solid;
+  border-width: 1px;
+  border-color: yellow;
+} */
+
 @keyframes headerDropIn {
   0% {
     opacity: 0;
@@ -36,7 +42,7 @@
   }
 }
 
-.game-card {
+.card {
   margin-bottom: 50px;
   background: #292929;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
@@ -50,9 +56,86 @@
   border-color: #292929;
 }
 
-.game-card:hover {
+.card:hover {
   background: #323232;
   border-color: #dddddd;
+}
+
+.card-inner {
+  margin: 50px;
+  /* border-width: 0px; */
+  padding: 0px;
+  width: 100%;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  /* For column, this affects vertical. Try 'baseline' */
+  justify-content: baseline;
+  /* For column, this affects horizontal */
+  align-items: flex-start;
+}
+
+.card-row1 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 50px;
+}
+
+.card-row1-left {
+  flex: 1;
+  text-align: left;
+  max-width: 100%;
+}
+
+.card-row1-right {
+  flex: 1;
+  text-align: right;
+  max-width: 100%;
+}
+
+.card-row2 {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.card-row2-left {
+  flex: 1;
+  text-align: left;
+  margin-right: 50px;
+}
+
+.card-row2-right {
+  border-color: green;
+  border-width: 5px;
+  flex: 1;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  /* For column, this affects vertical. */
+  justify-content: space-between;
+  /* For column, this affects horizontal */
+  align-items: center;
+}
+
+.card-row2-right-top {
+  width: 100%;
+  flex: 1;
+  text-align: left;
+}
+
+.card-row2-right-bottom {
+  width: 100%;
+  flex: initial;
+  text-align: right;
+  text-decoration: underline;
+  color: #14ffec;
 }
 
 /* TESTING ONLY - DO THIS GRADED TRANSITION IN JS LATER */
@@ -90,16 +173,36 @@
   font-weight: 600;
 }
 
+/* Equivalent to 48px on 1080p Chrome */
+.vwtext-48 {
+  font-size: 2.5vw;
+}
 .size-48 {
   font-size: 48px;
 }
 
-.vwtext-1 {
-  font-size: 2.5vw;
+/* Equivalent to 36px on 1080p Chrome */
+.vwtext-36 {
+  font-size: 1.875vw;
+}
+.size-36 {
+  font-size: 36px;
 }
 
+/* Equivalent to 24px on 1080p Chrome */
+.vwtext-24 {
+  font-size: 1.25vw;
+}
 .size-24 {
   font-size: 24px;
+}
+
+/* Equivalent to 20px on 1080p Chrome */
+.vwtext-20 {
+  font-size: 1.042vw;
+}
+.size-20 {
+  font-size: 20px;
 }
 
 .italic {

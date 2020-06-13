@@ -23,13 +23,9 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 - Convert all text (including navbar sizing) to vw proportions for responsive viewing
 
 ### Portfolio page
-- Animated slides/animations in the picture slot on game cards
 - Cards in an html template that can be added to a JSON or something and added to the page via js script, not hardcoded
-- Cards slide and animate in on scroll
-
-### Index page
-- Big buttons:
-  - Remove raise-up on hover effect. Only do fade of colour and border
+- Animated slides/animations in the picture slot on game cards
+- Cards slide and animate in on scroll, not before. Copy code from About page
 
 ### About page
 - Redesign skills list

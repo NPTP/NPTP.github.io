@@ -1,8 +1,6 @@
 /* GLOBAL styles (fonts, colours, navbar) */
 
-@import url(
-  https://fonts.googleapis.com/css?family=Montserrat:400,400italic,600
-);
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,400italic,600);
 
 /* CSS reset */
 html,
@@ -27,6 +25,15 @@ p {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+}
+
+a {
+  text-decoration: none;
+  color: #14ffec;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .no-select {

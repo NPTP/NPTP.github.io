@@ -6,6 +6,9 @@
   border-color: yellow;
 } */
 
+/* 5.35vh == 50px vertically on 1080p in Chrome */
+/* 2.55vw == 50px horizontally on 1080p in Chrome */
+
 @keyframes headerDropIn {
   0% {
     opacity: 0;
@@ -20,8 +23,8 @@
 .portfolio-header {
   animation: 0.4s linear 0s 1 setToTransparent,
     0.4s ease-out 0.4s 1 headerDropIn;
-  margin-top: 50px;
-  margin-bottom: 50px;
+  margin-top: 5.35vh;
+  margin-bottom: 5.35vh;
   text-align: center;
 }
 
@@ -43,27 +46,26 @@
 }
 
 .card {
-  margin-bottom: 50px;
+  margin-bottom: 5.35vh;
   background: #292929;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80%;
-  transition: all 0.4s ease-in;
-  border: solid;
+  transition: all 0.2s ease-in;
+  /* border: solid;
   border-width: 1px;
-  border-color: #292929;
+  border-color: #292929; */
 }
 
 .card:hover {
   background: #323232;
-  border-color: #dddddd;
+  /* border-color: #dddddd; */
 }
 
 .card-inner {
-  margin: 50px;
-  /* border-width: 0px; */
+  margin: 5.35vh 2.55vw 5.35vh 2.55vw;
   padding: 0px;
   width: 100%;
   list-style: none;
@@ -81,7 +83,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 50px;
+  margin-bottom: 5.35vh;
 }
 
 .card-row1-left {
@@ -107,14 +109,14 @@
 .card-row2-left {
   flex: 1;
   text-align: left;
-  margin-right: 50px;
+  margin-right: 2.55vw;
 }
 
 .card-row2-right {
   border-color: green;
   border-width: 5px;
   flex: 1;
-  margin-left: 50px;
+  margin-left: 2.55vw;
   display: flex;
   flex-direction: column;
   align-self: stretch;
@@ -134,8 +136,6 @@
   width: 100%;
   flex: initial;
   text-align: right;
-  text-decoration: underline;
-  color: #14ffec;
 }
 
 /* TESTING ONLY - DO THIS GRADED TRANSITION IN JS LATER */

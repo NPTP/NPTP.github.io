@@ -179,15 +179,6 @@
     0.4s ease-out 1.3s 1 fadeAndSlideUp; */
 }
 
-.about-footnote-text {
-  text-decoration: none;
-}
-
-.about-footnote-link {
-  text-decoration: underline;
-  color: #14ffec;
-}
-
 .bold {
   font-weight: 600;
 }

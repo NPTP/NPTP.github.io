@@ -19,21 +19,16 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
-### Text overall
-- Convert all text (including navbar sizing) to vw proportions for responsive viewing
-
 ### Portfolio page
-- Cards in an html template that can be added to a JSON or something and added to the page via js script, not hardcoded
-- Animated slides/animations in the picture slot on game cards
-- Cards slide and animate in on scroll, not before. Copy code from About page
+- Animated slides/animations in the picture slot on game cards. See the following link to work on this: https://medium.com/better-programming/make-a-slideshow-with-automatic-and-manual-controls-using-html-css-and-javascript-b7e9305168f9
+- Cards should slide and animate in on scroll, not before. Copy code from About page for this
 
 ### About page
-- Redesign skills list
-- Polish remaining animations
+- Make page consistent with the others, clean up design (content is fine)
+- Responsive font sizing here too of course!
 
 ### Final touches
 - Nav bar: remove placeholder logo, put non-bold all caps name on top left? Experiment
+- Nav bar: resizing using vh/vw sizes instead of fixed sizing
 - HTML font linking replace css import
-- Try to replace index page buttons with button-styled links to eliminate blue outline
-- Try using font anti-aliasing (seen in e.g. Devon Stank page in CSS)
-- Try a more complex animation on the index page only, keeping consistent animations between the others
+- Try enforcing font anti-aliasing? (seen in e.g. Devon Stank page in CSS)

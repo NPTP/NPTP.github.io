@@ -10,11 +10,24 @@ const docElement =
 const viewportHeight = docElement.clientHeight;
 const viewportWidth = docElement.clientWidth;
 
+function cardMouseEnter(e) {
+  console.log(e.target.id + " enter");
+}
+
+function cardMouseLeave(e) {
+  console.log(e.target.id + " leave");
+}
+
 const games = [
   {
     name: "DEADWOOD DUEL",
     platform: "Stencyl",
-    images: ["images/games/dd/dd01.png"],
+    images: [
+      "images/games/dd/dd01.png",
+      "images/games/dd/dd02.png",
+      "images/games/dd/dd03.png",
+      "images/games/dd/dd04.png",
+    ],
     blurbLines: [
       "A reflex shooter set in the Old West.",
       "Choose your difficulty, watch the clock, and be quick - or be dead.",
@@ -26,7 +39,7 @@ const games = [
   {
     name: "Mr. Placeholder",
     platform: "PlaceHeld",
-    images: [],
+    images: ["images/about_placehold.jpg"],
     blurbLines: ["I am a placeholder.", "That's right - I hold a place!"],
     linkURLs: [
       "https://www.google.ca/",
@@ -41,6 +54,7 @@ gamesList = document.getElementById("games");
 
 for (let i = 0; i < games.length; i++) {
   let gameCard = document.createElement("div");
+  gameCard.id = i; // Number each card with its index in the list
   gameCard.classList.add("card");
   gameCard.classList.add("anim1");
   let blurb = "";
@@ -83,6 +97,9 @@ for (let i = 0; i < games.length; i++) {
       </div>
     </div>
   </div>`;
+
+  gameCard.addEventListener("mouseenter", cardMouseEnter);
+  gameCard.addEventListener("mouseleave", cardMouseLeave);
 
   gamesList.appendChild(gameCard);
 }

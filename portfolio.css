@@ -165,8 +165,13 @@
 
 /* ---------------------------------------------------- */
 
-.hide {
-  opacity: 0;
+.hide-img {
+  display: none;
+}
+
+.show-img {
+  width: 100%;
+  display: block;
 }
 
 .light-bg {

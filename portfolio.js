@@ -10,12 +10,41 @@ const docElement =
 const viewportHeight = docElement.clientHeight;
 const viewportWidth = docElement.clientWidth;
 
+let displaying = -1;
+let depth = 0;
+
+function displayImages(card) {
+  // Get images
+  let images = card.querySelectorAll("img"); // TODO: Can we make this smarter by not doing this *every* single time?
+  let showIndex = 0;
+  for (let i = 0; i < images.length; i++) {
+    if (images[i].className === "show-img") {
+      images[i].className = "hide-img";
+      if (i == images.length - 1) {
+        showIndex = 0;
+      } else {
+        showIndex = i + 1;
+      }
+      break;
+    }
+  }
+  images[showIndex].className = "show-img";
+  if (displaying) {
+    call = setTimeout(function () {
+      displayImages(card);
+    }, 1000);
+  }
+}
+
 function cardMouseEnter(e) {
-  console.log(e.target.id + " enter");
+  displaying = true;
+  const card = e.target;
+  displayImages(card);
 }
 
 function cardMouseLeave(e) {
-  console.log(e.target.id + " leave");
+  displaying = false;
+  clearTimeout(call);
 }
 
 const games = [
@@ -39,7 +68,7 @@ const games = [
   {
     name: "Mr. Placeholder",
     platform: "PlaceHeld",
-    images: ["images/about_placehold.jpg"],
+    images: ["images/index_placeholder.jpg", "images/index_placeholder2.jpg"],
     blurbLines: ["I am a placeholder.", "That's right - I hold a place!"],
     linkURLs: [
       "https://www.google.ca/",
@@ -64,13 +93,21 @@ for (let i = 0; i < games.length; i++) {
       blurb = blurb + "</br></br>";
     }
   }
-  links = "";
+  let links = "";
   for (let k = 0; k < games[i].linkURLs.length; k++) {
     links =
       links +
       `<a href="${games[i].linkURLs[k]}" target="_blank" class="vwtext-24">${games[i].linkTexts[k]}</a>`;
     if (k < games[i].linkURLs.length - 1) {
       links = links + "</br>";
+    }
+  }
+  let images = "";
+  for (let h = 0; h < games[i].images.length; h++) {
+    if (h === 0) {
+      images = images + `<img class="show-img" src="${games[i].images[h]}" />`;
+    } else {
+      images = images + `<img class="hide-img" src="${games[i].images[h]}" />`;
     }
   }
   gameCard.innerHTML = `<div class="card-inner">
@@ -85,7 +122,7 @@ for (let i = 0; i < games.length; i++) {
 
     <div class="card-row2">
       <div class="card-row2-left">
-        <img style="width:100%;" src="${games[i].images}" />
+        ${images}
       </div>
       <div class="card-row2-right">
         <div class="card-row2-right-top">

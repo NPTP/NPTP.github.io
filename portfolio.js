@@ -10,12 +10,39 @@ const docElement =
 const viewportHeight = docElement.clientHeight;
 const viewportWidth = docElement.clientWidth;
 
-let displaying = -1;
-let depth = 0;
+// Define games in the list here to auto-populate page
+const games = [
+  {
+    name: "DEADWOOD DUEL",
+    platform: "Stencyl",
+    images: ["images/games/dd/dd01.png", "images/games/dd/dd02.png"],
+    video: ["images/games/dd/dd_gameplay.webm"],
+    blurbLines: [
+      "A reflex shooter set in the Old West.",
+      "Choose your difficulty, watch the clock, and be quick - or be dead.",
+      "I created every part of the game: design, gameplay, and 100% of the assets (art, animation, sound and music).",
+    ],
+    linkURLs: ["https://itch.io/", "data/downloads/placeholder_download.zip"],
+    linkTexts: ["Play on itch.io", "Download Windows executable"],
+  },
+  {
+    name: "Mr. Placeholder",
+    platform: "PlaceHeld",
+    images: ["images/index_placeholder.jpg", "images/index_placeholder2.jpg"],
+    video: [],
+    blurbLines: ["I am a placeholder.", "That's right - I hold a place!"],
+    linkURLs: [
+      "https://www.google.ca/",
+      "https://www.rockpapershotgun.com/",
+      "images/logo.png",
+    ],
+    linkTexts: ["Go to Google", "Go to RPS", "Go to local image"],
+  },
+];
 
-function displayImages(card) {
-  // Get images
-  let images = card.querySelectorAll("img"); // TODO: Can we make this smarter by not doing this *every* single time?
+let displaying = false;
+
+function displayImages(images) {
   let showIndex = 0;
   for (let i = 0; i < images.length; i++) {
     if (images[i].className === "show-img") {
@@ -31,56 +58,56 @@ function displayImages(card) {
   images[showIndex].className = "show-img";
   if (displaying) {
     call = setTimeout(function () {
-      displayImages(card);
+      displayImages(images);
     }, 1000);
   }
 }
 
+function displayAnimation(card) {
+  let images = card.querySelectorAll("img");
+  for (let i = 0; i < images.length; i++) {
+    images[i].className = "hide-img";
+  }
+  let video = card.querySelectorAll("video");
+  video[0].className = "show-vid";
+  video[0].play();
+}
+
+function hideAnimation(card) {
+  let video = card.querySelectorAll("video");
+  video[0].className = "hide-vid";
+  let images = card.querySelectorAll("img");
+  images[0].className = "show-img";
+}
+
+function pauseAnimation(card) {
+  let video = card.querySelectorAll("video");
+  video[0].pause();
+}
+
 function cardMouseEnter(e) {
-  displaying = true;
   const card = e.target;
-  displayImages(card);
+  console.log(card.id);
+  if (games[card.id].video.length === 0) {
+    displaying = true;
+    let images = card.querySelectorAll("img");
+    displayImages(images);
+  } else {
+    displayAnimation(card);
+  }
 }
 
 function cardMouseLeave(e) {
-  displaying = false;
-  clearTimeout(call);
+  const card = e.target;
+  if (games[card.id].video.length === 0) {
+    displaying = false;
+    clearTimeout(call);
+  } else {
+    pauseAnimation(card);
+  }
 }
 
-const games = [
-  {
-    name: "DEADWOOD DUEL",
-    platform: "Stencyl",
-    images: [
-      "images/games/dd/dd01.png",
-      "images/games/dd/dd02.png",
-      "images/games/dd/dd03.png",
-      "images/games/dd/dd04.png",
-    ],
-    blurbLines: [
-      "A reflex shooter set in the Old West.",
-      "Choose your difficulty, watch the clock, and be quick - or be dead.",
-      "I created every part of the game: design, gameplay, and 100% of the assets (art, animation, sound and music).",
-    ],
-    linkURLs: ["https://itch.io/", "data/downloads/placeholder_download.zip"],
-    linkTexts: ["Play on itch.io", "Download Windows executable"],
-  },
-  {
-    name: "Mr. Placeholder",
-    platform: "PlaceHeld",
-    images: ["images/index_placeholder.jpg", "images/index_placeholder2.jpg"],
-    blurbLines: ["I am a placeholder.", "That's right - I hold a place!"],
-    linkURLs: [
-      "https://www.google.ca/",
-      "https://www.rockpapershotgun.com/",
-      "images/logo.png",
-    ],
-    linkTexts: ["Go to Google", "Go to RPS", "Go to local image"],
-  },
-];
-
 gamesList = document.getElementById("games");
-
 for (let i = 0; i < games.length; i++) {
   let gameCard = document.createElement("div");
   gameCard.id = i; // Number each card with its index in the list
@@ -103,12 +130,20 @@ for (let i = 0; i < games.length; i++) {
     }
   }
   let images = "";
-  for (let h = 0; h < games[i].images.length; h++) {
-    if (h === 0) {
-      images = images + `<img class="show-img" src="${games[i].images[h]}" />`;
+  for (let l = 0; l < games[i].images.length; l++) {
+    if (l === 0) {
+      images = images + `<img class="show-img" src="${games[i].images[l]}" />`;
     } else {
-      images = images + `<img class="hide-img" src="${games[i].images[h]}" />`;
+      images = images + `<img class="hide-img" src="${games[i].images[l]}" />`;
     }
+  }
+  let video = "";
+  if (games[i].video.length > 0) {
+    video = `<video width="640" height="480" class="hide-vid" loop autoplay>
+    <source src="${games[i].video[0]}" type="video/webm">
+  </video>`;
+  } else {
+    video = "";
   }
   gameCard.innerHTML = `<div class="card-inner">
     <div class="card-row1">
@@ -123,6 +158,7 @@ for (let i = 0; i < games.length; i++) {
     <div class="card-row2">
       <div class="card-row2-left">
         ${images}
+        ${video}
       </div>
       <div class="card-row2-right">
         <div class="card-row2-right-top">

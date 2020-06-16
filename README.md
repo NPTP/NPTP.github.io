@@ -20,7 +20,6 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
 ### Portfolio page
-- Make slideshow code more efficient by removing need to call querySelectorAll on every timeout to the slides
 - Cards should slide in on scroll, not before. Copy code from About page for this
 
 ### About page

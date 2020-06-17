@@ -38,6 +38,21 @@ const games = [
     ],
     linkTexts: ["Go to Google", "Go to RPS", "Go to local image"],
   },
+  {
+    name: "Mr. Placeholder2",
+    platform: "PlaceHeld2",
+    images: ["images/logo.png"],
+    video: [],
+    blurbLines: [
+      "Can't stop holding",
+      "",
+      "this place",
+      "",
+      "Too much to lose!",
+    ],
+    linkURLs: ["https://www.amazon.ca/"],
+    linkTexts: ["Amazon"],
+  },
 ];
 
 let displaying = false;
@@ -87,7 +102,6 @@ function pauseAnimation(card) {
 
 function cardMouseEnter(e) {
   const card = e.target;
-  console.log(card.id);
   if (games[card.id].video.length === 0) {
     displaying = true;
     let images = card.querySelectorAll("img");
@@ -109,10 +123,9 @@ function cardMouseLeave(e) {
 
 gamesList = document.getElementById("games");
 for (let i = 0; i < games.length; i++) {
-  let gameCard = document.createElement("div");
-  gameCard.id = i; // Number each card with its index in the list
-  gameCard.classList.add("card");
-  gameCard.classList.add("anim1");
+  let card = document.createElement("div");
+  card.id = i; // Number each card with its index in the list
+  card.classList.add("hide-card");
   let blurb = "";
   for (let j = 0; j < games[i].blurbLines.length; j++) {
     blurb = blurb + games[i].blurbLines[j];
@@ -139,13 +152,13 @@ for (let i = 0; i < games.length; i++) {
   }
   let video = "";
   if (games[i].video.length > 0) {
-    video = `<video width="640" height="480" class="hide-vid" loop autoplay>
+    video = `<video width="640" height="480" class="hide-vid" muted loop autoplay>
     <source src="${games[i].video[0]}" type="video/webm">
   </video>`;
   } else {
     video = "";
   }
-  gameCard.innerHTML = `<div class="card-inner">
+  card.innerHTML = `<div class="card-inner">
     <div class="card-row1">
       <div class="card-row1-left">
         <span class="bold vwtext-36">${games[i].name}</br>
@@ -171,8 +184,33 @@ for (let i = 0; i < games.length; i++) {
     </div>
   </div>`;
 
-  gameCard.addEventListener("mouseenter", cardMouseEnter);
-  gameCard.addEventListener("mouseleave", cardMouseLeave);
+  card.addEventListener("mouseenter", cardMouseEnter);
+  card.addEventListener("mouseleave", cardMouseLeave);
 
-  gamesList.appendChild(gameCard);
+  gamesList.appendChild(card);
 }
+
+// Listen for scroll events
+document.addEventListener("scroll", appear);
+
+// Make hidden divs change class when SCROLLED into view
+function appear() {
+  for (let i = 0; i < games.length; i++) {
+    const card = document.getElementById(i.toString());
+    console.log(card);
+    const top = card.getBoundingClientRect().top;
+    if (top + 50 <= viewportHeight) {
+      // TODO: Issues with finding the right scroll pos to stat showing the card
+      card.classList.remove("hide-card");
+      card.classList.add("card");
+      card.classList.add("anim0"); // TODO: Different anims speeds depending on i index?
+      if (i === games.length - 1) {
+        document.removeEventListener("scroll", appear);
+        console.log("Removed event listener");
+      }
+    }
+  }
+}
+
+// Call to make hidden elements appear if they're ALREADY in view
+appear();

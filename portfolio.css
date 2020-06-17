@@ -144,7 +144,7 @@
 
 /* TESTING ONLY - DO THIS GRADED TRANSITION IN JS LATER */
 
-.anim1 {
+.anim0 {
   animation: 0.8s linear 0s 1 setToTransparent,
     0.4s ease-out 0.8s 1 gameCardSlideIn;
 }
@@ -164,6 +164,10 @@
 }
 
 /* ---------------------------------------------------- */
+
+.hide-card {
+  opacity: 0;
+}
 
 .hide-img {
   display: none;

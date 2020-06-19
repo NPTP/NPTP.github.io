@@ -22,8 +22,8 @@ const games = [
       "Choose your difficulty, watch the clock, and be quick - or be dead.",
       "I created every part of the game: design, gameplay, and 100% of the assets (art, animation, sound and music).",
     ],
-    linkURLs: ["https://itch.io/", "data/downloads/placeholder_download.zip"],
-    linkTexts: ["Play on itch.io", "Download Windows executable"],
+    linkURLs: ["https://itch.io/"],
+    linkTexts: ["Play on itch.io"],
   },
   {
     name: "LOONY LAB",
@@ -41,10 +41,10 @@ const games = [
       "I contributed code (C#), design, art, animation, and sound. Royalty-free visual assets were modified to suit our needs.",
     ],
     linkURLs: [
-      "https://www.google.ca/", // TODO: real winx64 build link pLZ
+      "data/downloads/LoonyLab_Winx86-64.zip",
       "https://github.com/NPTP/LoonyLab",
     ],
-    linkTexts: ["Download for Winx64", "Go to Github repo"],
+    linkTexts: ["Download for Windows", "Go to Github repo"],
   },
   {
     name: "GAME JAMS",

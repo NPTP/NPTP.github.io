@@ -44,7 +44,29 @@ const games = [
       "data/downloads/LoonyLab_Winx86-64.zip",
       "https://github.com/NPTP/LoonyLab",
     ],
-    linkTexts: ["Download for Windows", "Go to Github repo"],
+    linkTexts: ["Download for Windows", "Source on GitHub"],
+  },
+  {
+    name: "RAYLTIME",
+    platform: "C++ with SDL2",
+    images: ["images/index_placeholder2.jpg"],
+    video: [],
+    blurbLines: [
+      "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
+      'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
+      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and specular highlights optimization, along with a lower resolution so that it can be run in real-time rather than offline.",
+    ],
+    linkURLs: ["https://www.google.ca", "https://github.com/NPTP/RaylTime"],
+    linkTexts: ["TODO: Download for Windows", "Source on GitHub"],
+  },
+  {
+    name: "KCSHARE",
+    platform: "Web & Mobile with React & React Native",
+    images: ["images/index_placeholder1.jpg"],
+    video: [],
+    blurbLines: ["TODO!"],
+    linkURLs: ["https://github.com/NPTP/KCShare"],
+    linkTexts: ["Source on GitHub"],
   },
   {
     name: "GAME JAMS",
@@ -76,7 +98,15 @@ const games = [
   {
     name: "INDUSTRIAL SECTOR",
     platform: "GZDoom",
-    images: ["images/games/is/is01.png"],
+    images: [
+      "images/games/is/is01.png",
+      "images/games/is/is05.png",
+      "images/games/is/is02.png",
+      "images/games/is/is05.png",
+      "images/games/is/is03.png",
+      "images/games/is/is05.png",
+      "images/games/is/is04.png",
+    ],
     video: [],
     blurbLines: [
       "A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine.",
@@ -158,7 +188,12 @@ gamesList = document.getElementById("games");
 for (let i = 0; i < games.length; i++) {
   let card = document.createElement("div");
   card.id = i; // Number each card with its index in the list
-  card.classList.add("hide-card");
+  if (i === 0) {
+    card.classList.add("card");
+    card.classList.add("card0-anim");
+  } else {
+    card.classList.add("hide-card");
+  }
   let blurb = "";
   for (let j = 0; j < games[i].blurbLines.length; j++) {
     blurb = blurb + games[i].blurbLines[j];
@@ -228,15 +263,15 @@ document.addEventListener("scroll", appear);
 
 // Make hidden divs change class when SCROLLED into view
 function appear() {
-  for (let i = 0; i < games.length; i++) {
+  for (let i = 1; i < games.length; i++) {
     const card = document.getElementById(i.toString());
     console.log(card);
     const top = card.getBoundingClientRect().top;
-    if (top + 50 <= viewportHeight) {
-      // TODO: Issues with finding the right scroll pos to stat showing the card
+    console.log(viewportHeight);
+    if (top + viewportHeight / 6 <= viewportHeight) {
       card.classList.remove("hide-card");
       card.classList.add("card");
-      card.classList.add("anim0"); // TODO: Different anims speeds depending on i index?
+      card.classList.add("card-appear");
       if (i === games.length - 1) {
         document.removeEventListener("scroll", appear);
         console.log("Removed event listener");

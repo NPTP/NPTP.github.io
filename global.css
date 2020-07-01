@@ -174,3 +174,63 @@ a:hover {
   -webkit-transform: scaleX(1);
   transform: scaleX(1);
 }
+
+@keyframes headerDropIn {
+  0% {
+    opacity: 0;
+    transform: translate(0px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+.page-header {
+  animation: 0.4s linear 0s 1 setToTransparent,
+    0.4s ease-out 0.4s 1 headerDropIn;
+  margin-top: 2.35vw;
+  margin-bottom: 2.35vw;
+  text-align: center;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.italic {
+  font-style: italic;
+}
+
+/* Equivalent to 48px on 1080p Chrome */
+.vwtext-48 {
+  font-size: 2.5vw;
+}
+.size-48 {
+  font-size: 48px;
+}
+
+/* Equivalent to 36px on 1080p Chrome */
+.vwtext-36 {
+  font-size: 1.875vw;
+}
+.size-36 {
+  font-size: 36px;
+}
+
+/* Equivalent to 24px on 1080p Chrome */
+.vwtext-24 {
+  font-size: 1.25vw;
+}
+.size-24 {
+  font-size: 24px;
+}
+
+/* Equivalent to 20px on 1080p Chrome */
+.vwtext-20 {
+  font-size: 1.042vw;
+}
+.size-20 {
+  font-size: 20px;
+}
+

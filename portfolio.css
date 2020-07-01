@@ -6,27 +6,10 @@
   border-color: yellow;
 } */
 
-/* 5.35vh == 50px vertically on 1080p in Chrome */
+/* 5.35vh == 50px vertically on 1080p in Chrome... NOT REALLY */
 /* 2.55vw == 50px horizontally on 1080p in Chrome */
+/* 2.35vw == 50px VERTICALLY on 1080p in Chrome */
 
-@keyframes headerDropIn {
-  0% {
-    opacity: 0;
-    transform: translate(0px, -10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(0px, 0px);
-  }
-}
-
-.portfolio-header {
-  animation: 0.4s linear 0s 1 setToTransparent,
-    0.4s ease-out 0.4s 1 headerDropIn;
-  margin-top: 5.35vh;
-  margin-bottom: 5.35vh;
-  text-align: center;
-}
 
 .games {
   display: flex;
@@ -202,44 +185,4 @@
 
 .light-bg {
   background-color: #292929;
-}
-
-.bold {
-  font-weight: 600;
-}
-
-/* Equivalent to 48px on 1080p Chrome */
-.vwtext-48 {
-  font-size: 2.5vw;
-}
-.size-48 {
-  font-size: 48px;
-}
-
-/* Equivalent to 36px on 1080p Chrome */
-.vwtext-36 {
-  font-size: 1.875vw;
-}
-.size-36 {
-  font-size: 36px;
-}
-
-/* Equivalent to 24px on 1080p Chrome */
-.vwtext-24 {
-  font-size: 1.25vw;
-}
-.size-24 {
-  font-size: 24px;
-}
-
-/* Equivalent to 20px on 1080p Chrome */
-.vwtext-20 {
-  font-size: 1.042vw;
-}
-.size-20 {
-  font-size: 20px;
-}
-
-.italic {
-  font-style: italic;
 }

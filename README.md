@@ -19,8 +19,14 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
+### All
+- Replace all vh sizing with vw sizing (for proportional vertical margins when resizing horizontally)
+
 ### Portfolio page
-- Cards should slide in on scroll, not before. Copy code from About page for this
+- Complete the cards for each project
+  - Blurbs
+  - Links
+  - Visual media (animations, videos, screenshots)
 
 ### About page
 - Make page consistent with the others, clean up design (content is fine)

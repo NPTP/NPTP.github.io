@@ -12,7 +12,7 @@ const games = [
       "Choose your difficulty, watch the clock, and be quick - or be dead.",
       "I created every part of the game: design, gameplay, and 100% of the assets (art, animation, sound and music).",
     ],
-    linkURLs: ["https://itch.io/"],
+    linkURLs: ["https://nickperrin.itch.io/deadwoodduel"],
     linkTexts: ["Play on itch.io"],
   },
   {

@@ -32,9 +32,10 @@ const games = [
     ],
     linkURLs: [
       "data/downloads/LoonyLab_Winx86-64.zip",
+      "data/downloads/LoonyLab_MacOS.zip",
       "https://github.com/NPTP/LoonyLab",
     ],
-    linkTexts: ["Download for Windows", "Source on GitHub"],
+    linkTexts: ["Download for Windows", "Download for Mac", "Source on GitHub"],
   },
   {
     name: "RAYLTIME",

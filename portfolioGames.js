@@ -5,8 +5,13 @@ const games = [
   {
     name: "DEADWOOD DUEL",
     platform: "Stencyl",
-    images: ["images/games/dd/dd01.png", "images/games/dd/dd02.png"],
-    video: ["images/games/dd/dd_gameplay.webm"],
+    images: [
+      "images/games/dd/dd01.png",
+      "images/games/dd/dd02.png",
+      "images/games/dd/dd03.png",
+      "images/games/dd/dd04.png",
+    ],
+    video: [], // ["images/games/dd/dd_gameplay.webm"], ---> Restore this later maybe, getting videos for everything
     blurbLines: [
       "A reflex shooter set in the Old West.",
       "Choose your difficulty, watch the clock, and be quick - or be dead.",
@@ -17,7 +22,7 @@ const games = [
   },
   {
     name: "LOONY LAB",
-    platform: "Unity",
+    platform: "Unity with C#",
     images: [
       "images/games/ll/ll01.png",
       "images/games/ll/ll02.png",
@@ -27,8 +32,8 @@ const games = [
     video: [],
     blurbLines: [
       "Loony Lab was part of a research project headed by Steve Engels at the University of Toronto, studying the effectiveness of design changes in pedagogical techniques in videogames. The material was taken straight from high school curriculum.",
-      "Working with a partner, we created a game design document, recorded progress in a dev blog, ran playtests with various demographics including game industry professionals, conducted two rounds of research with the game using self-developed study instruments, and produced a final report on our findings.",
-      "I contributed code (C#), design, art, animation, and sound. Royalty-free visual assets were modified to suit our needs.",
+      "Working with a partner, the two of us created a game design document, recorded progress in a dev blog, ran playtests with various demographics including game industry professionals, conducted two rounds of research with the game using self-developed study instruments, and produced a final report on our findings.",
+      "I contributed code, design, art, animation, and sound. Royalty-free visual assets were modified to suit our needs.",
     ],
     linkURLs: [
       "data/downloads/LoonyLab_Winx86-64.zip",
@@ -45,19 +50,10 @@ const games = [
     blurbLines: [
       "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
       'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
-      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and specular highlights optimization, along with a lower resolution so that it can be run in real-time rather than offline.",
+      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and specular highlights optimization to keep things running in real time.",
     ],
     linkURLs: ["https://www.google.ca", "https://github.com/NPTP/RaylTime"],
     linkTexts: ["TODO: Download for Windows", "Source on GitHub"],
-  },
-  {
-    name: "KCSHARE",
-    platform: "Web & Mobile with React & React Native",
-    images: ["images/index_placeholder1.jpg"],
-    video: [],
-    blurbLines: ["TODO!"],
-    linkURLs: ["https://github.com/NPTP/KCShare"],
-    linkTexts: ["Source on GitHub"],
   },
   {
     name: "GAME JAMS",
@@ -70,8 +66,8 @@ const games = [
     ],
     video: [],
     blurbLines: [
-      `For several game jams in Toronto, I've worked with a team consisting of a designer, an artist and a programmer, all of whom have experience either in AAA or indie game production. They're a truly talented bunch and it's been a privilege to do these jams with them under the team banner of "ButterBrains."`,
-      "We put or heads together to create the high-level designs for these games as a group. I did all sound and music, and some level design.",
+      `For several game jams in Toronto, I've worked with a team consisting of a designer, an artist and a programmer, all of whom have experience either in AAA or indie game production. They're a truly talented bunch and it's been a privilege to do these jams with them under the banner of "ButterBrains."`,
+      "We put or heads together and designed the games as a group. Additionally, I did all sound and music, and some level design.",
     ],
     linkURLs: [
       "https://butterbrains.itch.io/relapse",
@@ -87,22 +83,32 @@ const games = [
     ],
   },
   {
+    name: "KCSHARE",
+    platform: "Web & Mobile with React & React Native",
+    images: ["images/index_placeholder1.jpg"],
+    video: [],
+    blurbLines: [
+      "A combo web and mobile app with unique experiences for each, designed as a prototype for a private high school's new learning platform.",
+      "KCShare allows students to share their learning and unique experiences with other students and teachers in a low-pressure social space.",
+      "Working with a team, I contributed team leadership, web and mobile code, and design, as we translated client needs into finished product.",
+    ],
+    linkURLs: ["https://github.com/NPTP/KCShare"],
+    linkTexts: ["Source on GitHub"],
+  },
+  {
     name: "INDUSTRIAL SECTOR",
     platform: "GZDoom",
     images: [
-      "images/games/is/is01.png",
-      "images/games/is/is05.png",
-      "images/games/is/is02.png",
-      "images/games/is/is05.png",
-      "images/games/is/is03.png",
-      "images/games/is/is05.png",
-      "images/games/is/is04.png",
+      "images/games/industrialsector/is01.png",
+      "images/games/industrialsector/is02.png",
+      "images/games/industrialsector/is03.png",
+      "images/games/industrialsector/is04.png",
     ],
     video: [],
     blurbLines: [
       "A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine.",
-      "A work-in-progress passion project where I produce code, mapping, level design, music, sound design, animation, and narrative, while keeping the core of the game's assets and design in the classic Doom mould.",
-      "It's also using existing resources and tools made available by people in the incredible community around DooM that is still flourishing today.",
+      "A work-in-progress passion project where I produce code, levels, music, sound, animation, and narrative, while keeping the core of the game's assets and design in the classic Doom mould.",
+      "I'm also using resources and tools made available by people in the incredible community around DooM that is still flourishing to this day.",
     ],
     linkURLs: [],
     linkTexts: [],

@@ -23,10 +23,10 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 - Replace all vh sizing with vw sizing (for proportional vertical margins when resizing horizontally)
 
 ### Portfolio page
-- Complete the cards for each project
-  - Blurbs
-  - Links
-  - Visual media (animations, videos, screenshots)
+- Complete the cards for each project: blurb, links, visuals (just image slideshows for now, videos at some point in future).
+- Incomplete:
+  - KCShare (needs images/video)
+  - RaylTime (needs images/video)
 
 ### About page
 - Make page consistent with the others, clean up design (content is fine)

@@ -3,6 +3,9 @@
 // Uses the "games" array from portfolioGames.js
 // ------------------------------------
 
+// Time between images in portfolio item auto-slideshow
+const SLIDESHOW_TIMEOUT_VAL = 2000;
+
 // Get viewport height and width dependent on CSS compat
 const docElement =
   document.compatMode === "CSS1Compat"
@@ -30,7 +33,7 @@ function displayImages(images) {
   if (displaying) {
     call = setTimeout(function () {
       displayImages(images);
-    }, 1000);
+    }, SLIDESHOW_TIMEOUT_VAL);
   }
 }
 

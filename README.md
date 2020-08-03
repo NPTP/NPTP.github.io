@@ -22,18 +22,14 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 ### All
 - Replace all vh sizing with vw sizing (for proportional vertical margins when resizing horizontally)
 
-### Portfolio page
-- Complete the cards for each project: blurb, links, visuals (just image slideshows for now, videos at some point in future).
-- Incomplete:
-  - KCShare (needs images/video)
-  - RaylTime (needs images/video)
-
 ### About page
+- Go to Figma and redo the design of skills/education
 - Make page consistent with the others, clean up design (content is fine)
 - Responsive font sizing here too of course!
 
 ### Final touches
 - Nav bar: remove placeholder logo, put non-bold all caps name on top left? Experiment
 - Nav bar: resizing using vh/vw sizes instead of fixed sizing
+- Videos for portfolio page replacing images
 - HTML font linking replace css import
 - Try enforcing font anti-aliasing? (seen in e.g. Devon Stank page in CSS)

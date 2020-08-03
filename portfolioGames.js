@@ -45,7 +45,12 @@ const games = [
   {
     name: "RAYLTIME",
     platform: "C++ with SDL2",
-    images: ["images/index_placeholder2.jpg"],
+    images: [
+      "images/games/rayltime/rt01.png",
+      "images/games/rayltime/rt02.png",
+      "images/games/rayltime/rt03.png",
+      "images/games/rayltime/rt04.png",
+    ],
     video: [],
     blurbLines: [
       "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
@@ -85,7 +90,12 @@ const games = [
   {
     name: "KCSHARE",
     platform: "Web & Mobile with React & React Native",
-    images: ["images/index_placeholder1.jpg"],
+    images: [
+      "images/games/kcshare/kcs01.png",
+      "images/games/kcshare/kcs02.png",
+      "images/games/kcshare/kcs03.png",
+      "images/games/kcshare/kcs04.png",
+    ],
     video: [],
     blurbLines: [
       "A combo web and mobile app with unique experiences for each, designed as a prototype for a private high school's new learning platform.",

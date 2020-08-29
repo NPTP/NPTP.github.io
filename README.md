@@ -27,7 +27,16 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 - Make page consistent with the others, clean up design (content is fine)
 - Responsive font sizing here too of course!
 
+### Music page
+- Put Nick Perrin Music logo up from hi-res vector
+- Get some Soundcloud player or similar with a brief playlist of varied tracks
+- Have a section below for other projects (albums, new tracks, etc)
+
+### Contact page
+- Make the contact button in navbar link to a #contact section in the about page, which is just a simple png of my email, with the "I designed this in figma blah blah blah..." below it.
+
 ### Final touches
+- Need new pics for front page, and new photo for About page.
 - Nav bar: remove placeholder logo, put non-bold all caps name on top left? Experiment
 - Nav bar: resizing using vh/vw sizes instead of fixed sizing
 - Videos for portfolio page replacing images

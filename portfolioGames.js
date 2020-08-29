@@ -1,5 +1,10 @@
-// PORTFOLIO Games List - contains all games/projects information used by
-// portfolio.js to populate the portfolio page.
+// PORTFOLIO Games List
+//
+// Contains all games/projects information used by portfolio.js to populate the
+// portfolio page.
+//
+// Add and edit items as necessary. If a video is defined for any game, it will
+// be shown instead of the given images.
 
 const games = [
   {
@@ -11,7 +16,7 @@ const games = [
       "images/games/dd/dd03.png",
       "images/games/dd/dd04.png",
     ],
-    video: [], // ["images/games/dd/dd_gameplay.webm"], ---> Restore this later maybe, getting videos for everything
+    video: [],
     blurbLines: [
       "A reflex shooter set in the Old West.",
       "Choose your difficulty, watch the clock, and be quick - or be dead.",

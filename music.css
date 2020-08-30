@@ -1,5 +1,14 @@
 /* MUSIC page styles */
 
+.anl-img {
+  flex: 1;
+  object-fit: scale-down;
+  display: block;
+  flex-shrink: 1;
+}
+
+/* The following may be universalized or deprecated. */
+
 @keyframes titleDropIn {
   0% {
     opacity: 0;

@@ -1,13 +1,28 @@
 /* MUSIC page styles */
 
-.anl-img {
-  flex: 1;
-  object-fit: scale-down;
-  display: block;
-  flex-shrink: 1;
+.card-row2-music {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* The following may be universalized or deprecated. */
+.card-row3 {
+  width: 100%;
+  margin-top: 5.35vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+
+.anl-img {
+  width: 20%;
+  object-fit: contain;
+}
+
+/* All of the following styles may be universalized or deprecated. */
 
 @keyframes titleDropIn {
   0% {

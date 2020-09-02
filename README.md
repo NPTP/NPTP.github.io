@@ -21,6 +21,10 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
+### Music Page
+
+- Little blurb with "MY MUSIC" card, about what I've worked on and studied etc.
+
 ### Front page
 
 - Need new pic (at least for the game dev bubble pic)
@@ -34,15 +38,6 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 - At end of page, footnote about how I built the site, as in about_backup.html, tweaked
 - Better (& newer) photo of me
 
-### Portofolio page
-
-- Videos that play on hover over each card instead of the slideshows we have now (with exceptions like the Doom mod and any other in-progress card added later)
-
-### Music page
-
-- Have a section below the music player for other projects (All Night Long band, albums, new tracks, etc), each on its own card just like the portfolio
-- Add Eye for an Eye to the page's soundcloud playlist!
-
 ### Contact page
 
 - Make the contact button in navbar link to a #contact section in the about page, which is just a simple png of my email, with the "I designed this in figma blah blah blah..." below it.
@@ -52,6 +47,10 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 - Make a globally-used js script which prepends the navbar in all pages so we have the navbar defined in a centralized way
 - Changed the fix sizing to vh/vw sizes
 
-### Final touches
+### Portofolio page
+
+- Videos that play on hover over each card instead of the slideshows we have now (with exceptions like the Doom mod and any other in-progress card added later)
+
+### Final global
 
 - HTML font linking instead of css import: save as a final step

@@ -73,6 +73,7 @@ const games = [
       "images/games/gj/gj02.png",
       "images/games/gj/gj03.png",
       "images/games/gj/gj04.png",
+      "images/games/gj/gj05.jpg",
     ],
     video: [],
     blurbLines: [

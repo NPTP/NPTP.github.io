@@ -4,7 +4,7 @@
 
 // Number of cards on music page. Hard-coded value since
 // music page cards have different structures.
-const NUM_MUSIC_CARDS = 2;
+const NUM_MUSIC_CARDS = 3;
 
 // Get viewport height and width dependent on CSS compat
 const docElement =

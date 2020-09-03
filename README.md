@@ -21,17 +21,8 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
-### Music Page
-
-- Little blurb with "MY MUSIC" card, about what I've worked on and studied etc.
-
-### Front page
-
-- Need new pic (at least for the game dev bubble pic)
-
 ### About page
 
-- Responsive font sizing in top blurb about me
 - Go to Figma and redo the design of skills/education
 - Skills card first, education card second
 - Contact info linked to by front page and nav bar
@@ -44,7 +35,7 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 
 ### Nav bar
 
-- Make a globally-used js script which prepends the navbar in all pages so we have the navbar defined in a centralized way
+- Make a globally-used js script which prepends the navbar html in all pages so we have the navbar defined in a centralized way
 - Changed the fix sizing to vh/vw sizes
 
 ### Portofolio page

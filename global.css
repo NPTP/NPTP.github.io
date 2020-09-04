@@ -387,3 +387,11 @@ a:hover {
 .size-20 {
   font-size: 20px;
 }
+
+/* Equivalent to 18px on 1080p Chrome */
+.vwtext-18 {
+  font-size: 0.9375vw;
+}
+.size-18 {
+  font-size: 18px;
+}

@@ -23,8 +23,7 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 
 ### About page
 
-- Go to Figma and redo the design of skills/education
-- Skills card first, education card second
+- Make contact an image, not actual text (to avoid spam/abuse)
 - Contact info linked to by front page and nav bar
 - At end of page, footnote about how I built the site, as in about_backup.html, tweaked
 - Better (& newer) photo of me

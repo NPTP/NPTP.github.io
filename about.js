@@ -2,6 +2,10 @@
 // ABOUT PAGE script
 // ------------------------------------
 
+// Number of cards on music page. Hard-coded value since
+// music page cards have different structures.
+const NUM_ABOUT_CARDS = 4;
+
 // Get viewport height and width dependent on CSS compat
 const docElement =
   document.compatMode === "CSS1Compat"
@@ -10,84 +14,31 @@ const docElement =
 const viewportHeight = docElement.clientHeight;
 const viewportWidth = docElement.clientWidth;
 
-// Collect all sections. Hard-coding values as this page is not likely to expand.
-let skillsSection = {
-  elem: document.getElementById("about_skills"),
-  showClass: "show-skills",
-  visAdjust: 50,
-};
-let skills1 = {
-  elem: document.getElementById("skills1"),
-  showClass: "show-skills-item",
-  visAdjust: 200,
-};
-let skills2 = {
-  elem: document.getElementById("skills2"),
-  showClass: "show-skills-item",
-  visAdjust: 50,
-};
-let skills3 = {
-  elem: document.getElementById("skills3"),
-  showClass: "show-skills-item",
-  visAdjust: 50,
-};
-let skills4 = {
-  elem: document.getElementById("skills4"),
-  showClass: "show-skills-item",
-  visAdjust: 50,
-};
-let educationSection = {
-  elem: document.getElementById("about_education"),
-  showClass: "show-education",
-  visAdjust: 50,
-};
-let footnote = {
-  elem: document.getElementById("about_footnote"),
-  showClass: "show-footnote",
-  visAdjust: 25,
-};
-const sections = [
-  educationSection,
-  skillsSection,
-  skills1,
-  skills2,
-  skills3,
-  skills4,
-  footnote,
-];
+let displaying = false;
 
 // Listen for scroll events
 document.addEventListener("scroll", appear);
 
-// TODO: this whole for loop thing is called here and below again. Put it in a separate callable function
-// Make hidden elements appear if they're ALREADY in view
-for (let i = 0; i < sections.length; i++) {
-  const section = sections[i];
-  const top = section.elem.getBoundingClientRect().top;
-  if (top + section.visAdjust <= viewportHeight) {
-    section.elem.classList.remove("hide");
-    section.elem.classList.add(section.showClass);
-    if (i === sections.length - 1) {
-      document.removeEventListener("scroll", appear);
-    }
-  }
-}
-
 // Make hidden divs change class when SCROLLED into view
 function appear() {
-  // Debugging
-  // console.log("rect.top: " + rect.top);
-  // console.log("viewportHeight: " + viewportHeight);
-
-  for (let i = 0; i < sections.length; i++) {
-    const section = sections[i];
-    const top = section.elem.getBoundingClientRect().top;
-    if (top + section.visAdjust <= viewportHeight) {
-      section.elem.classList.remove("hide");
-      section.elem.classList.add(section.showClass);
-      if (i === sections.length - 1) {
+  for (let i = 1; i < NUM_ABOUT_CARDS; i++) {
+    const card = document.getElementById(i.toString());
+    // console.log(card);
+    const top = card.getBoundingClientRect().top;
+    // console.log(viewportHeight);
+    if (top + viewportHeight / 6 <= viewportHeight) {
+      card.classList.remove("hide-card");
+      card.classList.add("card");
+      card.classList.add("card-appear");
+      if (i === NUM_ABOUT_CARDS - 1) {
         document.removeEventListener("scroll", appear);
+        // console.log("Removed event listener");
       }
     }
   }
 }
+
+// Call to make hidden elements appear if they're ALREADY in view.
+// The first card has a class set above such that it will always appear
+// automatically regardless of this call.
+appear();

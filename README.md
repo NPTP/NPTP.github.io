@@ -21,26 +21,15 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
-### About page
+### Todo
 
-- Make contact an image, not actual text (to avoid spam/abuse)
-- Contact info linked to by front page and nav bar
-- At end of page, footnote about how I built the site, as in about_backup.html, tweaked
-- Better (& newer) photo of me
-
-### Contact page
-
-- Make the contact button in navbar link to a #contact section in the about page, which is just a simple png of my email, with the "I designed this in figma blah blah blah..." below it.
-
-### Nav bar
-
+- Changed the navbar sizing to use vh/vw sizes (in progress)
 - Make a globally-used js script which prepends the navbar html in all pages so we have the navbar defined in a centralized way
-- Changed the fix sizing to vh/vw sizes
+- Better (& newer) photo of me on the About page
+- HTML font linking instead of css import
+- Link the github site to nickperrin.com domain URL
 
-### Portofolio page
+### Extra steps to spruce things up
 
-- Videos that play on hover over each card instead of the slideshows we have now (with exceptions like the Doom mod and any other in-progress card added later)
-
-### Final global
-
-- HTML font linking instead of css import: save as a final step
+- Videos that play on hover over each portfolio card instead of the slideshows we have now (with exceptions like the Doom mod and any other in-progress card added later)
+- Videos in the landing page bubbles? (Editing in Unity, photoshop for game dev. Editing in cubase, sound forge, and a shot of playing keys from one of the show promos for composer.)

@@ -76,3 +76,26 @@
   align-items: flex-start;
   margin-bottom: 0px;
 }
+
+.about-buildnote {
+  animation: 1.4s linear 0s 1 setToTransparent, 0.2s ease-out 1.4s 1 fadeIn;
+  padding: 0px;
+  margin: 2.35vw 0px 2.35vw 0px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-darktext {
+  color: #d0d0d0;
+}
+
+.dummy {
+  opacity: 0;
+}
+
+.contact-img {
+  margin-top: 1.25vh;
+  width: 16.25vw;
+}

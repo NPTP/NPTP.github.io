@@ -49,7 +49,7 @@ const games = [
   },
   {
     name: "RAYLTIME",
-    platform: "C++ with SDL2",
+    platform: "C++ with Eigen & SDL2",
     images: [
       "images/games/rayltime/rt01.png",
       "images/games/rayltime/rt02.png",
@@ -62,8 +62,11 @@ const games = [
       'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
       "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and specular highlights optimization to keep things running in real time.",
     ],
-    linkURLs: ["https://www.google.ca", "https://github.com/NPTP/RaylTime"],
-    linkTexts: ["TODO: Download for Windows", "Source on GitHub"],
+    linkURLs: [
+      "data/downloads/RaylTime_Winx86-64.zip",
+      "https://github.com/NPTP/RaylTime",
+    ],
+    linkTexts: ["Download for Windows", "Source on GitHub"],
   },
   {
     name: "GAME JAMS",
@@ -78,7 +81,7 @@ const games = [
     video: [],
     blurbLines: [
       `For several game jams in Toronto, I've worked with a team consisting of a designer, an artist and a programmer, all of whom have experience either in AAA or indie game production. They're a truly talented bunch and it's been a privilege to do these jams with them under the banner of "ButterBrains."`,
-      "We put or heads together and designed the games as a group. Additionally, I did all sound and music, and some level design.",
+      "We put our heads together and designed the games as a group. Additionally, I did all sound and music, and some level design.",
     ],
     linkURLs: [
       "https://butterbrains.itch.io/relapse",
@@ -106,7 +109,7 @@ const games = [
     blurbLines: [
       "A combo web and mobile app with unique experiences for each, designed as a prototype for a private high school's new learning platform.",
       "KCShare allows students to share their learning and unique experiences with other students and teachers in a low-pressure social space.",
-      "Working with a team, I contributed team leadership, web and mobile code, and design, as we translated client needs into finished product.",
+      "Working with a team, I contributed team leadership, design, and code for web and mobile, as we translated client needs into finished product.",
     ],
     linkURLs: ["https://github.com/NPTP/KCShare"],
     linkTexts: ["Source on GitHub"],
@@ -124,7 +127,7 @@ const games = [
     blurbLines: [
       "A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine.",
       "A work-in-progress passion project where I produce code, levels, music, sound, animation, and narrative, while keeping the core of the game's assets and design in the classic Doom mould.",
-      "I'm also using resources and tools made available by people in the incredible community around DooM that is still flourishing to this day.",
+      "I'm also using resources and tools made available by people in the incredible community around Doom that is still flourishing to this day.",
     ],
     linkURLs: [],
     linkTexts: [],

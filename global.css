@@ -73,7 +73,8 @@ a:hover {
 .navbar-trim {
   backdrop-filter: brightness(30%) saturate(30%) blur(3px);
   width: 100%;
-  height: 10px;
+  /* height: 10px; */
+  height: 0.51vw;
   margin-left: 0px;
   margin-right: 0px;
   margin-top: 0;
@@ -93,24 +94,35 @@ a:hover {
   margin-right: 0px;
   margin-top: 0;
   padding: 0;
-  top: 10px;
+  /* top: 10px; */
+  top: 0.5vw;
   width: 100%;
-  height: 100px;
+  /* height: 100px; */
+  height: 5.255vw;
   position: sticky;
   overflow: hidden;
   z-index: 99;
 }
 
 .nav-container {
-  margin-left: 25px;
-  margin-right: 25px;
+  /* margin-left: 25px;
+  margin-right: 25px; */
+  margin-left: 1.31vw;
+  margin-right: 1.31vw;
 }
 
 .navbar .logo {
   float: left;
-  padding: 25px;
-  padding-top: 20px;
+  /* padding: 25px;
+  padding-top: 20px; */
+  padding: 1.31vw;
+  padding-top: 1.051vw;
   transition: 0s;
+}
+
+.logo-img {
+  height: 2.75vw;
+  width: 2.75vw;
 }
 
 .navbar .logo:hover {
@@ -126,10 +138,15 @@ a:hover {
   display: block;
   color: white;
   text-align: center;
-  height: 100px;
-  padding-top: 40px;
-  padding-right: 25px;
-  padding-left: 25px;
+  /* height: 100px; */
+  height: 5.255vw;
+  /* padding-top: 40px; */
+  padding-top: 2.075vw;
+  /* padding-right: 25px;
+  padding-left: 25px; */
+  padding-right: 1.275vw;
+  padding-left: 1.275vw;
+
   text-decoration: none;
   /* font-size: 17px; */
   font-size: 0.89vw;
@@ -160,7 +177,8 @@ a:hover {
   position: absolute;
   width: 100%;
   height: 2px;
-  top: 98px;
+  /* top: 98px; */
+  top: 5.1vw;
   left: 0;
   background-color: #ffffff;
   visibility: hidden;
@@ -400,4 +418,12 @@ a:hover {
 }
 .size-18 {
   font-size: 18px;
+}
+
+/* Equivalent to 16px on 1080p Chrome */
+.vwtext-16 {
+  font-size: 0.83vw;
+}
+.size-16 {
+  font-size: 16px;
 }

@@ -23,11 +23,7 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 
 ### Todo
 
-- Make a globally-used js script which prepends the navbar html in all pages so we have the navbar defined in a centralized way
-- Replace all vh sizing with vw sizing: for example, noticed that cards do not resize properly with window resizing.
-- Better (& newer) photo of me on the About page
 - Link the github site to nickperrin.com domain URL
-- HTML font linking instead of css import
 
 ### Extra steps to spruce things up
 

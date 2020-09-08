@@ -92,10 +92,12 @@
 }
 
 .dummy {
-  opacity: 0;
+  text-align: center;
+  color: #121212;
 }
 
+/* margin-top: 1.25vh; */
 .contact-img {
-  margin-top: 1.25vh;
+  margin-top: 0.65vw;
   width: 16.25vw;
 }

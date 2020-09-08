@@ -1,6 +1,6 @@
 /* GLOBAL styles (fonts, colours, navbar) */
 
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,400italic,600);
+/* @import url(https://fonts.googleapis.com/css?family=Montserrat:400,400italic,600); */
 
 /* CSS reset */
 html,
@@ -220,7 +220,7 @@ a:hover {
 }
 
 .card {
-  margin-bottom: 5.35vh;
+  margin-bottom: 2.6vw;
   background: #292929;
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.5);
   display: flex;
@@ -241,7 +241,7 @@ a:hover {
 }
 
 .card-inner {
-  margin: 5.35vh 2.55vw 5.35vh 2.55vw;
+  margin: 2.6vw 2.55vw 2.6vw 2.55vw;
   padding: 0px;
   width: 100%;
   list-style: none;
@@ -259,7 +259,7 @@ a:hover {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: 5.35vh;
+  margin-bottom: 2.6vw;
   pointer-events: none;
 }
 
@@ -283,13 +283,15 @@ a:hover {
   align-items: flex-start;
 }
 
-/* 5.35vh == 50px vertically on 1080p in Chrome */
+/* 2.6vw  == 50px vertically on 1080p in Chrome */
 /* 2.55vw == 50px horizontally on 1080p in Chrome */
+
+/* Former card-row2-left height value: 51.36vh */
 .card-row2-left {
   flex: 1;
   margin-right: 2.55vw;
   pointer-events: none;
-  height: 51.36vh;
+  height: 25.075vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -315,7 +317,7 @@ a:hover {
   flex: 1;
   text-align: left;
   pointer-events: none;
-  margin-bottom: 5.35vh;
+  margin-bottom: 2.6vw;
 }
 
 .card-row2-right-bottom {

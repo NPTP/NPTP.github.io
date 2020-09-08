@@ -21,11 +21,9 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 
-### Todo
+### Remaining TODO
 
-- Link the github site to nickperrin.com domain URL
-
-### Extra steps to spruce things up
+- Fix card scrolling appearing on smaller displays
 
 - Better image for the front page "Game developer" bubble in colour.
 - Videos that play on hover over each portfolio card instead of the slideshows we have now (with exceptions like the Doom mod and any other in-progress card added later)

@@ -164,7 +164,8 @@ function appear() {
     // console.log(card);
     const top = card.getBoundingClientRect().top;
     // console.log(viewportHeight);
-    if (top + viewportHeight / 6 <= viewportHeight) {
+    // if (top + viewportHeight / 6 <= viewportHeight) {
+    if (top <= viewportHeight) {
       card.classList.remove("hide-card");
       card.classList.add("card");
       card.classList.add("card-appear");

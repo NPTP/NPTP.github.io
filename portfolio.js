@@ -3,8 +3,10 @@
 // Uses the "games" array from portfolioGames.js
 // ------------------------------------
 
-// Time between images in portfolio item auto-slideshow
+// Time (ms) between images in portfolio item auto-slideshow
 const SLIDESHOW_TIMEOUT_VAL = 2000;
+// Time (ms) between cards revealing
+const CARDREVEAL_TIMEOUT_VAL = 250;
 
 // Get viewport height and width dependent on CSS compat
 const docElement =
@@ -84,12 +86,7 @@ gamesList = document.getElementById("games");
 for (let i = 0; i < games.length; i++) {
   let card = document.createElement("div");
   card.id = i; // Number each card with its index in the list
-  if (i === 0) {
-    card.classList.add("card");
-    card.classList.add("card0-anim");
-  } else {
-    card.classList.add("hide-card");
-  }
+  card.classList.add("hide-card");
   let blurb = "";
   for (let j = 0; j < games[i].blurbLines.length; j++) {
     blurb = blurb + games[i].blurbLines[j];
@@ -157,27 +154,49 @@ for (let i = 0; i < games.length; i++) {
 // Listen for scroll events
 document.addEventListener("scroll", appear);
 
+function reveal(cardList, index) {
+  cardList[index].classList.remove("hide-card");
+  cardList[index].classList.add("card");
+  cardList[index].classList.add("card-appear");
+
+  if (index < cardList.length - 1) {
+    delay = setTimeout(function () {
+      reveal(cardList, index + 1);
+    }, CARDREVEAL_TIMEOUT_VAL);
+  }
+}
+
 // Make hidden divs change class when SCROLLED into view
 function appear() {
-  for (let i = 1; i < games.length; i++) {
+  cardList = [];
+  let firstCardIncluded = false;
+  for (let i = 0; i < games.length; i++) {
     const card = document.getElementById(i.toString());
-    // console.log(card);
     const top = card.getBoundingClientRect().top;
-    // console.log(viewportHeight);
-    // if (top + viewportHeight / 6 <= viewportHeight) {
     if (top <= viewportHeight) {
-      card.classList.remove("hide-card");
-      card.classList.add("card");
-      card.classList.add("card-appear");
+      if (card.className === "hide-card") {
+        cardList.push(card);
+        if (i === 0) {
+          firstCardIncluded = true;
+        }
+      }
       if (i === games.length - 1) {
         document.removeEventListener("scroll", appear);
-        // console.log("Removed event listener");
       }
+    }
+  }
+
+  if (cardList.length > 0) {
+    if (firstCardIncluded) {
+      // If the first card is part of this call, delay its appearance until after the header has appeared.
+      initialDelay = setTimeout(function () {
+        reveal(cardList, 0);
+      }, 800);
+    } else {
+      reveal(cardList, 0);
     }
   }
 }
 
 // Call to make hidden elements appear if they're ALREADY in view.
-// The first card has a class set above such that it will always appear
-// automatically regardless of this call.
 appear();

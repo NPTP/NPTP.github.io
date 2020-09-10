@@ -24,6 +24,9 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 ### Remaining TODO
 
 - Make first card slide in before other cards - all of them part of the initial function call with timers between them.
+  - On first call to appear(), append each successfully "appeared" card to an initially empty list. At end of the loop, call or run a function which takes the list and makes the cards in the list appear in order with a small timer between them (very quick timer).
+- Include the about-me blurb in the cards that appear?
+- Centralize the card-appearing functions into one, as they work with About, Portfolio, and Music pages.
 - Better image for the front page "Game developer" bubble in colour.
 - Videos that play on hover over each portfolio card instead of the slideshows we have now (with exceptions like the Doom mod and any other in-progress card added later)
 - Not sure yet: videos in the landing page bubbles? (Editing in Unity & photoshop for game dev. Editing in cubase, sound forge, and a shot of playing keys from one of the show promos for composer.) Maybe too complicated-looking.

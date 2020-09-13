@@ -75,7 +75,6 @@ function appear() {
   }
 
   if (cardList.length > 0) {
-    // console.log(cardList);
     reveal(cardList, 0);
   }
 }

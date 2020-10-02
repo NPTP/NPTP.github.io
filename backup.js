@@ -28,3 +28,21 @@ for (let i = 0; i < games.length; i++) {
     card.classList.add("hide-card");
   }
   let blurb = "";
+
+  name: "INDUSTRIAL SECTOR",
+  platform: "GZDoom",
+  images: [
+    "images/games/industrialsector/is01.png",
+    "images/games/industrialsector/is02.png",
+    "images/games/industrialsector/is03.png",
+    "images/games/industrialsector/is04.png",
+  ],
+  video: [],
+  blurbLines: [
+    "A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine.",
+    "A work-in-progress passion project where I produce code, levels, music, sound, animation, and narrative, while keeping the core of the game's assets and design in the classic Doom mould.",
+    "I'm also using resources and tools made available by people in the incredible community around Doom that is still flourishing to this day.",
+  ],
+  linkURLs: [],
+  linkTexts: [],
+},

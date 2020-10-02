@@ -60,7 +60,7 @@ const games = [
     blurbLines: [
       "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
       'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
-      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and specular highlights optimization to keep things running in real time.",
+      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and phong exponentiation thresholding to keep things running in real time.",
     ],
     linkURLs: [
       "data/downloads/RaylTime_Winx86-64.zip",
@@ -115,19 +115,17 @@ const games = [
     linkTexts: ["Source on GitHub"],
   },
   {
-    name: "INDUSTRIAL SECTOR",
-    platform: "GZDoom",
+    name: "OTHER PROJECTS",
+    platform: "Various",
     images: [
-      "images/games/industrialsector/is01.png",
-      "images/games/industrialsector/is02.png",
-      "images/games/industrialsector/is03.png",
-      "images/games/industrialsector/is04.png",
+      "images/games/other/industrialsector01.png",
+      "images/games/other/industrialsector02.png",
+      "images/games/other/404jam1.png",
     ],
     video: [],
     blurbLines: [
-      "A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine.",
-      "A work-in-progress passion project where I produce code, levels, music, sound, animation, and narrative, while keeping the core of the game's assets and design in the classic Doom mould.",
-      "I'm also using resources and tools made available by people in the incredible community around Doom that is still flourishing to this day.",
+      `<span class="bold">INDUSTRIAL SECTOR:</span> A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine. <a>In Progress</a>`,
+      `<span class="bold">CSC404 Game Jam:</span> Bounce around & destroy Fine China! Made in 6 hours with a cool team. <a href="https://nickperrin.itch.io/armadillo-in-a-china-shop-jam-game">Play on itch.io</a>`,
     ],
     linkURLs: [],
     linkTexts: [],

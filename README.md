@@ -17,7 +17,7 @@ https://www.figma.com/file/DJxw5mQICWUH8DLpjCvnoM/NPWeb
 ### Useful links while working
 
 - jQuery to vanilla JS:
-  - http://youmightnotneedjquery.com/
+  - https://youmightnotneedjquery.com/
   - https://tobiasahlin.com/blog/move-from-jquery-to-vanilla-javascript/
 - Relative font sizing: https://www.sitepoint.com/new-css3-relative-font-size/
 

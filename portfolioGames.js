@@ -8,6 +8,64 @@
 
 const games = [
   {
+    name: "INHERITORS",
+    platform: "Unity, C#",
+    images: [
+      "images/games/inheritors/inheritors01.png",
+      "images/games/inheritors/inheritors02.png"
+    ],
+    video: ["images/games/inheritors/inheritors-video.mp4"],
+    blurbLines: [
+      'Inheritors is a brief look at the "uncontacted" Akuntsu tribe in the southern Brazilian Amazon, what it means to give up heritage, and what their story means for similar tribes in the Amazon.',
+      "The game features persistent terrain/environment manipulation, and recording & playback of past player actions, as you lay down a short heritage of your own.",
+      "To be released early 2021."
+    ],
+    linkURLs: [
+      "https://github.com/NPTP/InheritorsDev",
+    ],
+    linkTexts: ["Development repo"],
+  },
+  {
+    name: "RAYLTIME",
+    platform: "C++ with Eigen & SDL2",
+    images: [
+      "images/games/rayltime/rt01.png",
+      "images/games/rayltime/rt02.png",
+      "images/games/rayltime/rt03.png",
+      "images/games/rayltime/rt04.png",
+    ],
+    video: ["images/games/rayltime/rt_video.webm"],
+    blurbLines: [
+      "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
+      'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
+      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and phong exponentiation thresholding to keep things running in real time.",
+    ],
+    linkURLs: [
+      "data/downloads/RaylTime_Winx86-64.zip",
+      "https://github.com/NPTP/RaylTime",
+    ],
+    linkTexts: ["Download for Windows", "Source on GitHub"],
+  },
+  {
+    name: "GET HOME",
+    platform: "Unity, C#",
+    images: [
+      "images/games/gethome/gethome01.png",
+      "images/games/gethome/gethome02.png"
+    ],
+    video: ["images/games/gethome/gethome-video.mp4"],
+    blurbLines: [
+      "Get Home is being built with a team under the banner Red Cassette Studios.",
+      "A puzzle game set in deep space, where you must enlist the aid of repair bots and a gravity manipulator device to uncover the mystery of the reactor and the missing crew.",
+      "Get Home features full 3D gravity flipping mechanics, and the ability to control asymmetrical repair bots to overcome puzzles.",
+      "Slated for completion in mid 2021 !"
+    ],
+    linkURLs: [
+      "https://github.com/NPTP/GetHome",
+    ],
+    linkTexts: ["Development Repo"],
+  },
+  {
     name: "DEADWOOD DUEL",
     platform: "Stencyl",
     images: [
@@ -27,7 +85,7 @@ const games = [
   },
   {
     name: "LOONY LAB",
-    platform: "Unity with C#",
+    platform: "Unity, C#",
     images: [
       "images/games/ll/ll01.png",
       "images/games/ll/ll02.png",
@@ -47,27 +105,7 @@ const games = [
     ],
     linkTexts: ["Download for Windows", "Download for Mac", "Source on GitHub"],
   },
-  {
-    name: "RAYLTIME",
-    platform: "C++ with Eigen & SDL2",
-    images: [
-      "images/games/rayltime/rt01.png",
-      "images/games/rayltime/rt02.png",
-      "images/games/rayltime/rt03.png",
-      "images/games/rayltime/rt04.png",
-    ],
-    video: [],
-    blurbLines: [
-      "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
-      'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
-      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and phong exponentiation thresholding to keep things running in real time.",
-    ],
-    linkURLs: [
-      "data/downloads/RaylTime_Winx86-64.zip",
-      "https://github.com/NPTP/RaylTime",
-    ],
-    linkTexts: ["Download for Windows", "Source on GitHub"],
-  },
+
   {
     name: "GAME JAMS",
     platform: "HTML5 / Javascript",

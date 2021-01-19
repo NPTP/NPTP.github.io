@@ -18,33 +18,12 @@ const games = [
     blurbLines: [
       'Inheritors is a brief look at the "uncontacted" Akuntsu tribe in the southern Brazilian Amazon, what it means to give up heritage, and what their story means for similar tribes in the Amazon.',
       "The game features persistent terrain/environment manipulation, and recording & playback of past player actions, as you lay down a short heritage of your own.",
-      "To be released early 2021."
+      "The game is complete but a more polished version is being submitted to the Games For Change Festival 2021."
     ],
     linkURLs: [
       "https://github.com/NPTP/InheritorsDev",
     ],
     linkTexts: ["Development repo"],
-  },
-  {
-    name: "RAYLTIME",
-    platform: "C++ with Eigen & SDL2",
-    images: [
-      "images/games/rayltime/rt01.png",
-      "images/games/rayltime/rt02.png",
-      "images/games/rayltime/rt03.png",
-      "images/games/rayltime/rt04.png",
-    ],
-    video: ["images/games/rayltime/rt_video.webm"],
-    blurbLines: [
-      "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
-      'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
-      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and phong exponentiation thresholding to keep things running in real time.",
-    ],
-    linkURLs: [
-      "data/downloads/RaylTime_Winx86-64.zip",
-      "https://github.com/NPTP/RaylTime",
-    ],
-    linkTexts: ["Download for Windows", "Source on GitHub"],
   },
   {
     name: "GET HOME",
@@ -55,33 +34,15 @@ const games = [
     ],
     video: ["images/games/gethome/gethome-video.mp4"],
     blurbLines: [
-      "Get Home is being built with a team under the banner Red Cassette Studios.",
+      "Get Home was built with a team under the Red Cassette Studios banner.",
       "A puzzle game set in deep space, where you must enlist the aid of repair bots and a gravity manipulator device to uncover the mystery of the reactor and the missing crew.",
       "Get Home features full 3D gravity flipping mechanics, and the ability to control asymmetrical repair bots to overcome puzzles.",
-      "Slated for completion in mid 2021 !"
     ],
     linkURLs: [
+      "https://red-cassette.itch.io/get-home",
       "https://github.com/NPTP/GetHome",
     ],
-    linkTexts: ["Development Repo"],
-  },
-  {
-    name: "DEADWOOD DUEL",
-    platform: "Stencyl",
-    images: [
-      "images/games/dd/dd01.png",
-      "images/games/dd/dd02.png",
-      "images/games/dd/dd03.png",
-      "images/games/dd/dd04.png",
-    ],
-    video: [],
-    blurbLines: [
-      "A reflex shooter set in the Old West.",
-      "Choose your difficulty, watch the clock, and be quick - or be dead.",
-      "I created every part of the game: design, gameplay, and 100% of the assets (art, animation, sound and music).",
-    ],
-    linkURLs: ["https://nickperrin.itch.io/deadwoodduel"],
-    linkTexts: ["Play on itch.io"],
+    linkTexts: ["Play on itch.io", "Development Repo"],
   },
   {
     name: "LOONY LAB",
@@ -105,7 +66,45 @@ const games = [
     ],
     linkTexts: ["Download for Windows", "Download for Mac", "Source on GitHub"],
   },
-
+  {
+    name: "RAYLTIME",
+    platform: "C++ with Eigen & SDL2",
+    images: [
+      "images/games/rayltime/rt01.png",
+      "images/games/rayltime/rt02.png",
+      "images/games/rayltime/rt03.png",
+      "images/games/rayltime/rt04.png",
+    ],
+    video: ["images/games/rayltime/rt_video.webm"],
+    blurbLines: [
+      "A simple interactive ray tracer running on the CPU and built on top of the Eigen linear algebra library.",
+      'RaylTime allows you to move around raytraced scenes in real-time, and features a text-based "level editing" system allowing you to quickly make new scenes which you can move around in.',
+      "RaylTime employs a number of raytracing optimizations including bounding volume hierarchies and phong exponentiation thresholding to keep things running in real time.",
+    ],
+    linkURLs: [
+      "data/downloads/RaylTime_Winx86-64.zip",
+      "https://github.com/NPTP/RaylTime",
+    ],
+    linkTexts: ["Download for Windows", "Source on GitHub"],
+  },
+  {
+    name: "DEADWOOD DUEL",
+    platform: "Stencyl",
+    images: [
+      "images/games/dd/dd01.png",
+      "images/games/dd/dd02.png",
+      "images/games/dd/dd03.png",
+      "images/games/dd/dd04.png",
+    ],
+    video: [],
+    blurbLines: [
+      "A reflex shooter set in the Old West.",
+      "Choose your difficulty, watch the clock, and be quick - or be dead.",
+      "I created every part of the game: design, gameplay, and 100% of the assets (art, animation, sound and music).",
+    ],
+    linkURLs: ["https://nickperrin.itch.io/deadwoodduel"],
+    linkTexts: ["Play on itch.io"],
+  },
   {
     name: "GAME JAMS",
     platform: "HTML5 / Javascript",

@@ -42,7 +42,7 @@ const games = [
       "https://red-cassette.itch.io/get-home",
       "https://github.com/NPTP/GetHome",
     ],
-    linkTexts: ["Play on itch.io", "Development Repo"],
+    linkTexts: ["Play on itch.io", "Source on GitHub"],
   },
   {
     name: "LOONY LAB",

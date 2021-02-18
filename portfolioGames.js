@@ -18,12 +18,12 @@ const games = [
     blurbLines: [
       'Inheritors is a brief look at the "uncontacted" Akuntsu tribe in the southern Brazilian Amazon, what it means to give up heritage, and what their story means for similar tribes in the Amazon.',
       "The game features persistent terrain/environment manipulation, and recording & playback of past player actions, as you lay down a short heritage of your own.",
-      "The game is complete but a more polished version is being submitted to the Games For Change Festival 2021."
+      "Submitted to the Games For Change Festival 2021."
     ],
-    linkURLs: [
+    linkURLs: ["https://nickperrin.itch.io/inheritors",
       "https://github.com/NPTP/InheritorsDev",
     ],
-    linkTexts: ["Development repo"],
+    linkTexts: ["Play on itch.io", "Development repo"],
   },
   {
     name: "GET HOME",
@@ -37,6 +37,7 @@ const games = [
       "Get Home was built with a team under the Red Cassette Studios banner.",
       "A puzzle game set in deep space, where you must enlist the aid of repair bots and a gravity manipulator device to uncover the mystery of the reactor and the missing crew.",
       "Get Home features full 3D gravity flipping mechanics, and the ability to control asymmetrical repair bots to overcome puzzles.",
+      "Submitted to the Independent Games Festival 2021."
     ],
     linkURLs: [
       "https://red-cassette.itch.io/get-home",

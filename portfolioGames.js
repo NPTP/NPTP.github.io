@@ -23,7 +23,7 @@ const games = [
     linkURLs: ["https://nickperrin.itch.io/inheritors",
       "https://github.com/NPTP/InheritorsDev",
     ],
-    linkTexts: ["Play on itch.io", "Development repo"],
+    linkTexts: ["Play on itch.io", "Source on GitHub"],
   },
   {
     name: "GET HOME",

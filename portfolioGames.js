@@ -8,6 +8,25 @@
 
 const games = [
   {
+    name: "LAYA'S HORIZON",
+    platform: "Unity, C#, FMOD",
+    images: [
+      "images/games/laya/laya01.png",
+      "images/games/laya/laya02.png",
+      "images/games/laya/laya03.png"
+    ],
+    video: ["images/games/laya/laya-video.mp4"],
+    blurbLines: [
+      '"Master the art of flying. Dive off mountains, weave across forests and glide over rivers to unlock new abilities as you explore a vast, peaceful world."',
+      "An open-world game running on your phone created by Snowman, where I worked for 2 years until the completion of the game, creating the game's LOD system, implementing complex audio, and other systems. I even recorded the Snowman staff for NPC character voices, and voiced one myself!",
+      "Released through the Netflix games platform."
+    ],
+    linkURLs: ["https://apps.apple.com/ca/app/layas-horizon/id1615116545",
+      "https://play.google.com/store/apps/details?id=com.netflix.NGP.SorasHorizon&hl=en_US",
+    ],
+    linkTexts: ["Laya's Horizon on the App Store", "Laya's Horizon on the Google Play Store"],
+  },
+  {
     name: "INHERITORS",
     platform: "Unity, C#",
     images: [
@@ -152,20 +171,20 @@ const games = [
     linkURLs: ["https://github.com/NPTP/KCShare"],
     linkTexts: ["Source on GitHub"],
   },
-  {
-    name: "OTHER PROJECTS",
-    platform: "Various",
-    images: [
-      "images/games/other/industrialsector01.png",
-      "images/games/other/industrialsector02.png",
-      "images/games/other/404jam1.png",
-    ],
-    video: [],
-    blurbLines: [
-      `<span class="bold">INDUSTRIAL SECTOR:</span> A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine. <a>In Progress</a>`,
-      `<span class="bold">CSC404 Game Jam:</span> Bounce around & destroy Fine China! Made in 6 hours with a cool team. <a href="https://nickperrin.itch.io/armadillo-in-a-china-shop-jam-game">Play on itch.io</a>`,
-    ],
-    linkURLs: [],
-    linkTexts: [],
-  },
+  // {
+  //   name: "OTHER PROJECTS",
+  //   platform: "Various",
+  //   images: [
+  //     "images/games/other/industrialsector01.png",
+  //     "images/games/other/industrialsector02.png",
+  //     "images/games/other/404jam1.png",
+  //   ],
+  //   video: [],
+  //   blurbLines: [
+  //     `<span class="bold">INDUSTRIAL SECTOR:</span> A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine. <a>In Progress</a>`,
+  //     `<span class="bold">CSC404 Game Jam:</span> Bounce around & destroy Fine China! Made in 6 hours with a cool team. <a href="https://nickperrin.itch.io/armadillo-in-a-china-shop-jam-game">Play on itch.io</a>`,
+  //   ],
+  //   linkURLs: [],
+  //   linkTexts: [],
+  // },
 ];

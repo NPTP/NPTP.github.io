@@ -39,8 +39,7 @@ const games = [
       "The game features persistent terrain/environment manipulation, and recording & playback of past player actions, as you lay down a short heritage of your own.",
       "Submitted to the Games For Change Festival 2021."
     ],
-    linkURLs: ["https://nickperrin.itch.io/inheritors",
-      "https://github.com/NPTP/InheritorsDev",
+    linkURLs: ["https://nickperrin.itch.io/inheritors"
     ],
     linkTexts: ["Play on itch.io", "Source on GitHub"],
   },
@@ -59,32 +58,9 @@ const games = [
       "Submitted to the Independent Games Festival 2021."
     ],
     linkURLs: [
-      "https://red-cassette.itch.io/get-home",
-      "https://github.com/NPTP/GetHome",
+      "https://red-cassette.itch.io/get-home"
     ],
     linkTexts: ["Play on itch.io", "Source on GitHub"],
-  },
-  {
-    name: "LOONY LAB",
-    platform: "Unity, C#",
-    images: [
-      "images/games/ll/ll01.png",
-      "images/games/ll/ll02.png",
-      "images/games/ll/ll03.png",
-      "images/games/ll/ll04.png",
-    ],
-    video: [],
-    blurbLines: [
-      "Loony Lab was part of a research project headed by Steve Engels at the University of Toronto, studying the effectiveness of design changes in pedagogical techniques in videogames. The material was taken straight from high school curriculum.",
-      "Working with a partner, the two of us created a game design document, recorded progress in a dev blog, ran playtests with various demographics including game industry professionals, conducted two rounds of research with the game using self-developed study instruments, and produced a final report on our findings.",
-      "I contributed code, design, art, animation, and sound. Royalty-free visual assets were modified to suit our needs.",
-    ],
-    linkURLs: [
-      "data/downloads/LoonyLab_Winx86-64.zip",
-      "data/downloads/LoonyLab_MacOS.zip",
-      "https://github.com/NPTP/LoonyLab",
-    ],
-    linkTexts: ["Download for Windows", "Download for Mac", "Source on GitHub"],
   },
   {
     name: "RAYLTIME",
@@ -152,39 +128,5 @@ const games = [
       "Play BattleBeans (2-player) on itch.io",
       "Play Combust-a-Move (2-player) on GGJ",
     ],
-  },
-  {
-    name: "KCSHARE",
-    platform: "Web & Mobile with React & React Native",
-    images: [
-      "images/games/kcshare/kcs01.png",
-      "images/games/kcshare/kcs02.png",
-      "images/games/kcshare/kcs03.png",
-      "images/games/kcshare/kcs04.png",
-    ],
-    video: [],
-    blurbLines: [
-      "A combo web and mobile app with unique experiences for each, designed as a prototype for a private high school's new learning platform.",
-      "KCShare allows students to share their learning and unique experiences with other students and teachers in a low-pressure social space.",
-      "Working with a team, I contributed team leadership, design, and code for web and mobile, as we translated client needs into finished product.",
-    ],
-    linkURLs: ["https://github.com/NPTP/KCShare"],
-    linkTexts: ["Source on GitHub"],
-  },
-  // {
-  //   name: "OTHER PROJECTS",
-  //   platform: "Various",
-  //   images: [
-  //     "images/games/other/industrialsector01.png",
-  //     "images/games/other/industrialsector02.png",
-  //     "images/games/other/404jam1.png",
-  //   ],
-  //   video: [],
-  //   blurbLines: [
-  //     `<span class="bold">INDUSTRIAL SECTOR:</span> A high-concept, grim post-apocalyptic mod for Doom (1993) built on a modern port of the game's open-source engine. <a>In Progress</a>`,
-  //     `<span class="bold">CSC404 Game Jam:</span> Bounce around & destroy Fine China! Made in 6 hours with a cool team. <a href="https://nickperrin.itch.io/armadillo-in-a-china-shop-jam-game">Play on itch.io</a>`,
-  //   ],
-  //   linkURLs: [],
-  //   linkTexts: [],
-  // },
+  }
 ];

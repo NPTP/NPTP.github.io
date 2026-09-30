@@ -77,6 +77,7 @@ html .reveal.revealed {
 }
 
 .track {
+  min-height: var(--tile); /* hold the space while items load */
   display: flex;
   gap: var(--gap);
   width: max-content;
@@ -148,6 +149,13 @@ html .reveal.revealed {
   height: var(--tile);
   overflow: hidden;
   background: var(--surface);
+  animation: item-fade-in 0.5s ease-out;
+}
+
+@keyframes item-fade-in {
+  from {
+    opacity: 0;
+  }
 }
 
 .item > img,

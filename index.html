@@ -18,56 +18,7 @@
     </header>
 
     <main>
-      <section class="section">
-        <h2 class="heading">GAMES</h2>
-        <div class="carousel" data-speed="28">
-          <!--
-            GAMES CAROUSEL: one entry per game, shown in this order.
-            Video:  <video src="images/games/FOLDER/FILE.mp4" data-title="GAME NAME" data-description="Short description."></video>
-            Image:  <img src="images/games/FOLDER/FILE.png" data-title="GAME NAME" data-description="Short description." />
-            Any size or shape works; each item is cropped to a square.
-            data-title and data-description appear in the overlay on hover (both optional).
-          -->
-          <div class="track">
-            <video src="images/games/laya/laya-video.mp4"
-              data-title="Laya's Horizon"
-              data-description="Open-world flying game for mobile, released on Netflix Games. Built the LOD system, audio implementation and more at Snowman."></video>
-            <video src="images/games/inheritors/inheritors-video.mp4"
-              data-title="Inheritors"
-              data-description="A brief look at the Akuntsu tribe of the Brazilian Amazon, with persistent terrain changes and playback of past player actions."></video>
-            <video src="images/games/gethome/gethome-video.mp4"
-              data-title="Get Home"
-              data-description="Deep-space puzzle game with 3D gravity flipping and controllable repair bots. Made with Red Cassette Studios."></video>
-            <video src="images/games/rayltime/rt_video.webm"
-              data-title="RaylTime"
-              data-description="Real-time interactive CPU ray tracer in C++, with a text-based level editor for building new scenes."></video>
-            <video src="images/games/dd/dd_gameplay.webm"
-              data-title="Deadwood Duel"
-              data-description="A reflex shooter set in the Old West. Every part made solo: design, art, animation, sound and music."></video>
-            <img src="images/games/gj/gj01.png"
-              data-title="Game Jams"
-              data-description="Jam games made in Toronto with the ButterBrains team. Co-designed, plus all sound, music and some level design." />
-            <img src="images/games/ll/ll01.png"
-              data-title="Loony Lab"
-              data-description="Educational game created as part of a study on the impact of game design decisions on effective pedagogy in high school chemistry." />
-          </div>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2 class="heading">MUSIC</h2>
-        <div class="carousel" data-speed="28" data-reverse>
-          <!-- MUSIC CAROUSEL: same format as games above. Replace these placeholders. -->
-          <div class="track">
-            <div class="placeholder" data-title="Placeholder 1" data-description="Music description goes here.">1</div>
-            <div class="placeholder" data-title="Placeholder 2" data-description="Music description goes here.">2</div>
-            <div class="placeholder" data-title="Placeholder 3" data-description="Music description goes here.">3</div>
-            <div class="placeholder" data-title="Placeholder 4" data-description="Music description goes here.">4</div>
-            <div class="placeholder" data-title="Placeholder 5" data-description="Music description goes here.">5</div>
-            <div class="placeholder" data-title="Placeholder 6" data-description="Music description goes here.">6</div>
-          </div>
-        </div>
-      </section>
+      <!-- Carousel sections are generated here from carousels/carousels.js (how-to: carousels/README.md) -->
 
       <section class="section contact-section">
         <button class="contact" id="contact" type="button" aria-label="Copy email address">
@@ -82,6 +33,7 @@
 
     <div class="toast" id="toast" role="status" aria-live="polite">Email copied</div>
 
+    <script src="carousels/carousels.js"></script>
     <script src="index.js"></script>
   </body>
 </html>

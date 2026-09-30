@@ -2,20 +2,87 @@
 // then duplicate that set and wrap the offset every set-width for a seamless loop.
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Wrap each carousel entry in a square frame with a hover overlay built from its
+// ---- Loading carousel items from a folder ----
+// The order comes from CAROUSELS in carousels/carousels.js. Each name there is a JSON file
+// in carousels/<carousel>/:
+//   { "title": "...", "description": "...", "media": "file-in-this-folder.mp4", "media_url": "https://..." }
+// media_url is tried first, then media, then a grey placeholder box.
+const VIDEO_EXTENSIONS = ["mp4", "webm", "mov", "ogv"];
+const MEDIA_URL_TIMEOUT = 8000; // ms before giving up on a media_url and trying local media
+
+const isVideoUrl = (url) => {
+  const ext = url.split(/[?#]/)[0].split(".").pop().toLowerCase();
+  return VIDEO_EXTENSIONS.includes(ext);
+};
+
+// Resolve to a loaded <img>/<video>, or null if the url doesn't load
+function loadMedia(url, asVideo = isVideoUrl(url), timeout = 0) {
+  return new Promise((resolve) => {
+    const el = document.createElement(asVideo ? "video" : "img");
+    let timer;
+    const done = (ok) => {
+      clearTimeout(timer);
+      el.onload = el.onerror = el.onloadeddata = null;
+      resolve(ok ? el : null);
+    };
+    if (timeout) timer = setTimeout(() => done(false), timeout);
+    el.onerror = () => done(false);
+    if (asVideo) {
+      Object.assign(el, { muted: true, loop: true, autoplay: true, playsInline: true, preload: "auto" });
+      el.onloadeddata = () => done(true);
+    } else {
+      el.onload = () => done(true);
+    }
+    el.src = url;
+  });
+}
+
+// media_url first (a url with no recognisable extension is tried as an image, then a video),
+// then the local media file, then null (grey placeholder)
+async function resolveMedia(folder, data) {
+  if (data.media_url) {
+    const attempts = isVideoUrl(data.media_url) ? [true] : [false, true];
+    for (const asVideo of attempts) {
+      const el = await loadMedia(data.media_url, asVideo, MEDIA_URL_TIMEOUT);
+      if (el) return el;
+    }
+  }
+  if (data.media) return loadMedia(`${folder}/${data.media}`);
+  return null;
+}
+
+// A listed name whose JSON is missing or invalid is skipped (with a console warning)
+async function loadCarouselItems(name) {
+  const folder = `carousels/${name}`;
+  const items = await Promise.all(
+    (CAROUSELS[name] || []).map(async (entry) => {
+      let data;
+      try {
+        const res = await fetch(`${folder}/${entry}.json`, { cache: "no-cache" });
+        data = await res.json();
+      } catch {
+        console.warn(`Carousel "${name}": couldn't load ${folder}/${entry}.json, skipping it`);
+        return null;
+      }
+      const media = (await resolveMedia(folder, data)) || document.createElement("div");
+      if (media.tagName === "DIV") media.className = "placeholder";
+      if (data.title) media.dataset.title = data.title;
+      if (data.description) media.dataset.description = data.description;
+      return media;
+    })
+  );
+  return items.filter(Boolean);
+}
+
+// Put an item in a square frame with a hover overlay built from its
 // data-title / data-description attributes.
 function wrapItem(media) {
   const item = document.createElement("div");
   item.className = "item";
-  media.replaceWith(item);
   item.appendChild(media);
 
-  if (media.tagName === "VIDEO") {
-    Object.assign(media, { autoplay: true, muted: true, loop: true, playsInline: true });
-  }
-
   const { title, description } = media.dataset;
-  if (media.tagName === "IMG" && !media.alt) media.alt = title || "";
+  if (media.tagName === "IMG") media.alt = title || "";
   if (title || description) {
     const overlay = document.createElement("div");
     overlay.className = "overlay";
@@ -43,9 +110,13 @@ document.addEventListener("click", (e) => {
   if (!e.target.closest(".item")) closeActiveItems();
 });
 
-function setupCarousel(carousel) {
+async function setupCarousel(carousel) {
   const track = carousel.querySelector(".track");
-  const originals = Array.from(track.children).map(wrapItem);
+  const originals = (await loadCarouselItems(carousel.dataset.carousel)).map(wrapItem);
+  if (!originals.length) {
+    carousel.closest("section").remove(); // nothing to show: drop the heading too
+    return;
+  }
   const speed = reducedMotion ? 0 : Number(carousel.dataset.speed) || 40; // px per second
   const direction = carousel.hasAttribute("data-reverse") ? 1 : -1;
 
@@ -188,8 +259,29 @@ function setupCarousel(carousel) {
   });
 }
 
-window.addEventListener("load", () => {
-  document.querySelectorAll(".carousel").forEach(setupCarousel);
+// One section per list in CAROUSELS, in the order they're written, placed above Contact.
+// The list name becomes the heading ("sound_design" → "SOUND DESIGN") and the folder name.
+// Scroll direction alternates: first right-to-left, second left-to-right, and so on.
+const CAROUSEL_SPEED = 28; // px per second
+const contactSection = document.querySelector(".contact-section");
+
+Object.keys(CAROUSELS).forEach((name, i) => {
+  const section = document.createElement("section");
+  section.className = "section";
+  const heading = document.createElement("h2");
+  heading.className = "heading";
+  heading.textContent = name.replace(/[_-]+/g, " ").toUpperCase();
+  const carousel = document.createElement("div");
+  carousel.className = "carousel";
+  carousel.dataset.carousel = name;
+  carousel.dataset.speed = CAROUSEL_SPEED;
+  if (i % 2 === 1) carousel.dataset.reverse = "";
+  const track = document.createElement("div");
+  track.className = "track";
+  carousel.appendChild(track);
+  section.append(heading, carousel);
+  contactSection.before(section);
+  setupCarousel(carousel);
 });
 
 // Fade-in: every direct child of the header and each section fades in once it scrolls

@@ -17,8 +17,16 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: var(--bg);
   color: var(--text);
+}
+
+/* Gradient background over the whole page (quick fade at the top, darkest at the very bottom) */
+html {
+  min-height: 100%;
+  background: linear-gradient(180deg, #262626 0%, #121212 15%, #0f0f0f 60%, #0a0a0a 100%) var(--bg);
+}
+
+body {
   font-family: "Montserrat", sans-serif;
   font-weight: 600;
   overflow-x: hidden;

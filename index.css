@@ -3,7 +3,7 @@
   --surface: #292929;
   --surface-hover: #323232;
   --text: #ffffff;
-  --accent: #14ffec;
+  --accent: #38bdf8;
   --tile: clamp(180px, 24vw, 340px);
   --gap: clamp(10px, 1.2vw, 20px);
   --section-gap: clamp(60px, 6vw, 140px); /* space between title and each section */

@@ -2,67 +2,86 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>Nick Perrin | Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Nick Perrin</title>
     <link
-      href="https://fonts.googleapis.com/css?family=Montserrat:400,400italic,600"
+      href="https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap"
       rel="stylesheet"
       type="text/css"
     />
-    <link rel="stylesheet" type="text/css" href="global.css" />
     <link rel="stylesheet" type="text/css" href="index.css" />
   </head>
 
   <body>
-    <!-- START Navigation bar -->
-    <!-- <div class="navbar-trim"></div>
-    <ul class="navbar">
-      <div class="nav-container">
-        <li class="logo">
-          <a href="index.html">
-            <img src="images/logo.png" width="50" height="50"
-          /></a>
-        </li>
-        <li class="navlink"><a href="about.html#contact">CONTACT</a></li>
-        <li class="navlink">
-          <a href="https://github.com/NPTP" target="_blank">GITHUB</a>
-        </li>
-        <li class="navlink"><a href="music.html">MUSIC</a></li>
-        <li class="navlink"><a href="portfolio.html">PORTFOLIO</a></li>
-        <li class="navlink"><a href="about.html">ABOUT</a></li>
-      </div>
-    </ul> -->
-    <!-- END Navigation bar -->
+    <header>
+      <h1 class="title">NICK PERRIN</h1>
+    </header>
 
-    <div class="index-container">
-      <div class="left-index">
-        <p class="home-text">Game developer.</p>
-        <p class="home-text">Composer.</p>
-        <button
-          onclick="window.location.href='portfolio.html'"
-          class="button home-button button-light"
-        >
-          PORTFOLIO
+    <main>
+      <section class="section">
+        <h2 class="heading">GAMES</h2>
+        <div class="carousel" data-speed="28">
+          <!--
+            GAMES CAROUSEL: one entry per game, shown in this order.
+            Video:  <video src="images/games/FOLDER/FILE.mp4" data-title="GAME NAME" data-description="Short description."></video>
+            Image:  <img src="images/games/FOLDER/FILE.png" data-title="GAME NAME" data-description="Short description." />
+            Any size or shape works; each item is cropped to a square.
+            data-title and data-description appear in the overlay on hover (both optional).
+          -->
+          <div class="track">
+            <video src="images/games/laya/laya-video.mp4"
+              data-title="Laya's Horizon"
+              data-description="Open-world flying game for mobile, released on Netflix Games. Built the LOD system, audio implementation and more at Snowman."></video>
+            <video src="images/games/inheritors/inheritors-video.mp4"
+              data-title="Inheritors"
+              data-description="A brief look at the Akuntsu tribe of the Brazilian Amazon, with persistent terrain changes and playback of past player actions."></video>
+            <video src="images/games/gethome/gethome-video.mp4"
+              data-title="Get Home"
+              data-description="Deep-space puzzle game with 3D gravity flipping and controllable repair bots. Made with Red Cassette Studios."></video>
+            <video src="images/games/rayltime/rt_video.webm"
+              data-title="RaylTime"
+              data-description="Real-time interactive CPU ray tracer in C++, with a text-based level editor for building new scenes."></video>
+            <video src="images/games/dd/dd_gameplay.webm"
+              data-title="Deadwood Duel"
+              data-description="A reflex shooter set in the Old West. Every part made solo: design, art, animation, sound and music."></video>
+            <img src="images/games/gj/gj01.png"
+              data-title="Game Jams"
+              data-description="Jam games made in Toronto with the ButterBrains team. Co-designed, plus all sound, music and some level design." />
+            <img src="images/games/ll/ll01.png"
+              data-title="Loony Lab"
+              data-description="Educational game created as part of a study on the impact of game design decisions on effective pedagogy in high school chemistry." />
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2 class="heading">MUSIC</h2>
+        <div class="carousel" data-speed="28" data-reverse>
+          <!-- MUSIC CAROUSEL: same format as games above. Replace these placeholders. -->
+          <div class="track">
+            <div class="placeholder" data-title="Placeholder 1" data-description="Music description goes here.">1</div>
+            <div class="placeholder" data-title="Placeholder 2" data-description="Music description goes here.">2</div>
+            <div class="placeholder" data-title="Placeholder 3" data-description="Music description goes here.">3</div>
+            <div class="placeholder" data-title="Placeholder 4" data-description="Music description goes here.">4</div>
+            <div class="placeholder" data-title="Placeholder 5" data-description="Music description goes here.">5</div>
+            <div class="placeholder" data-title="Placeholder 6" data-description="Music description goes here.">6</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section">
+        <button class="contact" id="contact" type="button" aria-label="Copy email address">
+          <span class="heading heading-small">CONTACT</span>
+          <svg class="copy-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <rect x="8" y="8" width="13" height="13" rx="2" />
+            <path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3" />
+          </svg>
         </button>
-        <button
-          onclick="window.location.href='about.html#contact'"
-          class="button home-button button-dark"
-        >
-          CONTACT
-        </button>
-      </div>
+      </section>
+    </main>
 
-      <div class="right-index">
-        <img class="index-img" src="images/index-bubble-gamedev.png" />
-      </div>
-      <div class="right-index">
-        <img
-          class="index-img index-composer-img"
-          src="images/index-bubble-composer.jpg"
-        />
-      </div>
-    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite">Email copied</div>
 
-    <!-- Link JS script -->
-    <script type="text/javascript" src="navbar.js"></script>
+    <script src="index.js"></script>
   </body>
 </html>

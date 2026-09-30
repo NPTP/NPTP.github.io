@@ -47,8 +47,8 @@ Swap lines to reorder. Every line ends with a comma, including the last, so line
 | `description` | no       | Text under the title in the hover overlay |
 | `media`       | no       | File name of an image or video **in this same folder** |
 | `media_url`   | no       | Full link to an image or video hosted elsewhere |
-
-| `soundcloud`  | no       | Link to a SoundCloud track. Adds a Play button that opens a player at the bottom of the page |
+| `soundcloud`  | no       | Link to a SoundCloud track. Adds a ▶ Play button that opens a player at the bottom of the page |
+| `link`        | no       | Link to play the item elsewhere (itch.io, app store, a download). Adds a Play button that opens it in a new tab. Ignored if `soundcloud` is set |
 
 ### Text length
 
@@ -58,7 +58,7 @@ The overlay has to fit in the square, and on phones the square is only 180px wid
 |------|-------|---------|
 | `title` | up to 20 characters (one line on desktop, two on phones) | 27 |
 | `description` | 60–100 characters | 120 |
-| `description` on a `soundcloud` item (the Play button takes space) | 40–70 characters | 80 |
+| `description` on an item with `soundcloud` or `link` (the Play button takes space) | 40–70 characters | 80 |
 
 The maximums assume a title of 20 characters or less; a longer title leaves less room for the description.
 Past the maximum, the top of the title gets cut off on phones. Desktop squares fit roughly 3× as much, so check on a phone-sized window.

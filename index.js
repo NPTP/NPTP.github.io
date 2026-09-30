@@ -69,6 +69,7 @@ async function loadCarouselItems(name) {
       if (data.title) media.dataset.title = data.title;
       if (data.description) media.dataset.description = data.description;
       if (data.soundcloud) media.dataset.soundcloud = data.soundcloud;
+      if (data.link) media.dataset.link = data.link;
       return media;
     })
   );
@@ -76,19 +77,19 @@ async function loadCarouselItems(name) {
 }
 
 // Put an item in a square frame with a hover overlay built from its
-// data-title / data-description attributes, plus a play button if it has a SoundCloud link.
+// data-title / data-description attributes, plus a Play button if it has a SoundCloud track
+// (plays on the page, with a ▶ icon) or a link (opens in a new tab, text only).
 function wrapItem(media) {
   const item = document.createElement("div");
   item.className = "item";
   item.appendChild(media);
 
-  const { title, description, soundcloud } = media.dataset;
-  if (soundcloud) {
-    item.dataset.soundcloud = soundcloud;
-    item.classList.add("playable");
-  }
+  const { title, description, soundcloud, link } = media.dataset;
+  if (soundcloud) item.dataset.soundcloud = soundcloud;
+  else if (link) item.dataset.link = link;
+  if (soundcloud || link) item.classList.add("playable");
   if (media.tagName === "IMG") media.alt = title || "";
-  if (title || description || soundcloud) {
+  if (title || description || soundcloud || link) {
     const overlay = document.createElement("div");
     overlay.className = "overlay";
     if (title) {
@@ -106,6 +107,14 @@ function wrapItem(media) {
       play.type = "button";
       play.className = "play";
       play.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Play';
+      overlay.appendChild(play);
+    } else if (link) {
+      const play = document.createElement("a");
+      play.className = "play";
+      play.href = link;
+      play.target = "_blank";
+      play.rel = "noopener";
+      play.textContent = "Play";
       overlay.appendChild(play);
     }
     item.appendChild(overlay);
@@ -234,8 +243,13 @@ async function setupCarousel(carousel) {
   carousel.addEventListener("click", (e) => {
     const item = e.target.closest(".item");
     if (!item) return;
-    if (item.dataset.soundcloud && (e.target.closest(".play") || canHover.matches)) {
+    const onPlay = e.target.closest(".play");
+    if (item.dataset.soundcloud && (onPlay || canHover.matches)) {
       playTrack(item.dataset.soundcloud);
+      return;
+    }
+    if (item.dataset.link && (onPlay || canHover.matches)) {
+      if (!onPlay) window.open(item.dataset.link, "_blank", "noopener"); // the <a> opens itself
       return;
     }
     const wasActive = item.classList.contains("active");

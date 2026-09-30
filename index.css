@@ -227,6 +227,7 @@ html .reveal.revealed {
   color: var(--bg);
   background: var(--text);
   border: 0;
+  text-decoration: none;
   cursor: pointer;
   transition: background 0.2s;
 }

@@ -48,6 +48,21 @@ Swap lines to reorder. Every line ends with a comma, including the last, so line
 | `media`       | no       | File name of an image or video **in this same folder** |
 | `media_url`   | no       | Full link to an image or video hosted elsewhere |
 
+| `soundcloud`  | no       | Link to a SoundCloud track. Adds a Play button that opens a player at the bottom of the page |
+
+### Text length
+
+The overlay has to fit in the square, and on phones the square is only 180px wide, so that's the limit to write for:
+
+| Text | Ideal | Maximum |
+|------|-------|---------|
+| `title` | up to 20 characters (one line on desktop, two on phones) | 27 |
+| `description` | 60–100 characters | 120 |
+| `description` on a `soundcloud` item (the Play button takes space) | 40–70 characters | 80 |
+
+The maximums assume a title of 20 characters or less; a longer title leaves less room for the description.
+Past the maximum, the top of the title gets cut off on phones. Desktop squares fit roughly 3× as much, so check on a phone-sized window.
+
 What gets shown in the square:
 
 1. `media_url`, if present and it loads (gives up after 8 seconds)
@@ -60,6 +75,8 @@ What gets shown in the square:
 - **Reorder:** move lines in `carousels.js`.
 - **Hide an item without deleting it:** remove its line from `carousels.js` (or comment it out with `//`).
 - **Remove an item:** remove its line from `carousels.js`, then delete its JSON and media file.
+- **Add a SoundCloud track:** create a JSON with `title`, `description`, `soundcloud` (the track's page link) and, for artwork, `media_url`. To get SoundCloud's artwork, right-click the track image on SoundCloud, copy the image address, and change `-t200x200` or `-large` in it to `-t500x500`.
+- **Private SoundCloud tracks:** don't add them. The whole site is public, including these JSON files, so a private track's secret link would be visible to anyone.
 - If a listed name has no matching JSON, that item is skipped and a warning appears in the browser's developer console.
 
 ## Media tips

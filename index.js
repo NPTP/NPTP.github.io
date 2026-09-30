@@ -68,6 +68,7 @@ async function loadCarouselItems(name) {
       if (media.tagName === "DIV") media.className = "placeholder";
       if (data.title) media.dataset.title = data.title;
       if (data.description) media.dataset.description = data.description;
+      if (data.soundcloud) media.dataset.soundcloud = data.soundcloud;
       return media;
     })
   );
@@ -75,15 +76,19 @@ async function loadCarouselItems(name) {
 }
 
 // Put an item in a square frame with a hover overlay built from its
-// data-title / data-description attributes.
+// data-title / data-description attributes, plus a play button if it has a SoundCloud link.
 function wrapItem(media) {
   const item = document.createElement("div");
   item.className = "item";
   item.appendChild(media);
 
-  const { title, description } = media.dataset;
+  const { title, description, soundcloud } = media.dataset;
+  if (soundcloud) {
+    item.dataset.soundcloud = soundcloud;
+    item.classList.add("playable");
+  }
   if (media.tagName === "IMG") media.alt = title || "";
-  if (title || description) {
+  if (title || description || soundcloud) {
     const overlay = document.createElement("div");
     overlay.className = "overlay";
     if (title) {
@@ -96,9 +101,55 @@ function wrapItem(media) {
       p.textContent = description;
       overlay.appendChild(p);
     }
+    if (soundcloud) {
+      const play = document.createElement("button");
+      play.type = "button";
+      play.className = "play";
+      play.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z"/></svg>Play';
+      overlay.appendChild(play);
+    }
     item.appendChild(overlay);
   }
   return item;
+}
+
+// ---- SoundCloud player bar ----
+// A single player docked to the bottom of the screen; playing another track replaces it.
+const canHover = window.matchMedia("(hover: hover)");
+let playerBar = null;
+
+function playTrack(url) {
+  if (!playerBar) {
+    playerBar = document.createElement("div");
+    playerBar.className = "player-bar";
+    const close = document.createElement("button");
+    close.type = "button";
+    close.className = "player-close";
+    close.setAttribute("aria-label", "Close player");
+    close.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>';
+    close.addEventListener("click", () => {
+      playerBar.remove();
+      playerBar = null;
+      document.body.classList.remove("player-open");
+    });
+    const frame = document.createElement("iframe");
+    frame.title = "SoundCloud player";
+    frame.allow = "autoplay";
+    playerBar.append(frame, close);
+    document.body.appendChild(playerBar);
+    document.body.classList.add("player-open");
+  }
+  const params = new URLSearchParams({
+    url,
+    auto_play: "true",
+    color: "#38bdf8",
+    hide_related: "true",
+    show_comments: "false",
+    show_reposts: "false",
+    show_teaser: "false",
+    visual: "false",
+  });
+  playerBar.querySelector("iframe").src = `https://w.soundcloud.com/player/?${params}`;
 }
 
 function closeActiveItems() {
@@ -178,10 +229,15 @@ async function setupCarousel(carousel) {
   addArrow("left");
   addArrow("right");
 
-  // Tap (touch screens): toggle the tapped item's overlay and pause while one is open
+  // Playable items: the Play button plays; with a mouse, clicking anywhere on the item does too.
+  // Otherwise a tap toggles the item's overlay (touch screens) and pauses while one is open.
   carousel.addEventListener("click", (e) => {
     const item = e.target.closest(".item");
     if (!item) return;
+    if (item.dataset.soundcloud && (e.target.closest(".play") || canHover.matches)) {
+      playTrack(item.dataset.soundcloud);
+      return;
+    }
     const wasActive = item.classList.contains("active");
     closeActiveItems();
     if (!wasActive) {

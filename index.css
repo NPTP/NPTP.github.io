@@ -208,6 +208,102 @@ html .reveal.revealed {
   color: #5f5f5f;
 }
 
+/* Playable (SoundCloud) items */
+.item.playable {
+  cursor: pointer;
+}
+
+.play {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  align-self: flex-start;
+  margin-top: 0.8em;
+  padding: 0.45em 0.9em;
+  font: inherit;
+  font-size: clamp(0.8rem, 0.95vw, 0.95rem);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--text);
+  border: 0;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.play:hover,
+.play:focus-visible {
+  background: var(--accent);
+  outline: none;
+}
+
+.play svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}
+
+/* Player bar docked to the bottom of the screen */
+.player-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  height: 166px;
+  background: var(--surface);
+  box-shadow: 0 -8px 16px rgba(0, 0, 0, 0.5);
+}
+
+.player-bar iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.player-close {
+  position: absolute;
+  top: -44px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid #5f5f5f;
+  border-radius: 50%;
+  background: rgba(18, 18, 18, 0.85);
+  color: var(--text);
+  cursor: pointer;
+}
+
+.player-close:hover,
+.player-close:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+  outline: none;
+}
+
+.player-close svg {
+  width: 55%;
+  height: 55%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+/* Keep the bottom of the page (and the toast) clear of the player */
+body.player-open {
+  padding-bottom: 166px;
+}
+
+body.player-open .toast {
+  bottom: calc(166px + 32px);
+}
+
 /* Contact */
 .contact-section {
   display: flex;

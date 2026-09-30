@@ -26,6 +26,6 @@ const CAROUSELS = {
     "undercurrent",
     "midnight-waltz",
     "windswept",
-    // "Eye for an Eye" left out: it is private on SoundCloud, and its secret link would be public here
+    "eye-for-an-eye", // private on SoundCloud; its secret link is public here by choice
   ],
 };

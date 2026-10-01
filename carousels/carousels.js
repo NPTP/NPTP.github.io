@@ -18,7 +18,6 @@ const CAROUSELS = {
   ],
 
   music: [
-    "chiptune-originals-reel",
     "midnight-waltz",
     "about-allegra-suite",
     "undercurrent",
@@ -27,5 +26,11 @@ const CAROUSELS = {
     "eye-for-an-eye",
     "windswept",
     "simoom",
+    "hold-on",
+    "irreparable",
+    "one-more-story",
+    "sailing-lune",
+    "sharp-shooter",
+    "tier-7",
   ],
 };

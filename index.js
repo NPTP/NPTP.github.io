@@ -314,34 +314,49 @@ async function setupCarousel(carousel) {
     requestAnimationFrame(frame);
   }
 
-  function build() {
-    track.replaceChildren(...originals);
-    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
-    setWidth = track.scrollWidth + gap;
-    const unit = setWidth;
-    while (setWidth < window.innerWidth) {
-      originals.forEach((el) => track.appendChild(el.cloneNode(true)));
-      setWidth += unit;
-    }
-    Array.from(track.children).forEach((el) => {
-      const copy = el.cloneNode(true);
-      copy.setAttribute("aria-hidden", "true");
-      track.appendChild(copy);
-    });
-    track.querySelectorAll("video").forEach((v) => {
+  // The track holds whole copies ("sets") of the originals: enough sets to cover the
+  // window, then the same number again so the loop never shows a gap. Resizing (or
+  // zooming) only adds or removes sets at the end; existing items and their videos
+  // are kept, so nothing restarts or fades in again.
+  let sets = 1;
+  function startVideos(root) {
+    root.querySelectorAll("video").forEach((v) => {
       v.muted = true;
       syncVideo(v);
       v.play().catch(() => {});
     });
+  }
+
+  function layout() {
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    const unit = originals.reduce((w, el) => w + el.getBoundingClientRect().width + gap, 0);
+    const needed = 2 * Math.max(1, Math.ceil(window.innerWidth / unit));
+    for (; sets < needed; sets++) {
+      originals.forEach((el) => {
+        const copy = el.cloneNode(true);
+        copy.setAttribute("aria-hidden", "true");
+        if (initialized) copy.style.animation = "none"; // only the first load fades items in
+        track.appendChild(copy);
+        startVideos(copy);
+      });
+    }
+    for (; sets > needed; sets--) {
+      for (let i = 0; i < originals.length; i++) track.lastElementChild.remove();
+    }
+    setWidth = unit * (sets / 2);
     pos = wrap(pos);
   }
 
-  build();
+  let initialized = false;
+  track.replaceChildren(...originals);
+  startVideos(track);
+  layout();
+  initialized = true;
   requestAnimationFrame(frame);
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(build, 200);
+    resizeTimer = setTimeout(layout, 200);
   });
 }
 
@@ -370,36 +385,24 @@ Object.keys(CAROUSELS).forEach((name, i) => {
   setupCarousel(carousel);
 });
 
-// Fade-in: every direct child of the header and each section fades in once it scrolls
-// into view, staggered top to bottom. New sections are picked up automatically.
+// Fade-in: every direct child of the header and each section fades in on load,
+// staggered top to bottom, whether or not it's on screen yet.
 const revealGap = 180; // ms between consecutive fade-ins
-let nextRevealAt = 0;
-
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries
-      .filter((e) => e.isIntersecting)
-      .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
-      .forEach((e) => {
-        const now = performance.now();
-        const delay = Math.max(0, nextRevealAt - now);
-        nextRevealAt = now + delay + revealGap;
-        e.target.style.transitionDelay = `${delay}ms`;
-        e.target.classList.add("revealed");
-        revealObserver.unobserve(e.target);
-        // Once faded in, hand the element back to its own styles (e.g. hover transitions)
-        setTimeout(() => {
-          e.target.classList.remove("reveal", "revealed");
-          e.target.style.transitionDelay = "";
-        }, delay + 800);
-      });
-  },
-  { threshold: 0.15 }
-);
-
-document.querySelectorAll("header > *, section > *").forEach((el) => {
+const revealEls = [...document.querySelectorAll("header > *, section > *")];
+revealEls.forEach((el, i) => {
   el.classList.add("reveal");
-  revealObserver.observe(el);
+  el.style.transitionDelay = `${i * revealGap}ms`;
+});
+
+// Force a style flush so the hidden state applies before the transition starts
+document.body.offsetHeight;
+revealEls.forEach((el, i) => {
+  el.classList.add("revealed");
+  // Once faded in, hand the element back to its own styles (e.g. hover transitions)
+  setTimeout(() => {
+    el.classList.remove("reveal", "revealed");
+    el.style.transitionDelay = "";
+  }, i * revealGap + 800);
 });
 
 // Contact: address is assembled at click time so it never appears in the page source.

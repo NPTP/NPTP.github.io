@@ -48,6 +48,7 @@ Swap lines to reorder. Every line ends with a comma, including the last, so line
 | `media`       | no       | File name of an image or video **in this same folder** |
 | `media_url`   | no       | Full link to an image or video hosted elsewhere |
 | `soundcloud`  | no       | Link to a SoundCloud track. Adds a ▶ Play button that opens a player at the bottom of the page |
+| `start_offset` | no      | **Videos only.** Seconds to shift the video's loop, e.g. `1.25`. All videos play in step with the time since the page opened, so this staggers them against each other (and against GIF/WebP animations, which simply start when loaded and can't be shifted) |
 | `link`        | no       | Link to play the item elsewhere (itch.io, app store, a download). Adds a Play button that opens it in a new tab. Ignored if `soundcloud` is set |
 
 ### Text length

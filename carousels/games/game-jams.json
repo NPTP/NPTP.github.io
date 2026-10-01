@@ -2,5 +2,6 @@
   "title": "Game Jams",
   "description": "Jam games made in Toronto with the ButterBrains team.",
   "media": "game-jams-slideshow.webm",
-  "link": "https://butterbrains.itch.io"
+  "link": "https://butterbrains.itch.io",
+  "start_offset": 1.25
 }

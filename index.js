@@ -70,10 +70,25 @@ async function loadCarouselItems(name) {
       if (data.description) media.dataset.description = data.description;
       if (data.soundcloud) media.dataset.soundcloud = data.soundcloud;
       if (data.link) media.dataset.link = data.link;
+      if (data.start_offset) media.dataset.startOffset = data.start_offset;
       return media;
     })
   );
   return items.filter(Boolean);
+}
+
+// Videos play in step with the time since the page opened, shifted by their
+// start_offset (seconds). So every copy of a video, and videos that load late,
+// stay in a fixed relationship to each other and to animations that start on load.
+function syncVideo(video) {
+  const apply = () => {
+    const offset = parseFloat(video.dataset.startOffset) || 0;
+    if (video.duration) video.currentTime = (performance.now() / 1000 + offset) % video.duration;
+  };
+  if (video.readyState >= 1) apply();
+  else video.addEventListener("loadedmetadata", apply, { once: true });
+  // Browsers pause videos in hidden tabs; jump back into step whenever playback resumes
+  video.addEventListener("play", apply);
 }
 
 // Put an item in a square frame with a hover overlay built from its
@@ -315,6 +330,7 @@ async function setupCarousel(carousel) {
     });
     track.querySelectorAll("video").forEach((v) => {
       v.muted = true;
+      syncVideo(v);
       v.play().catch(() => {});
     });
     pos = wrap(pos);

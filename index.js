@@ -403,7 +403,7 @@ document.querySelectorAll("header > *, section > *").forEach((el) => {
 });
 
 // Contact: address is assembled at click time so it never appears in the page source.
-const parts = ["moc.kooltuo", "nirrepptpkcin"];
+const parts = ["moc.kooltuo", "nirreptpkcin"];
 const address = () => parts[1].split("").reverse().join("") + "@" + parts[0].split("").reverse().join("");
 
 const toast = document.getElementById("toast");

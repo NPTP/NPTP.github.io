@@ -9,16 +9,18 @@
 const CAROUSELS = {
   games: [
     "layas-horizon",
-    "inheritors",
-    "get-home",
-    "game-jams",
-    "rayltime",
-    "loony-lab",
-    "deadwood-duel",
-    "lucid",
     "quest-master",
+    "lucid",
     "littlelands",
     "rising-heat",
+    "stellar-mass",
+    "station-44",
+    // "inheritors",
+    // "get-home",
+    "game-jams",
+    // "rayltime",
+    // "loony-lab",
+    // "deadwood-duel",
   ],
 
   music: [

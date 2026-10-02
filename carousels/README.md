@@ -94,14 +94,15 @@ Keep the original somewhere outside the site, and write the result into the caro
 ### Videos
 
 ```bash
-ffmpeg -i original.mp4 -vf "scale=-2:720,fps=30" -c:v libx264 -preset slow -crf 23 -g 30 -keyint_min 30 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart -an carousels/games/some-name.mp4
+ffmpeg -i original.mp4 -vf "crop='min(iw,ih)':'min(iw,ih)',scale='min(720,iw)':-2,fps=30" -c:v libx264 -preset slow -crf 23 -g 30 -keyint_min 30 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart -an carousels/games/some-name.mp4
 ```
 
 What each part does, and why it matters here:
 
 | Option | Effect |
 |--------|--------|
-| `scale=-2:720` | Makes the short side 720 px (the width follows the aspect ratio). For a portrait video use `scale=720:-2`. Skip it if the video is already 720 or smaller. |
+| `crop='min(iw,ih)':'min(iw,ih)'` | Crops to a square from the centre, trimming the longer side equally on both ends. Works for landscape and portrait. Only the middle square is ever shown, so without this a 16:9 video downloads ~44% of pixels that get thrown away. |
+| `scale='min(720,iw)':-2` | Shrinks the square to 720×720. A source already smaller than that is left at its size rather than enlarged. |
 | `fps=30` | 30 frames per second. 60 fps doubles the decoding work for no visible gain in a small tile. |
 | `-crf 23` | Quality (lower = better and bigger). 21–23 looks clean; raise it to shrink the file. |
 | `-g 30 -keyint_min 30 -sc_threshold 0` | A keyframe every second. **Important:** every video jumps to its sync position on load, which means decoding from the previous keyframe. Keyframes several seconds apart made Firefox stall for seconds. |
@@ -109,13 +110,23 @@ What each part does, and why it matters here:
 | `-movflags +faststart` | Lets playback start before the whole file has downloaded. |
 | `-an` | Drops the audio track. Carousel videos always play muted. |
 
-Optional: also crop to a square, since only the middle square is shown. For a landscape video, replace the `-vf` part with:
-
-```bash
--vf "crop=ih:ih,scale=720:720,fps=30"
-```
+If the interesting part of the video isn't in the centre, shift the crop: `crop=ih:ih:X:0` for a landscape video, where `X` is how many pixels from the left edge the square starts.
 
 Keep the video's length the same when re-encoding, so its `start_offset` still lines up.
+
+#### Only removing audio
+
+If a video is otherwise fine and just has an audio track, drop it without re-encoding (no quality loss, takes a second):
+
+```bash
+ffmpeg -i some-name.webm -c:v copy -an some-name-noaudio.webm
+```
+
+Then replace the original with the new file. Works the same for `.mp4`. To check whether a file has audio, this prints nothing if it doesn't:
+
+```bash
+ffprobe -v error -select_streams a -show_entries stream=codec_name -of csv=p=0 some-name.webm
+```
 
 ### Images
 

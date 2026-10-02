@@ -1,6 +1,7 @@
 {
   "title": "Quest Master",
-  "description": "todo",
+  "description": "Dungeon maker inspired by the classics, solo or co-op, with its own campaign.",
   "media": "quest-master.mp4",
-  "poster": "quest-master.poster.jpg"
+  "poster": "quest-master.poster.jpg",
+  "link": "https://store.steampowered.com/app/2094070/Quest_Master/"
 }

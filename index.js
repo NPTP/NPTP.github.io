@@ -283,8 +283,8 @@ async function setupCarousel(carousel) {
     return { left: rect.left + pending, right: rect.right + pending };
   }
 
-  // The one place alignment happens (hover, tap and arrows all use it): slide the
-  // carousel just far enough that the item's hidden edge meets the screen edge.
+  // Edge alignment (mouse hover and the arrows use it): slide the carousel just far
+  // enough that the item's hidden edge meets the screen edge.
   // The item only moves by its hidden amount, so it stays under the cursor/finger.
   function reveal(edges) {
     const view = carousel.getBoundingClientRect();
@@ -294,6 +294,15 @@ async function setupCarousel(carousel) {
   }
 
   const bringIntoView = (item) => reveal(edgesOf(item));
+
+  // Touch taps centre the tile instead, so the nav arrows (always shown on touch screens)
+  // don't cover it. No cursor to keep the tile under, so moving it further is fine.
+  function centerInView(item) {
+    const view = carousel.getBoundingClientRect();
+    const e = edgesOf(item);
+    const shift = view.left + view.width / 2 - (e.left + e.right) / 2;
+    if (Math.abs(shift) > 0.5) glideTo((glide ? glide.to : pos) + shift);
+  }
 
   // Arrows: reveal the nearest item hidden past that edge. The track repeats every
   // setWidth, so items are also considered one set over in each direction.
@@ -310,6 +319,21 @@ async function setupCarousel(carousel) {
     if (best) reveal(best);
   }
 
+  // Touch bookkeeping, so leftovers of a tap don't act as a second action (see the arrows
+  // and mouse hover below)
+  let lastTouchTime = -Infinity;
+  let lastTouchTarget = null;
+  const recentTouch = () => performance.now() - lastTouchTime < 1000;
+  carousel.addEventListener(
+    "pointerdown",
+    (e) => {
+      if (e.pointerType === "mouse") return;
+      lastTouchTime = performance.now();
+      lastTouchTarget = e.target;
+    },
+    true
+  );
+
   function addArrow(side) {
     const btn = document.createElement("button");
     btn.type = "button";
@@ -319,7 +343,12 @@ async function setupCarousel(carousel) {
       side === "left"
         ? '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>'
         : '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
-    btn.addEventListener("click", () => revealNext(side));
+    btn.addEventListener("click", () => {
+      // Phones can move a tap on a nearby tile onto this button ("touch adjustment"); only
+      // count it if the touch started here. Keyboard and mouse clicks always count.
+      if (recentTouch() && !btn.contains(lastTouchTarget)) return;
+      revealNext(side);
+    });
     carousel.appendChild(btn);
   }
   addArrow("left");
@@ -328,6 +357,7 @@ async function setupCarousel(carousel) {
   // Playable items: the Play button plays; with a mouse, clicking anywhere on the item does too.
   // Otherwise a tap toggles the item's overlay (touch screens) and pauses while one is open.
   carousel.addEventListener("click", (e) => {
+    if (swiped) return; // the end of a drag, not a tap
     const item = e.target.closest(".item");
     if (!item) return;
     const onPlay = e.target.closest(".play");
@@ -343,7 +373,8 @@ async function setupCarousel(carousel) {
     closeActiveItems();
     if (!wasActive) {
       item.classList.add("active");
-      bringIntoView(item);
+      if (canHover.matches) bringIntoView(item);
+      else centerInView(item);
     }
   });
 
@@ -354,15 +385,78 @@ async function setupCarousel(carousel) {
     if (lockedAt && (e.clientX !== lockedAt.x || e.clientY !== lockedAt.y)) lockedAt = null;
   });
   carousel.addEventListener("pointerover", (e) => {
-    if (e.pointerType !== "mouse" || glide || lockedAt) return;
+    // recentTouch: some phones send imitation mouse events after a tap; that's not a hover
+    if (e.pointerType !== "mouse" || glide || lockedAt || recentTouch()) return;
     const item = e.target.closest(".item");
     if (!item || item.contains(e.relatedTarget)) return;
     bringIntoView(item);
     if (glide) lockedAt = { x: e.clientX, y: e.clientY };
   });
 
-  carousel.addEventListener("mouseenter", () => (hovered = true));
-  carousel.addEventListener("mouseleave", () => {
+  // Touch: a horizontal drag moves the carousel with the finger, and letting go flings it
+  // with momentum that fades out before the normal slow scroll resumes. A touch that
+  // barely moves is a tap: the tile is brought into view as the finger lifts (phones don't
+  // always send a click; iOS can treat a first tap as a hover). Vertical swipes are left to
+  // the page (touch-action: pan-y in the CSS) and end in pointercancel.
+  const DRAG_THRESHOLD = 8; // px of movement before a touch counts as a drag, not a tap
+  let drag = null; // { id, startX, startPos, lastX, lastT, moved }
+  let velocity = 0; // px per second of fling momentum
+  let swiped = false; // swallow the click that can follow a drag
+
+  carousel.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" || e.target.closest(".arrow, .play")) return;
+    glide = null;
+    velocity = 0;
+    drag = { id: e.pointerId, startX: e.clientX, startPos: pos, lastX: e.clientX, lastT: e.timeStamp, moved: false };
+  });
+
+  carousel.addEventListener("pointermove", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const dx = e.clientX - drag.startX;
+    if (!drag.moved && Math.abs(dx) < DRAG_THRESHOLD) return;
+    if (!drag.moved) {
+      drag.moved = true;
+      try {
+        carousel.setPointerCapture(e.pointerId); // keep receiving moves if the finger leaves the carousel
+      } catch {
+        /* not essential */
+      }
+      closeActiveItems();
+    }
+    const dt = (e.timeStamp - drag.lastT) / 1000;
+    if (dt > 0) velocity = 0.8 * ((e.clientX - drag.lastX) / dt) + 0.2 * velocity; // smoothed
+    drag.lastX = e.clientX;
+    drag.lastT = e.timeStamp;
+    pos = wrap(drag.startPos + dx);
+  });
+
+  carousel.addEventListener("pointerup", (e) => {
+    if (!drag || e.pointerId !== drag.id) return;
+    const wasDrag = drag.moved;
+    // A finger that stopped before lifting shouldn't fling
+    if (wasDrag && e.timeStamp - drag.lastT > 80) velocity = 0;
+    drag = null;
+    if (wasDrag) {
+      swiped = true;
+      setTimeout(() => (swiped = false), 0);
+      return;
+    }
+    velocity = 0;
+    const item = e.target.closest(".item");
+    if (item) centerInView(item);
+  });
+
+  carousel.addEventListener("pointercancel", () => {
+    drag = null;
+    velocity = 0;
+  });
+
+  // Only a real mouse pauses the scroll on hover (phones fire fake mouseenters after a tap)
+  carousel.addEventListener("pointerenter", (e) => {
+    if (e.pointerType === "mouse" && !recentTouch()) hovered = true;
+  });
+  carousel.addEventListener("pointerleave", (e) => {
+    if (e.pointerType !== "mouse") return;
     hovered = false;
     lockedAt = null;
   });
@@ -378,7 +472,13 @@ async function setupCarousel(carousel) {
         pos = wrap(glide.to);
         glide = null;
       }
+    } else if (drag) {
+      // the finger is moving the carousel (pointermove sets pos)
+    } else if (Math.abs(velocity) > 20) {
+      pos = wrap(pos + velocity * dt);
+      velocity *= Math.exp(-3 * dt); // friction: loses ~95% of its speed per second
     } else {
+      velocity = 0;
       if (!hovered && !track.querySelector(".item.active")) pos += direction * speed * dt;
       pos = wrap(pos);
     }

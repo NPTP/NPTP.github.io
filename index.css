@@ -82,6 +82,7 @@ html .reveal.revealed {
   position: relative;
   width: 100%;
   overflow: hidden;
+  touch-action: pan-y; /* vertical swipes scroll the page; horizontal ones drag the carousel */
 }
 
 .track {
@@ -185,12 +186,34 @@ html .reveal.revealed {
   padding: clamp(12px, 1.4vw, 22px);
   background: linear-gradient(to top, rgba(18, 18, 18, 0.95) 0%, rgba(18, 18, 18, 0.6) 55%, rgba(18, 18, 18, 0.2) 100%);
   opacity: 0;
+  pointer-events: none; /* hidden overlay can't be tapped: its Play button only works once shown */
   transition: opacity 0.25s;
 }
 
-.item:hover .overlay,
+/* Hover shows the overlay only with a mouse. On touch screens it would make iOS treat the
+   first tap as a hover and skip the click; there, tapping toggles .active instead. */
+@media (hover: hover) {
+  .item:hover .overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
 .item.active .overlay {
   opacity: 1;
+  pointer-events: auto;
+}
+
+/* Taps and drags go to the tile, not the video/image (phones let a <video> swallow taps) */
+.item > img,
+.item > video {
+  pointer-events: none;
+}
+
+@media (hover: none) {
+  .item {
+    cursor: pointer; /* iOS only sends clicks to elements that look clickable */
+  }
 }
 
 .overlay h3 {

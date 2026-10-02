@@ -15,6 +15,10 @@ const CAROUSELS = {
     "rayltime",
     "loony-lab",
     "deadwood-duel",
+    "lucid",
+    "quest-master",
+    "littlelands",
+    "rising-heat",
   ],
 
   music: [

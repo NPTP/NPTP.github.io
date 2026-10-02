@@ -207,17 +207,40 @@ function playTrack(url) {
     document.body.appendChild(playerBar);
     document.body.classList.add("player-open");
   }
-  const params = new URLSearchParams({
-    url,
-    auto_play: "true",
+  const request = ++playRequest;
+  playerSource(url).then((source) => {
+    if (request !== playRequest || !playerBar) return; // another track was picked, or the player closed
+    const params = new URLSearchParams({
+      ...source,
+      auto_play: "true",
     color: "#38bdf8",
     hide_related: "true",
     show_comments: "false",
     show_reposts: "false",
-    show_teaser: "false",
-    visual: "false",
+      show_teaser: "false",
+      visual: "false",
+    });
+    playerBar.querySelector("iframe").src = `https://w.soundcloud.com/player/?${params}`;
   });
-  playerBar.querySelector("iframe").src = `https://w.soundcloud.com/player/?${params}`;
+}
+
+// The player can't open a private track's link (".../track-name/s-SECRET") directly: it needs the
+// track's API address plus the secret token. SoundCloud's oEmbed service turns one into the other.
+// Public links (and any lookup that fails) are passed through as they are.
+let playRequest = 0;
+
+async function playerSource(url) {
+  if (!/\/s-[A-Za-z0-9]+(?:[/?#]|$)/.test(new URL(url).pathname + "/")) return { url };
+  try {
+    const res = await fetch(`https://soundcloud.com/oembed?format=json&url=${encodeURIComponent(url)}`);
+    const html = (await res.json()).html;
+    const embed = new URL(html.match(/src="([^"]+)"/)[1].replace(/&amp;/g, "&"));
+    const params = new URLSearchParams(embed.search);
+    return { url: params.get("url"), secret_token: params.get("secret_token") };
+  } catch {
+    console.warn(`SoundCloud couldn't look up ${url}; it may be private with embedding turned off`);
+    return { url };
+  }
 }
 
 function closeActiveItems() {

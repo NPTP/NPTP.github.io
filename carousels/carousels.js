@@ -10,10 +10,10 @@ const CAROUSELS = {
   games: [
     "layas-horizon",
     "quest-master",
-    "lucid",
     "littlelands",
-    "rising-heat",
+    "lucid",
     "stellar-mass",
+    "rising-heat",
     "station-44",
     // "inheritors",
     // "get-home",
@@ -38,5 +38,7 @@ const CAROUSELS = {
     "sailing-lune",
     "sharp-shooter",
     "tier-7",
+    "hope",
+    "begin-again",
   ],
 };

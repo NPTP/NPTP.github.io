@@ -85,3 +85,58 @@ What gets shown in the square:
 - Any size or shape works; it's cropped (never stretched) to a square.
 - Ideal size is **720×720**. Videos: MP4 (H.264), 5–15 s, no audio, 30 fps, ~2–4 MB. They play muted and loop.
 - Video files are recognised by extension: `.mp4`, `.webm`, `.mov`, `.ogv`. Anything else is treated as an image.
+
+## Preparing media with ffmpeg
+
+These are the commands used to prepare the current files. They need [ffmpeg](https://ffmpeg.org/download.html) (which includes `ffprobe`) on your PATH.
+Keep the original somewhere outside the site, and write the result into the carousel folder.
+
+### Videos
+
+```bash
+ffmpeg -i original.mp4 -vf "scale=-2:720,fps=30" -c:v libx264 -preset slow -crf 23 -g 30 -keyint_min 30 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart -an carousels/games/some-name.mp4
+```
+
+What each part does, and why it matters here:
+
+| Option | Effect |
+|--------|--------|
+| `scale=-2:720` | Makes the short side 720 px (the width follows the aspect ratio). For a portrait video use `scale=720:-2`. Skip it if the video is already 720 or smaller. |
+| `fps=30` | 30 frames per second. 60 fps doubles the decoding work for no visible gain in a small tile. |
+| `-crf 23` | Quality (lower = better and bigger). 21–23 looks clean; raise it to shrink the file. |
+| `-g 30 -keyint_min 30 -sc_threshold 0` | A keyframe every second. **Important:** every video jumps to its sync position on load, which means decoding from the previous keyframe. Keyframes several seconds apart made Firefox stall for seconds. |
+| `-pix_fmt yuv420p` | Colour format every browser can play. |
+| `-movflags +faststart` | Lets playback start before the whole file has downloaded. |
+| `-an` | Drops the audio track. Carousel videos always play muted. |
+
+Optional: also crop to a square, since only the middle square is shown. For a landscape video, replace the `-vf` part with:
+
+```bash
+-vf "crop=ih:ih,scale=720:720,fps=30"
+```
+
+Keep the video's length the same when re-encoding, so its `start_offset` still lines up.
+
+### Images
+
+Crop to a square from the centre (trimming the longer side equally on both ends), then resize to 720×720:
+
+```bash
+ffmpeg -i original.jpg -vf "crop='min(iw,ih)':'min(iw,ih)',scale=720:720:flags=lanczos" -q:v 2 -frames:v 1 carousels/music/some-name.jpg
+```
+
+- Save photos and artwork as **JPG** (`-q:v 2` is high quality; 2–5 is a sensible range). They come out around 50–250 KB.
+- Keep flat-colour pixel art as **PNG**: change the output name to `.png` and drop `-q:v 2`. PNG is smaller and sharper for that.
+- A source smaller than 720 px on its short side gets enlarged and will look a little soft. Use a bigger source if there is one.
+
+### Checking a file
+
+```bash
+ffprobe -v error -select_streams v:0 -show_entries stream=width,height,avg_frame_rate,bit_rate -of csv=p=0 some-name.mp4
+```
+
+Prints width, height, frame rate and bitrate. To list keyframe times (they should be about 1 s apart):
+
+```bash
+ffprobe -v error -select_streams v:0 -skip_frame nokey -show_entries frame=pts_time -of csv=p=0 some-name.mp4
+```

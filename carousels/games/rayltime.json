@@ -2,5 +2,6 @@
   "title": "RaylTime",
   "description": "Real-time interactive CPU ray tracer in C++ with a text-based level editor.",
   "media": "rayltime.webm",
-  "link": "data/downloads/RaylTime_Winx86-64.zip"
+  "link": "data/downloads/RaylTime_Winx86-64.zip",
+  "poster": "rayltime.poster.jpg"
 }

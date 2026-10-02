@@ -5,7 +5,8 @@ const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matc
 // ---- Loading carousel items from a folder ----
 // The order comes from CAROUSELS in carousels/carousels.js. Each name there is a JSON file
 // in carousels/<carousel>/:
-//   { "title": "...", "description": "...", "media": "file-in-this-folder.mp4", "media_url": "https://..." }
+//   { "title": "...", "description": "...", "media": "file-in-this-folder.mp4", "media_url": "https://...",
+//     "poster": "still-shown-while-the-video-loads.jpg" }
 // media_url is tried first, then media, then a grey placeholder box.
 const VIDEO_EXTENSIONS = ["mp4", "webm", "mov", "ogv"];
 const MEDIA_URL_TIMEOUT = 8000; // ms before giving up on a media_url and trying local media
@@ -37,21 +38,41 @@ function loadMedia(url, asVideo = isVideoUrl(url), timeout = 0) {
   });
 }
 
-// media_url first (a url with no recognisable extension is tried as an image, then a video),
-// then the local media file, then null (grey placeholder)
-async function resolveMedia(folder, data) {
-  if (data.media_url) {
-    const attempts = isVideoUrl(data.media_url) ? [true] : [false, true];
-    for (const asVideo of attempts) {
-      const el = await loadMedia(data.media_url, asVideo, MEDIA_URL_TIMEOUT);
-      if (el) return el;
-    }
+// Nothing waits on media: a carousel appears as soon as its JSON files are in, and media fills in.
+// Local media goes in straight away (images load as they arrive). Local videos show their poster
+// and only start downloading once every carousel is on screen (see startVideos), so they don't
+// crowd out the JSON files and images. A media_url can't be trusted to load, so its item shows a
+// grey box until the url (or, failing that, the local media) is ready, then swaps it in.
+const placeholder = () => Object.assign(document.createElement("div"), { className: "placeholder" });
+
+function localMedia(folder, data) {
+  if (!data.media) return null;
+  const url = `${folder}/${data.media}`;
+  if (isVideoUrl(url)) {
+    const video = document.createElement("video");
+    Object.assign(video, { muted: true, loop: true, autoplay: true, playsInline: true, preload: "auto" });
+    if (data.poster) video.poster = `${folder}/${data.poster}`;
+    video.dataset.src = url;
+    return video;
   }
-  if (data.media) return loadMedia(`${folder}/${data.media}`);
-  return null;
+  const img = document.createElement("img");
+  img.src = url;
+  return img;
 }
 
-// A listed name whose JSON is missing or invalid is skipped (with a console warning)
+// media_url (a url with no recognisable extension is tried as an image, then a video),
+// then the local media file, then null (stay a grey box)
+async function remoteMedia(folder, data) {
+  const attempts = isVideoUrl(data.media_url) ? [true] : [false, true];
+  for (const asVideo of attempts) {
+    const el = await loadMedia(data.media_url, asVideo, MEDIA_URL_TIMEOUT);
+    if (el) return el;
+  }
+  return localMedia(folder, data);
+}
+
+// Resolves to [{ media, later }] in list order. `later` is a promise for the media to swap in
+// (media_url items only). A listed name whose JSON is missing or invalid is skipped.
 async function loadCarouselItems(name) {
   const folder = `carousels/${name}`;
   const items = await Promise.all(
@@ -64,17 +85,32 @@ async function loadCarouselItems(name) {
         console.warn(`Carousel "${name}": couldn't load ${folder}/${entry}.json, skipping it`);
         return null;
       }
-      const media = (await resolveMedia(folder, data)) || document.createElement("div");
-      if (media.tagName === "DIV") media.className = "placeholder";
+      const media = data.media_url ? placeholder() : localMedia(folder, data) || placeholder();
       if (data.title) media.dataset.title = data.title;
       if (data.description) media.dataset.description = data.description;
       if (data.soundcloud) media.dataset.soundcloud = data.soundcloud;
       if (data.link) media.dataset.link = data.link;
       if (data.start_offset) media.dataset.startOffset = data.start_offset;
-      return media;
+      return { media, later: data.media_url ? remoteMedia(folder, data) : null };
     })
   );
   return items.filter(Boolean);
+}
+
+// ---- Videos ----
+let videosStarted = false;
+
+function startVideo(video) {
+  if (video.dataset.src && !video.getAttribute("src")) video.src = video.dataset.src;
+  video.muted = true;
+  syncVideo(video);
+  video.play().catch(() => {});
+}
+
+// Called once every carousel is on screen; copies made after this start themselves
+function startAllVideos() {
+  videosStarted = true;
+  document.querySelectorAll(".track video").forEach(startVideo);
 }
 
 // Videos play in step with the time since the page opened, shifted by their
@@ -90,6 +126,14 @@ function syncVideo(video) {
   // Browsers pause videos in hidden tabs; jump back into step whenever playback resumes
   video.addEventListener("play", apply);
 }
+
+// A page opened in a background tab can have its autoplay blocked; start the videos once it's shown
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState !== "visible") return;
+  document.querySelectorAll(".track video").forEach((v) => {
+    if (v.paused) v.play().catch(() => {});
+  });
+});
 
 // Put an item in a square frame with a hover overlay built from its
 // data-title / data-description attributes, plus a Play button if it has a SoundCloud track
@@ -187,7 +231,12 @@ document.addEventListener("click", (e) => {
 
 async function setupCarousel(carousel) {
   const track = carousel.querySelector(".track");
-  const originals = (await loadCarouselItems(carousel.dataset.carousel)).map(wrapItem);
+  const entries = await loadCarouselItems(carousel.dataset.carousel);
+  const originals = entries.map((entry, i) => {
+    const item = wrapItem(entry.media);
+    item.dataset.key = i;
+    return item;
+  });
   if (!originals.length) {
     carousel.closest("section").remove(); // nothing to show: drop the heading too
     return;
@@ -320,11 +369,7 @@ async function setupCarousel(carousel) {
   // are kept, so nothing restarts or fades in again.
   let sets = 1;
   function startVideos(root) {
-    root.querySelectorAll("video").forEach((v) => {
-      v.muted = true;
-      syncVideo(v);
-      v.play().catch(() => {});
-    });
+    if (videosStarted) root.querySelectorAll("video").forEach(startVideo);
   }
 
   function layout() {
@@ -353,6 +398,20 @@ async function setupCarousel(carousel) {
   layout();
   initialized = true;
   requestAnimationFrame(frame);
+
+  // media_url items: swap the resolved media into the item and every copy of it
+  entries.forEach((entry, i) => {
+    entry.later?.then((el) => {
+      if (!el) return;
+      Object.assign(el.dataset, entry.media.dataset);
+      if (el.tagName === "IMG") el.alt = el.dataset.title || "";
+      track.querySelectorAll(`.item[data-key="${i}"]`).forEach((item) => {
+        const media = item === originals[i] ? el : el.cloneNode(true);
+        item.firstElementChild.replaceWith(media);
+        startVideos(item);
+      });
+    });
+  });
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
@@ -366,7 +425,7 @@ async function setupCarousel(carousel) {
 const CAROUSEL_SPEED = 28; // px per second
 const contactSection = document.querySelector(".contact-section");
 
-Object.keys(CAROUSELS).forEach((name, i) => {
+const carouselsReady = Object.keys(CAROUSELS).map((name, i) => {
   const section = document.createElement("section");
   section.className = "section";
   const heading = document.createElement("h2");
@@ -382,8 +441,11 @@ Object.keys(CAROUSELS).forEach((name, i) => {
   carousel.appendChild(track);
   section.append(heading, carousel);
   contactSection.before(section);
-  setupCarousel(carousel);
+  return setupCarousel(carousel);
 });
+
+// Videos download last, after every carousel (and its posters and images) is on screen
+Promise.all(carouselsReady).then(startAllVideos);
 
 // Fade-in: every direct child of the header and each section fades in on load,
 // staggered top to bottom, whether or not it's on screen yet.

@@ -3,5 +3,6 @@
   "description": "Jam games made in Toronto with the ButterBrains team.",
   "media": "game-jams-slideshow.webm",
   "link": "https://butterbrains.itch.io",
-  "start_offset": 1.25
+  "start_offset": 1.25,
+  "poster": "game-jams-slideshow.poster.jpg"
 }

@@ -47,6 +47,7 @@ Swap lines to reorder. Every line ends with a comma, including the last, so line
 | `description` | no       | Text under the title in the hover overlay |
 | `media`       | no       | File name of an image or video **in this same folder** |
 | `media_url`   | no       | Full link to an image or video hosted elsewhere |
+| `poster`      | no       | **Local videos only.** Still image (in this same folder) shown instantly while `media` loads. With it, the carousel appears right away instead of waiting for the video. Make one with the command under [Posters](#posters) |
 | `soundcloud`  | no       | Link to a SoundCloud track. Adds a ▶ Play button that opens a player at the bottom of the page |
 | `start_offset` | no      | **Videos only.** Seconds to shift the video's loop, e.g. `1.25`. All videos play in step with the time since the page opened, so this staggers them against each other (and against GIF/WebP animations, which simply start when loaded and can't be shifted) |
 | `link`        | no       | Link to play the item elsewhere (itch.io, app store, a download). Adds a Play button that opens it in a new tab. Ignored if `soundcloud` is set |
@@ -94,17 +95,18 @@ Keep the original somewhere outside the site, and write the result into the caro
 ### Videos
 
 ```bash
-ffmpeg -i original.mp4 -vf "crop='min(iw,ih)':'min(iw,ih)',scale='min(720,iw)':-2,fps=30" -c:v libx264 -preset slow -crf 23 -g 30 -keyint_min 30 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart -an carousels/games/some-name.mp4
+ffmpeg -ss 0:43 -to 1:13 -i original.mp4 -vf "crop='min(iw,ih)':'min(iw,ih)',scale='min(720,iw)':-2,fps=30" -c:v libx264 -preset slow -crf 28 -g 30 -keyint_min 30 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart -an carousels/games/some-name.mp4
 ```
 
 What each part does, and why it matters here:
 
 | Option | Effect |
 |--------|--------|
+| `-ss 0:43 -to 1:13` | Clips to that window (here 0:43–1:13). Pick the best 10–30 seconds: length is the biggest factor in file size. If the source file's name holds the window like `Game - 0-43 to 1-13.mp4`, those are the times to use. Leave both out to keep the whole video. |
 | `crop='min(iw,ih)':'min(iw,ih)'` | Crops to a square from the centre, trimming the longer side equally on both ends. Works for landscape and portrait. Only the middle square is ever shown, so without this a 16:9 video downloads ~44% of pixels that get thrown away. |
 | `scale='min(720,iw)':-2` | Shrinks the square to 720×720. A source already smaller than that is left at its size rather than enlarged. |
 | `fps=30` | 30 frames per second. 60 fps doubles the decoding work for no visible gain in a small tile. |
-| `-crf 23` | Quality (lower = better and bigger). 21–23 looks clean; raise it to shrink the file. |
+| `-crf 28` | Quality (lower = better and bigger). 28 is nearly indistinguishable from 23 at tile size and about 45% smaller. Drop to 23–26 for footage with fine detail that looks smeared. |
 | `-g 30 -keyint_min 30 -sc_threshold 0` | A keyframe every second. **Important:** every video jumps to its sync position on load, which means decoding from the previous keyframe. Keyframes several seconds apart made Firefox stall for seconds. |
 | `-pix_fmt yuv420p` | Colour format every browser can play. |
 | `-movflags +faststart` | Lets playback start before the whole file has downloaded. |
@@ -128,17 +130,30 @@ Then replace the original with the new file. Works the same for `.mp4`. To check
 ffprobe -v error -select_streams a -show_entries stream=codec_name -of csv=p=0 some-name.webm
 ```
 
-### Images
+### Posters
 
-Crop to a square from the centre (trimming the longer side equally on both ends), then resize to 720×720:
+A poster is one frame of the finished video, saved as a JPG next to it. Name it after the video and add `"poster": "some-name.poster.jpg"` to the JSON:
 
 ```bash
-ffmpeg -i original.jpg -vf "crop='min(iw,ih)':'min(iw,ih)',scale=720:720:flags=lanczos" -q:v 2 -frames:v 1 carousels/music/some-name.jpg
+ffmpeg -ss 4 -i carousels/games/some-name.mp4 -frames:v 1 -vf "crop='min(iw,ih)':'min(iw,ih)',scale='min(720,iw)':'min(720,ih)'" -q:v 3 carousels/games/some-name.poster.jpg
+```
+
+- `-ss 4` takes the frame 4 seconds in. Pick a moment that's bright and recognisable, not a logo or a fade to black.
+- Posters come out around 5–30 KB, so they load almost instantly.
+- Make a new poster whenever you replace the video.
+
+### Images
+
+Crop to a square from the centre (trimming the longer side equally on both ends), then shrink it to 720×720 if it's bigger:
+
+```bash
+ffmpeg -i original.jpg -vf "crop='min(iw,ih)':'min(iw,ih)',scale='min(720,iw)':'min(720,ih)':flags=lanczos" -q:v 2 -frames:v 1 carousels/music/some-name.jpg
 ```
 
 - Save photos and artwork as **JPG** (`-q:v 2` is high quality; 2–5 is a sensible range). They come out around 50–250 KB.
 - Keep flat-colour pixel art as **PNG**: change the output name to `.png` and drop `-q:v 2`. PNG is smaller and sharper for that.
-- A source smaller than 720 px on its short side gets enlarged and will look a little soft. Use a bigger source if there is one.
+- A source smaller than 720 px on its short side stays at its own size (enlarging it would only make the file bigger, not sharper). It'll look a little soft in the largest tiles, so use a bigger source if there is one.
+- Images use `'min(720,iw)':'min(720,ih)'` rather than the videos' `'min(720,iw)':-2`. The `-2` rounds to an even number, which video needs but which can leave an image one pixel off square.
 
 ### Checking a file
 

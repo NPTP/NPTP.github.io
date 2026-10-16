@@ -98,19 +98,61 @@ async function loadCarouselItems(name) {
 }
 
 // ---- Videos ----
+// Each video file downloads once, however many copies of it the carousels show: the whole
+// file is fetched into memory and every copy plays from that. Files download one at a time,
+// starting with the ones on screen, so on a slow connection the first video appears quickly
+// instead of all of them crawling in together. Posters cover the wait.
 let videosStarted = false;
+const videoFiles = new Map(); // url -> promise of a playable (object) url
+
+function fetchVideoFile(url) {
+  return fetch(url)
+    .then((res) => (res.ok ? res.blob() : Promise.reject()))
+    .then((blob) => URL.createObjectURL(blob))
+    .catch(() => url); // if fetching fails, let the video element try the file itself
+}
+
+// Download the given urls one after another; each url's promise is stored in videoFiles
+function queueVideoFiles(urls) {
+  let chain = Promise.resolve();
+  for (const url of urls) {
+    if (videoFiles.has(url)) continue;
+    const file = (chain = chain.then(() => fetchVideoFile(url)));
+    videoFiles.set(url, file);
+  }
+}
 
 function startVideo(video) {
-  if (video.dataset.src && !video.getAttribute("src")) video.src = video.dataset.src;
-  video.muted = true;
-  syncVideo(video);
-  video.play().catch(() => {});
+  const url = video.dataset.src;
+  if (!url || video.getAttribute("src")) return;
+  queueVideoFiles([url]); // no-op if already queued (e.g. a copy made on resize)
+  videoFiles.get(url).then((src) => {
+    video.src = src;
+    video.muted = true;
+    syncVideo(video);
+    video.play().catch(() => {});
+  });
+}
+
+// How soon a video should load: on screen first (left to right), then nearest the screen
+function videoPriority(video) {
+  const r = video.getBoundingClientRect();
+  const dx = Math.max(0, r.left - innerWidth, -r.right);
+  const dy = Math.max(0, r.top - innerHeight, -r.bottom);
+  return dx + dy === 0 ? r.left - 1e9 : dx + dy;
 }
 
 // Called once every carousel is on screen; copies made after this start themselves
 function startAllVideos() {
   videosStarted = true;
-  document.querySelectorAll(".track video").forEach(startVideo);
+  const videos = [...document.querySelectorAll(".track video")].filter((v) => v.dataset.src);
+  const best = new Map(); // url -> its most urgent copy's priority
+  for (const v of videos) {
+    const p = videoPriority(v);
+    if (!best.has(v.dataset.src) || p < best.get(v.dataset.src)) best.set(v.dataset.src, p);
+  }
+  queueVideoFiles([...best.keys()].sort((a, b) => best.get(a) - best.get(b)));
+  videos.forEach(startVideo);
 }
 
 // Videos play in step with the time since the page opened, shifted by their

@@ -33,6 +33,12 @@ function loadMedia(url, asVideo = isVideoUrl(url), timeout = 0) {
       el.onloadeddata = () => done(true);
     } else {
       el.onload = () => done(true);
+      el.decoding = "async";
+      if (/sndcdn\.com\/.+-t500x500\./.test(url)) {
+        // SoundCloud artwork also comes at 300px; let the browser pick
+        el.sizes = TILE_SIZES;
+        el.srcset = `${url.replace("-t500x500.", "-t300x300.")} 300w, ${url} 500w`;
+      }
     }
     el.src = url;
   });
@@ -45,19 +51,45 @@ function loadMedia(url, asVideo = isVideoUrl(url), timeout = 0) {
 // grey box until the url (or, failing that, the local media) is ready, then swaps it in.
 const placeholder = () => Object.assign(document.createElement("div"), { className: "placeholder" });
 
+// Responsive images: each local JPG/PNG has smaller WebP copies (some-name.360.webp etc., made by
+// carousels/make-image-sizes.js). The browser picks the smallest one that's sharp at the tile's
+// size on that screen. TILE_SIZES mirrors --tile in index.css: clamp(180px, 24vw, 340px).
+const IMAGE_WIDTHS = [360, 540, 720]; // keep in sync with WIDTHS in make-image-sizes.js
+const TILE_SIZES = "(max-width: 750px) 180px, (min-width: 1417px) 340px, 24vw";
+
+function setResponsiveSource(img, url) {
+  img.sizes = TILE_SIZES;
+  const base = url.match(/^(carousels\/.+)\.(jpe?g|png)$/i)?.[1];
+  if (base) img.srcset = IMAGE_WIDTHS.map((w) => `${base}.${w}.webp ${w}w`).join(", ");
+  // If a smaller copy is missing, fall back to the original file
+  img.addEventListener("error", function fallback() {
+    if (!img.hasAttribute("srcset")) return;
+    img.removeAttribute("srcset");
+    img.src = url;
+  });
+  img.src = url; // used only by browsers that don't understand srcset
+}
+
+function responsiveImage(url) {
+  const img = document.createElement("img");
+  img.decoding = "async";
+  setResponsiveSource(img, url);
+  return img;
+}
+
 function localMedia(folder, data) {
   if (!data.media) return null;
   const url = `${folder}/${data.media}`;
   if (isVideoUrl(url)) {
     const video = document.createElement("video");
     Object.assign(video, { muted: true, loop: true, autoplay: true, playsInline: true, preload: "auto" });
-    if (data.poster) video.poster = `${folder}/${data.poster}`;
+    // The poster is a responsive image under the video (a video's own poster can't offer
+    // sizes); the video covers it once it has a frame to show. See wrapItem.
+    if (data.poster) video.posterImage = responsiveImage(`${folder}/${data.poster}`);
     video.dataset.src = url;
     return video;
   }
-  const img = document.createElement("img");
-  img.src = url;
-  return img;
+  return responsiveImage(url);
 }
 
 // media_url (a url with no recognisable extension is tried as an image, then a video),
@@ -183,6 +215,11 @@ document.addEventListener("visibilitychange", () => {
 function wrapItem(media) {
   const item = document.createElement("div");
   item.className = "item";
+  if (media.posterImage) {
+    media.posterImage.className = "poster";
+    media.posterImage.alt = "";
+    item.appendChild(media.posterImage);
+  }
   item.appendChild(media);
 
   const { title, description, soundcloud, link } = media.dataset;

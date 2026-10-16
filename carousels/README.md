@@ -142,6 +142,16 @@ ffmpeg -ss 4 -i carousels/games/some-name.mp4 -frames:v 1 -vf "crop='min(iw,ih)'
 - Posters come out around 5–30 KB, so they load almost instantly.
 - Make a new poster whenever you replace the video.
 
+### Smaller copies for small screens (run after adding or replacing any image)
+
+```bash
+node carousels/make-image-sizes.js
+```
+
+This makes 360, 540 and 720 px WebP copies next to every JPG/PNG in the carousel folders (`some-name.360.webp` and so on), including posters. The page lists all three and the browser downloads only the one that's sharp enough for the tile on that screen; a phone usually gets the 360 one. Images that already have up-to-date copies are skipped, so it's safe to run any time. Commit the `.webp` files along with the image.
+
+If you forget, nothing breaks: the page falls back to the original file, which is just bigger.
+
 ### Images
 
 Crop to a square from the centre (trimming the longer side equally on both ends), then shrink it to 720×720 if it's bigger:

@@ -210,6 +210,16 @@ html .reveal.revealed {
   pointer-events: none;
 }
 
+/* A video's poster: an image under the video, covered once the video has a frame */
+.item > .poster {
+  position: absolute;
+  inset: 0;
+}
+
+.item > video {
+  position: relative;
+}
+
 @media (hover: none) {
   .item {
     cursor: pointer; /* iOS only sends clicks to elements that look clickable */

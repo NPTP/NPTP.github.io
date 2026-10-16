@@ -73,7 +73,8 @@ What gets shown in the square:
 
 ## Common tasks
 
-- **Add an item:** put the media file in the folder, create `some-name.json`, and add `"some-name",` on its own line in `carousels.js`.
+- **Add an item:** put the media file in the folder, create `some-name.json`, and add `"some-name",` on its own line in `carousels.js`. Then run `node carousels/build.js`.
+- **After any change to a JSON file or image, run `node carousels/build.js`** (from the site folder). It bundles all the JSON into `carousels/items.js`, which the page loads in one go, and makes the smaller image copies. If you forget, a new item still shows up (the page fetches its JSON file), but edits to an existing item won't appear until you run it. Commit `items.js` and the new `.webp` files with your change.
 - **Reorder:** move lines in `carousels.js`.
 - **Hide an item without deleting it:** remove its line from `carousels.js` (or comment it out with `//`).
 - **Remove an item:** remove its line from `carousels.js`, then delete its JSON and media file.
@@ -93,6 +94,8 @@ These are the commands used to prepare the current files. They need [ffmpeg](htt
 Keep the original somewhere outside the site, and write the result into the carousel folder.
 
 ### Videos
+
+Make the MP4 with the command below, then run `node carousels/build.js`. Besides the images and the JSON bundle, it turns each listed item's MP4 into a stream (`hls/some-name/` next to the video): the video cut into 1-second pieces at 360, 540 and 720 px. The page plays the stream at the size that suits the tile on that screen, so a video starts after its first small piece instead of the whole file. Commit the `hls/` folder with the video. A video without a stream (or a browser that can't play streams) plays the MP4 instead, just slower to start. To compare, add `?mp4` to the page address to play only the MP4s.
 
 ```bash
 ffmpeg -ss 0:43 -to 1:13 -i original.mp4 -vf "crop='min(iw,ih)':'min(iw,ih)',scale='min(720,iw)':-2,fps=30" -c:v libx264 -preset slow -crf 28 -g 30 -keyint_min 30 -sc_threshold 0 -pix_fmt yuv420p -movflags +faststart -an carousels/games/some-name.mp4
@@ -142,11 +145,9 @@ ffmpeg -ss 4 -i carousels/games/some-name.mp4 -frames:v 1 -vf "crop='min(iw,ih)'
 - Posters come out around 5–30 KB, so they load almost instantly.
 - Make a new poster whenever you replace the video.
 
-### Smaller copies for small screens (run after adding or replacing any image)
+### Smaller copies for small screens
 
-```bash
-node carousels/make-image-sizes.js
-```
+These are made by `node carousels/build.js` (see Common tasks), which runs `make-image-sizes.js`:
 
 This makes 360, 540 and 720 px WebP copies next to every JPG/PNG in the carousel folders (`some-name.360.webp` and so on), including posters. The page lists all three and the browser downloads only the one that's sharp enough for the tile on that screen; a phone usually gets the 360 one. Images that already have up-to-date copies are skipped, so it's safe to run any time. Commit the `.webp` files along with the image.
 

@@ -109,13 +109,16 @@ async function loadCarouselItems(name) {
   const folder = `carousels/${name}`;
   const items = await Promise.all(
     (CAROUSELS[name] || []).map(async (entry) => {
-      let data;
-      try {
-        const res = await fetch(`${folder}/${entry}.json`, { cache: "no-cache" });
-        data = await res.json();
-      } catch {
-        console.warn(`Carousel "${name}": couldn't load ${folder}/${entry}.json, skipping it`);
-        return null;
+      // From the bundle (carousels/items.js) if it's there, otherwise the item's own JSON file
+      let data = typeof CAROUSEL_ITEMS !== "undefined" ? CAROUSEL_ITEMS[name]?.[entry] : undefined;
+      if (!data) {
+        try {
+          const res = await fetch(`${folder}/${entry}.json`, { cache: "no-cache" });
+          data = await res.json();
+        } catch {
+          console.warn(`Carousel "${name}": couldn't load ${folder}/${entry}.json, skipping it`);
+          return null;
+        }
       }
       const media = data.media_url ? placeholder() : localMedia(folder, data) || placeholder();
       if (data.title) media.dataset.title = data.title;
@@ -154,9 +157,103 @@ function queueVideoFiles(urls) {
   }
 }
 
+// HLS: local MP4s stream as 1-second segments from carousels/<carousel>/hls/<name>/<size>/,
+// at the smallest size (360/540/720) that's sharp for the tile on this screen, so a video can
+// start after its first small segment instead of a whole file. Safari plays HLS itself; other
+// browsers use hls.js. A video without HLS files (see carousels/README.md) plays its MP4.
+// Add ?mp4 to the page address to play the MP4s instead, for comparison.
+const HLS_MODE = !new URLSearchParams(location.search).has("mp4");
+let hlsLibrary = null;
+const loadHlsLibrary = () =>
+  (hlsLibrary ??= new Promise((resolve, reject) => {
+    const s = document.createElement("script");
+    s.src = "vendor/hls.light.min.js"; // hls.js 1.5.20 "light" build (no subtitles/alt audio/DRM)
+    s.onload = () => resolve(window.Hls);
+    s.onerror = reject;
+    document.head.appendChild(s);
+  }));
+if (HLS_MODE) {
+  loadHlsLibrary(); // start downloading it right away, before any video needs it
+  document.addEventListener("load", (e) => e.target.tagName === "IMG" && raiseBuffersOnceAllStarted(), true);
+}
+
+// Each video buffers only a little ahead until every video has a frame and every image has
+// loaded, so first segments and images come before anyone's extra buffering
+const START_BUFFER = 4; // seconds
+const FULL_BUFFER = 10;
+const hlsPlayers = [];
+function raiseBuffersOnceAllStarted() {
+  const videos = [...document.querySelectorAll(".track video")];
+  if (videos.some((v) => v.readyState < 2)) return;
+  if ([...document.querySelectorAll(".item img")].some((img) => !img.complete)) return;
+  for (const hls of hlsPlayers) hls.config.maxBufferLength = FULL_BUFFER;
+}
+
+function startHlsVideo(video, mp4Url) {
+  video.dataset.hlsStarted = "";
+  window.videoStarts[mp4Url.split("/").pop()] ??= Math.round(performance.now());
+  // Go straight to one size's playlist (skips a round trip through master.m3u8)
+  const tile = Math.min(340, Math.max(180, innerWidth * 0.24)); // --tile in index.css
+  const size = [360, 540, 720].find((h) => h >= tile * devicePixelRatio) ?? 720;
+  const manifest = mp4Url.replace(/([^/]+)\.mp4$/, `hls/$1/${size}/index.m3u8`);
+  const begin = () => {
+    video.muted = true;
+    syncVideo(video);
+    video.play().catch(() => {});
+  };
+  loadHlsLibrary()
+    .then((Hls) => {
+      if (!Hls.isSupported()) throw new Error("no MSE");
+      // Don't load from 0: once the playlist gives the duration, start loading at the
+      // video's sync position, so its first segment is the one that's shown
+      const hls = new Hls({ maxBufferLength: START_BUFFER, autoStartLoad: false });
+      hlsPlayers.push(hls);
+      video.addEventListener("loadeddata", raiseBuffersOnceAllStarted, { once: true });
+      hls.once(Hls.Events.LEVEL_LOADED, (_, { details }) => {
+        hls.startLoad(syncTime(video, details.totalduration));
+        begin();
+      });
+      // No HLS files for this video (or they won't play): fall back to its MP4
+      hls.on(Hls.Events.ERROR, (_, data) => {
+        if (!data.fatal) return;
+        hls.destroy();
+        playMp4(video, mp4Url);
+      });
+      hls.loadSource(manifest);
+      hls.attachMedia(video);
+      video.hls = hls; // for inspecting in the console
+    })
+    .catch(() => {
+      if (!video.canPlayType("application/vnd.apple.mpegurl")) return playMp4(video, mp4Url);
+      video.addEventListener("error", () => playMp4(video, mp4Url), { once: true });
+      video.src = manifest; // Safari plays HLS itself
+      begin();
+    });
+}
+
+// For measuring: ms from opening the page until each video starts loading / first shows a frame
+window.videoStarts = {};
+window.videoTimings = {};
+function recordFirstFrame(video) {
+  video.addEventListener(
+    "loadeddata",
+    () => {
+      const name = video.dataset.src.split("/").pop();
+      window.videoTimings[name] ??= Math.round(performance.now());
+    },
+    { once: true }
+  );
+}
+
 function startVideo(video) {
   const url = video.dataset.src;
-  if (!url || video.getAttribute("src")) return;
+  if (url && !video.getAttribute("src") && video.dataset.hlsStarted === undefined) recordFirstFrame(video);
+  if (!url || video.getAttribute("src") || video.dataset.hlsStarted !== undefined) return;
+  if (HLS_MODE && /\.mp4$/i.test(url)) return startHlsVideo(video, url);
+  playMp4(video, url);
+}
+
+function playMp4(video, url) {
   queueVideoFiles([url]); // no-op if already queued (e.g. a copy made on resize)
   videoFiles.get(url).then((src) => {
     video.src = src;
@@ -183,17 +280,45 @@ function startAllVideos() {
     const p = videoPriority(v);
     if (!best.has(v.dataset.src) || p < best.get(v.dataset.src)) best.set(v.dataset.src, p);
   }
-  queueVideoFiles([...best.keys()].sort((a, b) => best.get(a) - best.get(b)));
-  videos.forEach(startVideo);
+  const byPriority = (a, b) => best.get(a) - best.get(b);
+  const isHls = (url) => HLS_MODE && /\.mp4$/i.test(url);
+  queueVideoFiles([...best.keys()].filter((url) => !isHls(url)).sort(byPriority));
+  videos.filter((v) => !isHls(v.dataset.src)).forEach(startVideo);
+  startHlsInSequence([...best.keys()].filter(isHls).sort(byPriority), videos);
+}
+
+// HLS videos start one at a time, so each one's first segment gets the whole connection and
+// motion appears on the first video as soon as possible, then the next, and so on. All copies
+// of a video start together (they share its downloads). If a video hasn't shown a frame
+// within HLS_STEP_TIMEOUT, the next one starts anyway.
+const HLS_STEP_TIMEOUT = 3000;
+const hlsSequenced = new Set();
+async function startHlsInSequence(urls, videos) {
+  urls = urls.filter((url) => !hlsSequenced.has(url)); // claimed by an earlier call
+  urls.forEach((url) => hlsSequenced.add(url));
+  for (const url of urls) {
+    const copies = videos.filter((v) => v.dataset.src === url);
+    const firstFrame = Promise.race([
+      ...copies.map((v) => new Promise((done) => v.addEventListener("loadeddata", done, { once: true }))),
+      new Promise((done) => setTimeout(done, HLS_STEP_TIMEOUT)),
+    ]);
+    copies.forEach(startVideo);
+    await firstFrame;
+  }
 }
 
 // Videos play in step with the time since the page opened, shifted by their
 // start_offset (seconds). So every copy of a video, and videos that load late,
 // stay in a fixed relationship to each other and to animations that start on load.
+// Where in its loop a video should be right now
+function syncTime(video, duration) {
+  const offset = parseFloat(video.dataset.startOffset) || 0;
+  return (performance.now() / 1000 + offset) % duration;
+}
+
 function syncVideo(video) {
   const apply = () => {
-    const offset = parseFloat(video.dataset.startOffset) || 0;
-    if (video.duration) video.currentTime = (performance.now() / 1000 + offset) % video.duration;
+    if (video.duration) video.currentTime = syncTime(video, video.duration);
   };
   if (video.readyState >= 1) apply();
   else video.addEventListener("loadedmetadata", apply, { once: true });
@@ -646,8 +771,10 @@ const carouselsReady = Object.keys(CAROUSELS).map((name, i) => {
   return setupCarousel(carousel);
 });
 
-// Videos download last, after every carousel (and its posters and images) is on screen
-Promise.all(carouselsReady).then(startAllVideos);
+// MP4 videos download last, after every carousel is on screen. HLS videos only need small
+// first segments, so each carousel starts its videos as soon as its items are in.
+if (HLS_MODE) carouselsReady.forEach((ready) => ready.then(startAllVideos));
+else Promise.all(carouselsReady).then(startAllVideos);
 
 // Fade-in: every direct child of the header and each section fades in on load,
 // staggered top to bottom, whether or not it's on screen yet.
